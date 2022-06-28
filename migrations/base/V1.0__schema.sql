@@ -1,5 +1,3 @@
-START TRANSACTION;
-
 CREATE TABLE IF NOT EXISTS room(
     id serial PRIMARY KEY,
     name VARCHAR (255) NOT NULL
@@ -114,4 +112,3 @@ CREATE TABLE IF NOT EXISTS notifications
         FOREIGN KEY(plant_health_attribute_id)
         REFERENCES plant_health_attribute(id)
 );
-COMMIT;
