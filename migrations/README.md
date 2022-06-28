@@ -49,7 +49,7 @@ erDiagram
     
     unit_measurement ||--|{ plant_health_attribute: "unit type"
     
-    health_attribute{
+    unit_measurement{
         int id PK
         string unit
     }
@@ -88,4 +88,13 @@ erDiagram
         int plant_health_attribute_id FK
         int sensor_id FK
    }
+   
+   notifications{
+        int id PK
+        string notification_details
+        timestamp time_stamp
+        int user_id FK
+        int plant_health_attribute_id FK
+   }
+   
 ```
