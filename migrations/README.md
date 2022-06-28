@@ -1,3 +1,5 @@
+## ER Diagram
+
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
 erDiagram
