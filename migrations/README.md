@@ -69,8 +69,8 @@ erDiagram
         int health_attribute_id FK
     }
     
-    sensor ||--|{ sensor_reading: "logs"
     sensor ||--|{ plant_health_attribute: "data on the"
+    sensor ||--|{ sensor_reading: "logs"
     
     sensor{
         int id PK
