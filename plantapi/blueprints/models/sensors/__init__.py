@@ -1,8 +1,6 @@
 # blueprints/models/sensors/__init__.py
 from flask_restx import Namespace, fields
 
-from blueprints.models.sensor_readings import sensor_reading_model, namespaceSensorReading
-
 namespaceSensor = Namespace('sensors', 'sensor endpoints')
 
 sensor_model = namespaceSensor.model('Sensor', {
@@ -17,6 +15,25 @@ sensor_model = namespaceSensor.model('Sensor', {
     'call_frequency': fields.String(
         required=True,
         description='Room identifier'
+    )
+})
+
+sensor_reading_model = namespaceSensor.model('SensorReading', {
+    'sensor_reading_id': fields.Integer(
+        readonly=True,
+        description='Sensor identifier'
+    ),
+    'sensor_reading': fields.Float(
+        required=True,
+        description='Value output from sensor'
+    ),
+    'time_stamp': fields.DateTime(
+        required=True,
+        description='Time notification was issued'
+    ),
+    'sensor_id': fields.Integer(
+        required=True,
+        description='User_account identifier'
     )
 })
 
@@ -46,4 +63,5 @@ sensor_reading_list_model = namespaceSensor.model('SensorReadingList', {
         as_list=True
     ),
 })
+
 

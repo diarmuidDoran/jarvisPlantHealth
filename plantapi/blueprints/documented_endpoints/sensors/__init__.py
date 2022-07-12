@@ -3,10 +3,11 @@ from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-from blueprints.models.sensor_readings import namespaceSensorReading
-from blueprints.models.sensors import namespaceSensor, sensor_model, sensor_reading_list_model
+#from blueprints.models.sensor_readings import namespaceSensorReading
+from blueprints.models.sensors import namespaceSensor, sensor_model, sensor_reading_list_model, sensor_reading_model
 
-sensor_example = {'sensor_id': 1, 'sensor_name': 'sensor name', 'call_frequency': '5 * * * *'}
+sensor_example = {'sensor_id': 1, 'sensor_name': 'Sensor name', 'call_frequency': '5 * * * *'}
+
 sensor_reading_example = {'sensor_reading_id': 1, 'sensor_reading': 1.00,
                           'timestamp': ("08/07/22 09:00", "%d/%m/%y %H:%M"), 'sensor_id': 1}
 
@@ -77,3 +78,16 @@ class sensor_readings(Resource):
             'sensor_readings': sensor_reading_list,
             'total_records': len(sensor_reading_list)
         }
+
+
+    @namespaceSensor.response(400, 'Sensor reading already exists')
+    @namespaceSensor.response(500, 'Internal Server error')
+    @namespaceSensor.expect(sensor_reading_model)
+    @namespaceSensor.marshal_with(sensor_reading_model, code=HTTPStatus.CREATED)
+    def post(self):
+        """Create a new sensor reading"""
+
+        if request.json['name'] == 'Sensor name' and request.json['time_stamp'] == ("08/07/22 09:00", "%d/%m/%y %H:%M"):
+            namespaceSensor.abort(400, 'Sensor with the given name already exists')
+
+        return sensor_example, 201
