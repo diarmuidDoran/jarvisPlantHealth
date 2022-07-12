@@ -1,9 +1,9 @@
 # blueprints/models/plants/__init__.py
 from flask_restx import Namespace, fields
 
-namespacePlantHealthAttribute = Namespace('plants', 'plant endpoints')
+namespacePlantHealthAttribute = Namespace('plant_health_attributes', 'plant health endpoints')
 
-plant_health_attribute_model = namespacePlantHealthAttribute.model('Plant', {
+plant_health_attribute_model = namespacePlantHealthAttribute.model('Plant Health Attributes', {
     'plant_health_attribute_id': fields.Integer(
         readonly=True,
         description='Plant health identifier'
@@ -24,7 +24,7 @@ plant_health_attribute_model = namespacePlantHealthAttribute.model('Plant', {
         required=True,
         description='Unit Measurement ID'
     ),
-    'health_attribute_id': fields.Interger(
+    'health_attribute_id': fields.Integer(
         required=True,
         description='Health Attribute ID'
     )

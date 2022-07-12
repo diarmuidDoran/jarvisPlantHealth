@@ -3,9 +3,15 @@ from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
+#from blueprints.documented_endpoints.plants.plant_health_attributes import plant_health_attribute_example
+from blueprints.models.plant_health_attributes import plant_health_attribute_model
 from blueprints.models.plants import namespacePlant, plant_list_model, plant_model
 
 plant_example = {'id': 1, 'name': 'Plant name', 'room_id': 1}
+
+plant_health_attribute_example = {'plant_health_attribute_id': 1, 'upper_required_value': 1.00,
+                                  'lower_required_value': 0.50, 'unit_measurement_id': 'ml',
+                                  'plant_id': 1, 'health_attribute_id': 1}
 
 
 @namespacePlant.route('')
@@ -68,3 +74,20 @@ class plant(Resource):
         """Delete a specific plant entity"""
 
         return '', 204
+
+
+@namespacePlant.route('/<int:plant_id>/plant_health_attributes')
+class plant_health_attribute(Resource):
+    """Read list of health attributes for a specific plant"""
+
+    @namespacePlant.response(404, 'Sensor not found')
+    @namespacePlant.response(500, 'Internal Server error')
+    @namespacePlant.marshal_with(plant_model, plant_health_attribute_model)
+    def get(self, plant_id):
+        """Get plant health attribute list"""
+
+        """List with all a specific plants health attributes"""
+        plant_health_attribute_list = [plant_health_attribute_example]
+
+        return plant_health_attribute_list
+

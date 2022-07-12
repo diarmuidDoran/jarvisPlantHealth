@@ -3,9 +3,12 @@ from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-from blueprints.models.sensors import namespaceSensor, sensor_list_model, sensor_model, sensor_reading_list_model
+from blueprints.models.sensor_readings import namespaceSensorReading
+from blueprints.models.sensors import namespaceSensor, sensor_model, sensor_reading_list_model
 
-sensor_example = {'id': 1, 'sensor_name': 'sensor name', 'call_frequency': '5 * * * *'}
+sensor_example = {'sensor_id': 1, 'sensor_name': 'sensor name', 'call_frequency': '5 * * * *'}
+sensor_reading_example = {'sensor_reading_id': 1, 'sensor_reading': 1.00,
+                          'timestamp': ("08/07/22 09:00", "%d/%m/%y %H:%M"), 'sensor_id': 1}
 
 
 @namespaceSensor.route('')
@@ -65,12 +68,12 @@ class sensor_readings(Resource):
     @namespaceSensor.response(500, 'Internal Server error')
     @namespaceSensor.marshal_with(sensor_reading_list_model)
     def get(self, sensor_id):
-        """Get sensor_example information"""
+        """Get sensor reading example information"""
 
-        """List with all the sensors"""
-        sensor_list = [sensor_example]
+        """List with all a specific sensors readings"""
+        sensor_reading_list = [sensor_reading_example]
 
         return {
-            'sensors': sensor_list,
-            'total_records': len(sensor_list)
+            'sensor_readings': sensor_reading_list,
+            'total_records': len(sensor_reading_list)
         }

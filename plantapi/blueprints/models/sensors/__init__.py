@@ -1,7 +1,7 @@
 # blueprints/models/sensors/__init__.py
 from flask_restx import Namespace, fields
 
-from blueprints.models.sensor_readings import sensor_reading_model
+from blueprints.models.sensor_readings import sensor_reading_model, namespaceSensorReading
 
 namespaceSensor = Namespace('sensors', 'sensor endpoints')
 
@@ -22,7 +22,7 @@ sensor_model = namespaceSensor.model('Sensor', {
 
 sensor_list_model = namespaceSensor.model('SensorList', {
     'sensors': fields.Nested(
-        sensor_model,
+        sensor_reading_model,
         description='List of sensors',
         as_list=True
     ),
