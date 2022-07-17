@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from sqlalchemy.testing import db
 from blueprints.data_provider.engine import Base
+from blueprints.data_provider.dtos.plant import Plant
 
 
 class Room(Base):
@@ -10,7 +11,9 @@ class Room(Base):
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     name = Column('name', String(255))
 
-    plants = relationship("Plant", order_by="Plant.id", back_populates="room")
+    plants = relationship("Plant",
+                          back_populates="room",
+                          order_by="Plant.id",)
 
     def __init__(self, name):
         self.name = name

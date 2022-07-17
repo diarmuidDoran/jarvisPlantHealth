@@ -15,7 +15,9 @@ def postRoom():
 
 def getRoomById(id):
     roomDto = getRoomDtoById(id)
-    return make_room(roomDto.id, roomDto.name)
+    return make_room_with_plant_list(roomDto.id,
+                     roomDto.name,
+                     roomDto.plants)
 
 
 def deleteRoomById(id):

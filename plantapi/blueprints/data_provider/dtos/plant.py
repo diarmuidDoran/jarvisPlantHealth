@@ -1,16 +1,20 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from blueprints.data_provider.dtos.extentions import Base
-
+from blueprints.data_provider.engine import Base
 
 class Plant(Base):
     __tablename__ = "plant"
-    id = Column('plant_id', Integer, primary_key=True)
+    id = Column('id', Integer, primary_key=True)
     name = Column('name', String(255))
-    roomID = Column('room_id', Integer, ForeignKey("room.room_id"), nullable=False)
+    room_id = Column('room_id', Integer, ForeignKey("room.id"), nullable=False)
 
-    room = relationship("Room", back_populates="plants")
+    room = relationship("Room",
+                        back_populates="plants")
+
+    def __init__(self, name, room_id):
+        self.name = name
+        self.room_id = room_id
 
     def __repr__(self):
-        return f"Plant(plant_id={self.id!r}, name={self.name!r})"
+        return f"Plant(plant_id={self.id!r}, name={self.name!r}, room_id={self.room_id!r})"
 

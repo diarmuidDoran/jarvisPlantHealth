@@ -3,6 +3,7 @@ from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
+from blueprints.services.plant_service import *
 from blueprints.swagger_models.plants import namespacePlant, plant_list_model, plant_model, plant_health_attribute_model
 
 plant_example = {'id': 1, 'name': 'Plant name', 'room_id': 1}
@@ -19,13 +20,8 @@ class plants(Resource):
     @namespacePlant.response(500, 'Internal Server error')
     @namespacePlant.marshal_list_with(plant_model)
     def get(self):
-        """List with all the plants"""
-        plant_list = [plant_example]
-
-        return {
-            'plants': plant_list,
-            'total_records': len(plant_list)
-        }
+        plant_list = getPlants()
+        return plant_list
 
     @namespacePlant.response(400, 'Plant with the given name already exists')
     @namespacePlant.response(500, 'Internal Server error')
@@ -46,11 +42,10 @@ class plant(Resource):
 
     @namespacePlant.response(404, 'Plant not found')
     @namespacePlant.response(500, 'Internal Server error')
-    @namespacePlant.marshal_with(plant_model)
+    @namespacePlant.marshal_with(plant_list_model)
     def get(self, plant_id):
-        """Get plant_example information"""
-
-        return plant_example
+        plant = getPlantById(plant_id)
+        return plant
 
     @namespacePlant.response(400, 'Plant with the given name already exists')
     @namespacePlant.response(404, 'Plant not found')
