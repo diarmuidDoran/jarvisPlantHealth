@@ -1,38 +1,17 @@
-# blueprints/models/rooms/__init__.py
-from flask_restx import Namespace, fields
+class Room(object):
+    id = 0
+    name = ""
 
-from blueprints.models.plants import plant_model
+    # The class "constructor" - It's actually an initializer
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
 
-namespaceRoom = Namespace('rooms', 'room endpoints')
 
-room_model = namespaceRoom.model('Room', {
-    'room_id': fields.Integer(
-        readonly=True,
-        description='Room identifier'
-    ),
-    'name': fields.String(
-        required=True,
-        description='Room name'
-    ),
-    'plants': fields.Nested(
-            plant_model,
-            description='List of plants',
-            as_list=True
-        ),
-})
+def make_room(id, name):
+    room = Room(id, name)
+    return room
 
-room_list_model = namespaceRoom.model('RoomList', {
-    'id': fields.Integer(
-        readonly=True,
-        description='Room identifier'
-    ),
-    'name': fields.String(
-        required=True,
-        description='Room name'
-    ),
-    'plants': fields.Nested(
-            plant_model,
-            description='List of plants',
-            as_list=True
-    ),
-})
+def make_new_room(name):
+    room = Room(name=name)
+    return room

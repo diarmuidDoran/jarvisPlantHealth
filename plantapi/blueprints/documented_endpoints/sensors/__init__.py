@@ -3,8 +3,8 @@ from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-#from blueprints.models.sensor_readings import namespaceSensorReading
-from blueprints.models.sensors import namespaceSensor, sensor_model, sensor_reading_list_model, sensor_reading_model
+#from blueprints.swagger_models.sensor_readings import namespaceSensorReading
+from blueprints.swagger_models.sensors import namespaceSensor, sensor_model, sensor_reading_list_model, sensor_reading_model
 
 sensor_example = {'sensor_id': 1, 'sensor_name': 'Sensor name', 'call_frequency': '5 * * * *'}
 

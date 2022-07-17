@@ -1,7 +1,7 @@
-# blueprints/models/user_accounts/__init__.py
+# blueprints/swagger_models/user_accounts/__init__.py
 from flask_restx import Namespace, fields
 
-from blueprints.models.plants import plant_model
+from blueprints.swagger_models.plants import plant_model
 
 namespaceUser = Namespace('user_accounts', 'userAccount endpoints')
 

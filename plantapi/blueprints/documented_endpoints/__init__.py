@@ -2,7 +2,7 @@
 from flask import Blueprint
 from flask_restx import Api
 from blueprints.documented_endpoints.plants import namespacePlant as plants_ns
-from blueprints.documented_endpoints.rooms import namespaceRoom as entities_ns
+from blueprints.documented_endpoints.rooms import namespaceRoom as rooms_ns
 from blueprints.documented_endpoints.user_accounts import namespaceUser as users_ns
 from blueprints.documented_endpoints.notifications import namespaceNotify as notifications_ns
 from blueprints.documented_endpoints.sensors import namespaceSensor as sensors_ns
@@ -18,7 +18,7 @@ api_extension = Api(
     doc='/doc'
 )
 
-api_extension.add_namespace(entities_ns)
+api_extension.add_namespace(rooms_ns)
 api_extension.add_namespace(plants_ns)
 api_extension.add_namespace(users_ns)
 api_extension.add_namespace(notifications_ns)

@@ -3,7 +3,7 @@ from flask import request
 from flask_restx import Resource
 from http import HTTPStatus
 
-from blueprints.models.notifications import namespaceNotify, notification_model, notification_list_model
+from blueprints.swagger_models.notifications import namespaceNotify, notification_model, notification_list_model
 
 notification_example = {'id': 1, 'notification_details': 'Notification details',
                         'timestamp': ("08/07/22 09:00", "%d/%m/%y %H:%M"), 'user_account_id': 1,

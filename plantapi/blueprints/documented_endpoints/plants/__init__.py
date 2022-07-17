@@ -3,7 +3,7 @@ from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-from blueprints.models.plants import namespacePlant, plant_list_model, plant_model, plant_health_attribute_model
+from blueprints.swagger_models.plants import namespacePlant, plant_list_model, plant_model, plant_health_attribute_model
 
 plant_example = {'id': 1, 'name': 'Plant name', 'room_id': 1}
 

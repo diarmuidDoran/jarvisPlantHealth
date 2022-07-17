@@ -4,7 +4,7 @@ from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-from blueprints.models.user_accounts import namespaceUser, user_list_model, user_model, user_plant_list_model
+from blueprints.swagger_models.user_accounts import namespaceUser, user_list_model, user_model, user_plant_list_model
 
 user_example = {'id': 1, 'user_name': 'User Name', 'first_name': 'User', 'last_name': 'Name',
                 'email': 'user.name@gmail.com', 'password': 'pa55w0rd'}
