@@ -5,8 +5,8 @@ from blueprints.swagger_models.plants import plant_model
 
 namespaceUser = Namespace('user_accounts', 'userAccount endpoints')
 
-user_model = namespaceUser.model('user', {
-    'user_account_id': fields.Integer(
+user_model = namespaceUser.model('UserAccount', {
+    'id': fields.Integer(
         readonly=True,
         description='Plant identifier'
     ),

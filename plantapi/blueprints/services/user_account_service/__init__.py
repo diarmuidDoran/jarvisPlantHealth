@@ -23,6 +23,13 @@ def getUserAccountById(id):
                              user_account_dto.last_name, user_account_dto.email, user_account_dto.password)
 
 
+def getUserAccountPlantsById(id):
+    user_account_dto = getUserAccountDtoById(id)
+    return make_user_account_with_plant_list(user_account_dto.id,
+                                             user_account_dto.user_name,
+                                             user_account_dto.plants_b)
+
+
 def deleteUserAccountById(id):
     deleteUserAccountDtoById(id)
 

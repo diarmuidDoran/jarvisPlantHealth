@@ -1,4 +1,3 @@
-from flask import request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from blueprints.data_provider.engine import engine
@@ -11,12 +10,9 @@ def getRoomDtos():
     stmt = select(Room)
     return session.scalars(stmt)
 
-def addRoomDto():
-    data = request.get_json()
+def addRoomDto(name):
 
-    name = data.get('name')
-
-    new_room = Room(name=name)
+    new_room = Room(name)
 
     session.add(new_room)
     session.commit()
@@ -37,11 +33,10 @@ def deleteRoomDtoById(room_id):
 
     return {'Room ' + room.name + ' deleted'}
 
-def updateRoomDtoById(room_id):
+def updateRoomDtoById(room_id, new_name):
     room_to_update = getRoomDtoById(room_id)
-    data = request.get_json()
 
-    room_to_update.name = data.get('name')
+    room_to_update.name = new_name
 
     session.commit()
 

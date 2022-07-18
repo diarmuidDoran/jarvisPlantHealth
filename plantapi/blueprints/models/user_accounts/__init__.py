@@ -21,7 +21,7 @@ class User_Account(object):
 
 class User_Account_Plants(object):
     id = 0
-    name = ""
+    user_name = ""
     plants = getPlants()
 
     # The class "constructor" - an initializer

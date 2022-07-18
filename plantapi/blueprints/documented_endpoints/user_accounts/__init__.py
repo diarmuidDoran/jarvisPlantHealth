@@ -20,11 +20,11 @@ class user_accounts(Resource):
     def get(self):
         """List with all the user_accounts"""
         user_accounts = getUserAccounts()
-
-        return {
-            'user_accounts': user_accounts,
-            'total_records': len(user_accounts)
-        }
+        '''{
+                    'user_accounts': user_accounts,
+                    'total_records': len(user_accounts)
+                }'''
+        return user_accounts
 
     @namespaceUser.response(400, 'User account with the given name already exists')
     @namespaceUser.response(500, 'Internal Server error')
@@ -49,7 +49,7 @@ class user(Resource):
     @namespaceUser.marshal_with(user_model)
     def get(self, user_account_id):
         """Get user_example information"""
-        user_account = getUserAccountDtoById(user_account_id)
+        user_account = getUserAccountById(user_account_id)
 
         return user_account
 
@@ -84,6 +84,6 @@ class user_plants(Resource):
     @namespaceUser.marshal_with(user_plant_list_model)
     def get(self, user_account_id):
         """Get user_account_example information"""
-        user_account_plants = getUserAccountDtoById(user_account_id)
+        user_account_plants = getUserAccountPlantsById(user_account_id)
 
         return user_account_plants

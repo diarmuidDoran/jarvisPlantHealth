@@ -3,8 +3,9 @@ from http import HTTPStatus
 from flask_restx import Resource
 from markupsafe import escape
 from blueprints.services.room_service import *
-
+from blueprints.validations.room_validation import room_is_valid
 from blueprints.swagger_models.rooms import room_list_model, namespaceRoom, room_model
+
 
 room_example = {'id': 1, 'name': 'Room name'}
 
@@ -26,10 +27,10 @@ class rooms(Resource):
     @namespaceRoom.marshal_with(room_model, code=HTTPStatus.CREATED)
     def post(self):
         """Create a new room"""
-        add_room = postRoom()
-        if request.json['name'] == 'Room name':
+        name = request.json['name']
+        if room_is_valid(name) is not True:
             namespaceRoom.abort(400, 'Room with the given name already exists')
-
+        add_room = postRoom(name)
         return add_room, 201
 
 
@@ -52,10 +53,11 @@ class room(Resource):
     @namespaceRoom.marshal_with(room_model)
     def put(self, room_id):
         """Update room information"""
-        updated_room = updateRoomById(room_id)
-
-        if request.json['name'] == 'Room name':
+        new_name = request.json['name']
+        if room_is_valid(new_name) is not True:
             namespaceRoom.abort(400, 'Room with the given name already exists')
+
+        updated_room = updateRoomById(room_id, new_name)
 
         return updated_room
 

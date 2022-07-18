@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from blueprints.data_provider.dtos.user_accounts import association_table
+from blueprints.data_provider.dtos.user_accounts import plant_user_table
 from blueprints.data_provider.engine import Base
 
 
@@ -14,7 +14,7 @@ class Plant(Base):
     room = relationship("Room",
                         back_populates="plants")
 
-    users = relationship("User_Account", secondary=association_table, back_populates="plants_b")
+    users = relationship("User_Account", secondary=plant_user_table, back_populates="plants_b")
 
     '''plant_health_attribute = relationship("Plant_Health_Attribute", back_populates="plants_c")'''
 

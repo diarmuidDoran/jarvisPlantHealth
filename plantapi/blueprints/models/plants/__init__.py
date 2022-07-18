@@ -16,5 +16,5 @@ def make_plant(id, name, room_id):
 
 
 def make_new_plant(name, room_id):
-    plant = Plant(name=name, roomID=room_id)
+    plant = Plant(name=name, room_id=room_id)
     return plant

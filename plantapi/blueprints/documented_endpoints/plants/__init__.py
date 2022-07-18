@@ -4,12 +4,14 @@ from flask import request
 from flask_restx import Resource
 
 from blueprints.services.plant_service import *
+from blueprints.validations.plant_validation import plant_is_valid
 from blueprints.swagger_models.plants import namespacePlant, plant_list_model, plant_model, plant_health_attribute_model
+
 
 plant_example = {'id': 1, 'name': 'Plant name', 'room_id': 1}
 
 plant_health_attribute_example = {'plant_health_attribute_id': 1, 'upper_required_value': 1.00,
-                                  'lower_required_value': 0.50, 'unit_measurement_id': 'ml',
+                                  'lower_required_value': 0.50, 'unit_measurement_id': 1,
                                   'plant_id': 1, 'health_attribute_id': 1}
 
 
@@ -29,10 +31,12 @@ class plants(Resource):
     @namespacePlant.marshal_with(plant_model, code=HTTPStatus.CREATED)
     def post(self):
         """Create a new plant"""
-        add_plant = postPlant()
-        if request.json['name'] == Plant.name:
+        data = request.get_json()
+        name = data.get('name')
+        room_id = data.get('room_id')
+        if plant_is_valid(name) is not True:
             namespacePlant.abort(400, 'Plant with the given name already exists')
-
+        add_plant = postPlant(name, room_id)
         return add_plant, 201
 
 
@@ -54,10 +58,11 @@ class plant(Resource):
     @namespacePlant.marshal_with(plant_model)
     def put(self, plant_id):
         """Update specific plant information"""
-        updated_plant = updatePlantById(plant_id)
-
-        if request.json['name'] == 'Plant name':
+        new_name = request.json['name']
+        if plant_is_valid(new_name) is not True:
             namespacePlant.abort(400, 'Plant with the given name already exists')
+
+        updated_plant = updatePlantById(plant_id)
 
         return updated_plant
 

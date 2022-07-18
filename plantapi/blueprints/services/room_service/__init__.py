@@ -1,4 +1,3 @@
-from typing import List
 from blueprints.data_provider.room_data_provider import *
 from blueprints.models.rooms import *
 
@@ -9,9 +8,9 @@ def getRooms():
     return roomModels
 
 
-def postRoom():
-    roomDto = addRoomDto()
-    return roomDto
+def postRoom(name):
+    new_room = addRoomDto(name)
+    return new_room
 
 def getRoomById(id):
     roomDto = getRoomDtoById(id)
@@ -23,6 +22,7 @@ def getRoomById(id):
 def deleteRoomById(id):
     deleteRoomDtoById(id)
 
-def updateRoomById(id):
-    update_room = updateRoomDtoById(id)
+
+def updateRoomById(id, new_name):
+    update_room = updateRoomDtoById(id, new_name)
     return update_room

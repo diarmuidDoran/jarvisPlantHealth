@@ -9,8 +9,8 @@ class Health_Attribute(Base):
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     name = Column('name', String(255))
 
-    plant_health_attributes = relationship("Plant_Health_Attribute",
-                                           back_populates="health_attribute", )
+    '''plant_health_attributes = relationship("Plant_Health_Attribute",
+                                           back_populates="health_attribute", )'''
 
     def __init__(self, name):
         self.name = name

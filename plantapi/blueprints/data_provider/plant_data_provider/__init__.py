@@ -13,13 +13,9 @@ def getPlantDtos():
     return session.scalars(stmt)
 
 
-def addPlantDto():
-    data = request.get_json()
+def addPlantDto(name, room_id):
 
-    name = data.get('name')
-    room_id = data.get('room_id')
-
-    new_plant = Plant(name=name, room_id=room_id)
+    new_plant = Plant(name, room_id)
 
     session.add(new_plant)
     session.commit()
