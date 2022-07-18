@@ -3,20 +3,18 @@ from sqlalchemy.orm import relationship
 from blueprints.data_provider.engine import Base
 
 
-class Room(Base):
-    __tablename__ = "room"
+class Health_Attribute(Base):
+    __tablename__ = "health_attribute"
 
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     name = Column('name', String(255))
 
-    plants = relationship("Plant",
-                          back_populates="room",
-                          order_by="Plant.id",)
+    plant_health_attributes = relationship("Plant_Health_Attribute",
+                                           back_populates="health_attribute", )
 
     def __init__(self, name):
         self.name = name
 
     def __repr__(self):
-        return f"Room(id={self.id!r}, name={self.name!r})"
-
+        return f"Health_Attribute(id={self.id!r}, name={self.name!r})"
 

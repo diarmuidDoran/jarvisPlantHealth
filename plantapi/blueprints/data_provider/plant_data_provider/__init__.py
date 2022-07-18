@@ -19,7 +19,7 @@ def addPlantDto():
     name = data.get('name')
     room_id = data.get('room_id')
 
-    new_plant = Plant(name=name, roomID=room_id)
+    new_plant = Plant(name=name, room_id=room_id)
 
     session.add(new_plant)
     session.commit()

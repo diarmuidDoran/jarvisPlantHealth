@@ -4,6 +4,7 @@ from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
+from blueprints.services.user_account_service import *
 from blueprints.swagger_models.user_accounts import namespaceUser, user_list_model, user_model, user_plant_list_model
 
 user_example = {'id': 1, 'user_name': 'User Name', 'first_name': 'User', 'last_name': 'Name',
@@ -18,11 +19,11 @@ class user_accounts(Resource):
     @namespaceUser.marshal_list_with(user_model)
     def get(self):
         """List with all the user_accounts"""
-        user_account_list = [user_example]
+        user_accounts = getUserAccounts()
 
         return {
-            'user_accounts': user_account_list,
-            'total_records': len(user_account_list)
+            'user_accounts': user_accounts,
+            'total_records': len(user_accounts)
         }
 
     @namespaceUser.response(400, 'User account with the given name already exists')
@@ -31,11 +32,12 @@ class user_accounts(Resource):
     @namespaceUser.marshal_with(user_model, code=HTTPStatus.CREATED)
     def post(self):
         """Create a new user_account"""
+        add_user_account = postUserAccount()
 
         if request.json['name'] == 'User account name':
             namespaceUser.abort(400, 'User with the given name already exists')
 
-        return user_example, 201
+        return add_user_account, 201
 
 
 @namespaceUser.route('/<int:user_account_id>')
@@ -47,8 +49,9 @@ class user(Resource):
     @namespaceUser.marshal_with(user_model)
     def get(self, user_account_id):
         """Get user_example information"""
+        user_account = getUserAccountDtoById(user_account_id)
 
-        return user_example
+        return user_account
 
     @namespaceUser.response(400, 'User with the given name already exists')
     @namespaceUser.response(404, 'User not found')
@@ -81,5 +84,6 @@ class user_plants(Resource):
     @namespaceUser.marshal_with(user_plant_list_model)
     def get(self, user_account_id):
         """Get user_account_example information"""
+        user_account_plants = getUserAccountDtoById(user_account_id)
 
-        return user_example
+        return user_account_plants

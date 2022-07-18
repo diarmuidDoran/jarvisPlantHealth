@@ -65,4 +65,5 @@ class room(Resource):
     def delete(self, room_id):
         """Delete a specific room entity"""
         delete_room = deleteRoomById(room_id)
-        return '', 204
+
+        return delete_room, 204

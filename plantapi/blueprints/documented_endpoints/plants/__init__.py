@@ -29,11 +29,11 @@ class plants(Resource):
     @namespacePlant.marshal_with(plant_model, code=HTTPStatus.CREATED)
     def post(self):
         """Create a new plant"""
-
-        if request.json['name'] == 'Plant name':
+        add_plant = postPlant()
+        if request.json['name'] == Plant.name:
             namespacePlant.abort(400, 'Plant with the given name already exists')
 
-        return plant_example, 201
+        return add_plant, 201
 
 
 @namespacePlant.route('/<int:plant_id>')
@@ -44,8 +44,8 @@ class plant(Resource):
     @namespacePlant.response(500, 'Internal Server error')
     @namespacePlant.marshal_with(plant_list_model)
     def get(self, plant_id):
-        plant = getPlantById(plant_id)
-        return plant
+        plant_search = getPlantById(plant_id)
+        return plant_search
 
     @namespacePlant.response(400, 'Plant with the given name already exists')
     @namespacePlant.response(404, 'Plant not found')
@@ -54,19 +54,21 @@ class plant(Resource):
     @namespacePlant.marshal_with(plant_model)
     def put(self, plant_id):
         """Update specific plant information"""
+        updated_plant = updatePlantById(plant_id)
 
         if request.json['name'] == 'Plant name':
             namespacePlant.abort(400, 'Plant with the given name already exists')
 
-        return plant_example
+        return updated_plant
 
     @namespacePlant.response(204, 'Request Success (No Content)')
     @namespacePlant.response(404, 'Entity not found')
     @namespacePlant.response(500, 'Internal Server error')
-    def delete(self, entity_id):
+    def delete(self, plant_id):
         """Delete a specific plant entity"""
+        delete_plant = deletePlantById(plant_id)
 
-        return '', 204
+        return delete_plant, 204
 
 
 @namespacePlant.route('/<int:plant_id>/plant_health_attributes')
