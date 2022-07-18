@@ -13,17 +13,10 @@ def getUserAccountDtos():
     return session.scalars(stmt)
 
 
-def addUserAccountDto():
-    data = request.get_json()
+def addUserAccountDto(user_name, first_name, last_name, email, password):
 
-    user_name = data.get('user_name')
-    first_name = data.get('first_name')
-    last_name = data.get('last_name')
-    email = data.get('email')
-    password = data.get('password')
-
-    new_user_account = User_Account(user_name=user_name, first_name=first_name, last_name=last_name, email=email,
-                                    password=password)
+    new_user_account = User_Account(user_name, first_name, last_name, email,
+                                    password)
 
     session.add(new_user_account)
     session.commit()

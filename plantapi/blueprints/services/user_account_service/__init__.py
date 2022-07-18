@@ -12,8 +12,8 @@ def getUserAccounts():
     return user_account_models
 
 
-def postUserAccount():
-    user_account_dto = addUserAccountDto()
+def postUserAccount(user_name, first_name, last_name, email, password):
+    user_account_dto = addUserAccountDto(user_name, first_name, last_name, email, password)
     return user_account_dto
 
 

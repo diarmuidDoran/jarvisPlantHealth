@@ -6,6 +6,7 @@ from flask_restx import Resource
 
 from blueprints.services.user_account_service import *
 from blueprints.swagger_models.user_accounts import namespaceUser, user_list_model, user_model, user_plant_list_model
+from blueprints.validations.user_account_validation import user_account_is_valid
 
 user_example = {'id': 1, 'user_name': 'User Name', 'first_name': 'User', 'last_name': 'Name',
                 'email': 'user.name@gmail.com', 'password': 'pa55w0rd'}
@@ -32,10 +33,17 @@ class user_accounts(Resource):
     @namespaceUser.marshal_with(user_model, code=HTTPStatus.CREATED)
     def post(self):
         """Create a new user_account"""
-        add_user_account = postUserAccount()
+        data = request.get_json()
+        user_name = data.get('user_name')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        password = data.get('password')
 
-        if request.json['name'] == 'User account name':
-            namespaceUser.abort(400, 'User with the given name already exists')
+        if user_account_is_valid(user_name, email) is not True:
+            namespaceUser.abort(400, 'User with the given user_name or email already exists')
+
+        add_user_account = postUserAccount(user_name, first_name, last_name, email, password)
 
         return add_user_account, 201
 

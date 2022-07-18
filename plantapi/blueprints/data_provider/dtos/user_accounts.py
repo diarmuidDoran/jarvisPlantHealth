@@ -19,3 +19,4 @@ class User_Account(Base):
     password = Column('password', String(255))
 
     plants_b = relationship("Plant", secondary=plant_user_table, back_populates="users")
+

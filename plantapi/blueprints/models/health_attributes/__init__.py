@@ -1,4 +1,4 @@
-class Room(object):
+class Health_Attribute(object):
     id = 0
     name = ""
 
@@ -9,5 +9,5 @@ class Room(object):
 
 
 def make_health_attribute(id, name):
-    room = Room(id, name)
-    return room
+    health_attribute = Health_Attribute(id, name)
+    return health_attribute

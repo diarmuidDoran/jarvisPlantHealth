@@ -26,9 +26,3 @@ def deletePlantById(id):
 def updatePlantById(id):
     update_plant = updatePlantDtoById(id)
     return update_plant
-
-'''def getUserPlants():
-    plantModels = []
-    for plantDto in getPlantDtos():
-        plantModels.append(make_plant(plantDto.id, plantDto.name, plantDto.room_id))
-    return plantModels'''

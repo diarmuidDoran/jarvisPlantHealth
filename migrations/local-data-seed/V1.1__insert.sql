@@ -18,15 +18,15 @@ VALUES
     ('Soil Moisture'),
     ('Soil Temperature'),
     ('Air Humidity'),
-    ('Air Temperature')
+    ('Air Temperature'),
     ('Light Levels');
-    
+
 INSERT INTO user_account (user_name, first_name, last_name, email, password)
 VALUES
     ('PlantNeglector', 'Diarmuid', 'Doran', 'diarmuid.doran@hotmail.com', 'unopassword'),
     ('PMcLaren', 'Paul', 'McCarron', 'paul.mccarron@hotmail.com', 'password');
 
-INSERT INTO plant_user (plant_id, user_id)
+INSERT INTO plant_user (user_id, plant_id)
 VALUES
     (1,1),
     (2,2),
