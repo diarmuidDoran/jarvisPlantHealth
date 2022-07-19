@@ -32,3 +32,9 @@ VALUES
     (2,2),
     (1,3),
     (1,4);
+
+INSERT INTO sensor (sensor_name, call_frequency)
+VALUES
+    ('sensor1', '5 * * * *'),
+    ('sensor2', '* 1 * * *');
+
