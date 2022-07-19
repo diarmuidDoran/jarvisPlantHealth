@@ -19,11 +19,11 @@ plant_model = namespacePlant.model('Plant', {
 })
 
 plant_health_attribute_model = namespacePlant.model('Plant Health Attributes', {
-    'plant_health_attribute_id': fields.Integer(
+    'id': fields.Integer(
         readonly=True,
         description='Plant health identifier'
     ),
-    'upper_health_attribute': fields.Float(
+    'upper_required_value': fields.Float(
         required=True,
         description='Upper Required Value'
     ),

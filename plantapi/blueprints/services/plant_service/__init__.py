@@ -23,6 +23,6 @@ def deletePlantById(id):
     deletePlantDtoById(id)
 
 
-def updatePlantById(id):
-    update_plant = updatePlantDtoById(id)
+def updatePlantById(plant_id, new_name, new_room_id):
+    update_plant = updatePlantDtoById(plant_id, new_name, new_room_id)
     return update_plant

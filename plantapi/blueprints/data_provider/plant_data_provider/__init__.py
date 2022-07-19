@@ -1,4 +1,3 @@
-from flask import request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from blueprints.data_provider.engine import engine
@@ -36,12 +35,11 @@ def deletePlantDtoById(plant_id):
 
     return {'Plant ' + plant.name + ' deleted'}
 
-def updatePlantDtoById(plant_id):
+def updatePlantDtoById(plant_id, new_name, new_room_id):
     plant_to_update = getPlantDtoById(plant_id)
-    data = request.get_json()
 
-    plant_to_update.name = data.get('name')
-    plant_to_update.room_id = data.get('room_id')
+    plant_to_update.name = new_name
+    plant_to_update.room_id = new_room_id
 
     session.commit()
 

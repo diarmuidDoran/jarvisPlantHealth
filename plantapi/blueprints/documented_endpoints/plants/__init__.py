@@ -58,13 +58,16 @@ class plant(Resource):
     @namespacePlant.marshal_with(plant_model)
     def put(self, plant_id):
         """Update specific plant information"""
-        new_name = request.json['name']
+        data = request.get_json()
+        new_name = data.get('name')
+        new_room_id = data.get('room_id')
+
         if plant_is_valid(new_name) is not True:
             namespacePlant.abort(400, 'Plant with the given name already exists')
 
-        updated_plant = updatePlantById(plant_id)
+        updated_plant = updatePlantById(plant_id, new_name, new_room_id)
 
-        return updated_plant
+        return updated_plant, 201
 
     @namespacePlant.response(204, 'Request Success (No Content)')
     @namespacePlant.response(404, 'Entity not found')
@@ -87,7 +90,7 @@ class plant_health_attributes(Resource):
         """Get plant health attribute list"""
 
         """List with all a specific plants health attributes"""
-        plant_health_attribute_list = [plant_health_attribute_example]
+        plant_health_attribute_list = getPlantHealthAttribtes()
 
         return {
             'plants_health_attributes': plant_health_attribute_list,
