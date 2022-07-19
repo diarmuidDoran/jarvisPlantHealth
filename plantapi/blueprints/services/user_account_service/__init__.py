@@ -34,6 +34,7 @@ def deleteUserAccountById(id):
     deleteUserAccountDtoById(id)
 
 
-def updateUserAccountById(id):
-    update_user_account = updateUserAccountDtoById(id)
+def updateUserAccountById(new_user_account_id, new_user_name, new_first_name, new_last_name, new_email, new_password):
+    update_user_account = updateUserAccountDtoById(new_user_account_id, new_user_name, new_first_name, new_last_name,
+                                                   new_email, new_password)
     return update_user_account

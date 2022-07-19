@@ -4,7 +4,7 @@ from flask_restx import Namespace, fields
 namespaceSensor = Namespace('sensors', 'sensor endpoints')
 
 sensor_model = namespaceSensor.model('Sensor', {
-    'sensor_id': fields.Integer(
+    'id': fields.Integer(
         readonly=True,
         description='Sensor identifier'
     ),
@@ -19,7 +19,22 @@ sensor_model = namespaceSensor.model('Sensor', {
 })
 
 sensor_reading_model = namespaceSensor.model('SensorReading', {
-    'sensor_reading_id': fields.Integer(
+    'id': fields.Integer(
+        readonly=True,
+        description='Sensor identifier'
+    ),
+    'sensor_reading': fields.Float(
+        required=True,
+        description='Value output from sensor'
+    ),
+    'time_stamp': fields.DateTime(
+        required=True,
+        description='Time notification was issued'
+    )
+})
+
+sensor_reading_model_response = namespaceSensor.model('SensorReadingResponse', {
+    'id': fields.Integer(
         readonly=True,
         description='Sensor identifier'
     ),
@@ -55,7 +70,7 @@ sensor_reading_list_model = namespaceSensor.model('SensorReadingList', {
     ),
     'call_frequency': fields.String(
         required=True,
-        description='Room identifier'
+        description='Time interval between sensor calls'
     ),
     'sensor_readings': fields.Nested(
         sensor_reading_model,

@@ -4,9 +4,11 @@ from flask import request
 from flask_restx import Resource
 
 #from blueprints.swagger_models.sensor_readings import namespaceSensorReading
+from blueprints.services.sensor_reading_service import postSensorReading
 from blueprints.services.sensor_service import *
 from blueprints.swagger_models.sensors import namespaceSensor, sensor_model, sensor_reading_list_model, \
-    sensor_reading_model
+    sensor_reading_model, sensor_reading_model_response
+from blueprints.validations.sensor_reading_validation import sensor_reading_time_is_valid
 from blueprints.validations.sensor_validation import sensor_is_valid
 
 sensor_example = {'sensor_id': 1, 'sensor_name': 'Sensor name', 'call_frequency': '5 * * * *'}
@@ -75,25 +77,25 @@ class sensor_readings(Resource):
     @namespaceSensor.response(500, 'Internal Server error')
     @namespaceSensor.marshal_with(sensor_reading_list_model)
     def get(self, sensor_id):
-        """Get sensor reading example information"""
-
         """List with all a specific sensors readings"""
-        sensor_reading_list = [sensor_reading_example]
+        sensor_reading_list = getSensorReadingsById(sensor_id)
 
-        return {
-            'sensor_readings': sensor_reading_list,
-            'total_records': len(sensor_reading_list)
-        }
+        return sensor_reading_list
 
 
     @namespaceSensor.response(400, 'Sensor reading already exists')
     @namespaceSensor.response(500, 'Internal Server error')
     @namespaceSensor.expect(sensor_reading_model)
-    @namespaceSensor.marshal_with(sensor_reading_model, code=HTTPStatus.CREATED)
-    def post(self):
+    @namespaceSensor.marshal_with(sensor_reading_model_response, code=HTTPStatus.CREATED)
+    def post(self, sensor_id):
         """Create a new sensor reading"""
+        data = request.get_json()
+        sensor_reading = data.get('sensor_reading')
+        time_stamp = data.get('time_stamp')
 
-        if request.json['name'] == 'Sensor name' and request.json['time_stamp'] == ("08/07/22 09:00", "%d/%m/%y %H:%M"):
-            namespaceSensor.abort(400, 'Sensor with the given name already exists')
+        if sensor_reading_time_is_valid(time_stamp) is not True:
+            namespaceSensor.abort(400, 'The sensor has already logged data for this time')
 
-        return sensor_example, 201
+        add_sensor_reading = postSensorReading(sensor_reading, time_stamp, sensor_id)
+
+        return add_sensor_reading, 201

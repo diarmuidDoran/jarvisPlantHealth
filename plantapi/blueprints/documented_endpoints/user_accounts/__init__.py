@@ -69,18 +69,28 @@ class user(Resource):
     def put(self, user_account_id):
         """Update entity information"""
 
-        if request.json['name'] == 'User account name':
-            namespaceUser.abort(400, 'User account with the given name already exists')
+        data = request.get_json()
+        new_user_name = data.get('user_name')
+        new_first_name = data.get('first_name')
+        new_last_name = data.get('last_name')
+        new_email = data.get('email')
+        new_password = data.get('password')
 
-        return user_example
+        if user_account_is_valid(new_user_name, new_email) is not True:
+            namespaceUser.abort(400, 'User with the given user_name or email already exists')
+
+        update_user_account = updateUserAccountById(user_account_id, new_user_name, new_first_name, new_last_name,
+                                                    new_email, new_password)
+
+        return update_user_account, 201
 
     @namespaceUser.response(204, 'Request Success (No Content)')
     @namespaceUser.response(404, 'Entity not found')
     @namespaceUser.response(500, 'Internal Server error')
     def delete(self, user_account_id):
         """Delete a specific entity"""
-
-        return '', 204
+        delete_user_account = deleteUserAccountById(user_account_id)
+        return delete_user_account, 204
 
 
 @namespaceUser.route('/<int:user_account_id>/plants')

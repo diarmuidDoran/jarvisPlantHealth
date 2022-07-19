@@ -10,7 +10,7 @@ class Sensor(Base):
     sensor_name = Column('sensor_name', String(255))
     call_frequency = Column('call_frequency', String(255))
 
-    #sensor_readings = relationship("Sensor_Reading", back_populates="sensor",)
+    sensor_readings = relationship("Sensor_Reading", back_populates="sensor",)
 
     def __init__(self, sensor_name, call_frequency):
         self.sensor_name = sensor_name

@@ -22,3 +22,11 @@ def getSensorById(id):
 
 def deleteSensorById(id):
     deleteSensorDtoById(id)
+
+
+def getSensorReadingsById(id):
+    sensorDto = getSensorDtoById(id)
+    return make_sensor_with_sensor_readings_list(sensorDto.id,
+                                                 sensorDto.sensor_name,
+                                                 sensorDto.call_frequency,
+                                                 sensorDto.sensor_readings)

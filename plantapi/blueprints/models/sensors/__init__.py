@@ -1,3 +1,6 @@
+from blueprints.services.sensor_reading_service import getSensorReadings
+
+
 class Sensor(object):
     id = 0
     sensor_name = ""
@@ -10,7 +13,7 @@ class Sensor(object):
         self.call_frequency = call_frequency
 
 
-"""class Sensor_Sensor_Readings(object):
+class Sensor_Sensor_Readings(object):
     id = 0
     sensor_name = ""
     call_frequency = ""
@@ -21,7 +24,7 @@ class Sensor(object):
         self.id = id
         self.sensor_name = sensor_name
         self.call_frequency = call_frequency
-        self.sensor_readings = sensor_readings"""
+        self.sensor_readings = sensor_readings
 
 
 def make_sensor(id, sensor_name, call_frequency):
@@ -34,6 +37,7 @@ def make_new_sensor(sensor_name, call_frequency):
     return sensor
 
 
-'''def make_sensor_with_sensor_readings_list(id, sensor_name, call_frequency, sensor_readings):
+def make_sensor_with_sensor_readings_list(id, sensor_name, call_frequency, sensor_readings):
+
     sensor_data = Sensor_Sensor_Readings(id, sensor_name, call_frequency, sensor_readings)
-    return sensor_data'''
+    return sensor_data

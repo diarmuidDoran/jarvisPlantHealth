@@ -35,17 +35,16 @@ def deleteUserAccountDtoById(user_account_id):
     session.delete(user_account)
     session.commit()
 
-    return {'Room ' + user_account.user_name + ' deleted'}
+    return {'User Account ' + user_account.user_name + ' deleted'}
 
-def updateUserAccountDtoById(user_account_id):
+def updateUserAccountDtoById(user_account_id, new_user_name, new_first_name, new_last_name, new_email, new_password):
     user_account_to_update = getUserAccountDtoById(user_account_id)
-    data = request.get_json()
 
-    user_account_to_update.name = data.get('user_name')
-    user_account_to_update.first_name = data.get('first_name')
-    user_account_to_update.last_name = data.get('last_name')
-    user_account_to_update.email = data.get('email')
-    user_account_to_update.password = data.get('password')
+    user_account_to_update.name = new_user_name
+    user_account_to_update.first_name = new_first_name
+    user_account_to_update.last_name = new_last_name
+    user_account_to_update.email = new_email
+    user_account_to_update.password = new_password
 
     session.commit()
 

@@ -20,3 +20,13 @@ class User_Account(Base):
 
     plants_b = relationship("Plant", secondary=plant_user_table, back_populates="users")
 
+    def __init__(self, user_name, first_name, last_name, email, password):
+        self.user_name = user_name
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.password = password
+
+    def __repr__(self):
+        return f"User_Account(id={self.id!r}, user_name={self.user_name!r}, first_name={self.first_name!r}," \
+               f"last_name={self.email!r}, first_name={self.email!r}, password={self.password!r},)"

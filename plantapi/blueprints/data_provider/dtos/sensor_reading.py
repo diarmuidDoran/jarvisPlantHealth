@@ -12,7 +12,7 @@ class Sensor_Reading(Base):
     time_stamp = Column('time_stamp', DateTime(), default=datetime.utcnow())
     sensor_id = Column('sensor_id', Integer, ForeignKey("sensor.id"), nullable=False)
 
-    sensor = relationship("Sensor", back_populates="sensor_readings",)
+    sensor = relationship("Sensor", back_populates="sensor_readings")
 
     def __init__(self, sensor_reading, time_stamp, sensor_id):
         self.sensor_reading = sensor_reading
