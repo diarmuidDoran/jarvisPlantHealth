@@ -58,7 +58,7 @@ plant_list_model = namespacePlant.model('PlantList', {
         required=True,
         description='Room identifier'
     ),
-    'plant_health_attributes': fields.Nested(
+    'plant_health_attributes_b': fields.Nested(
         plant_health_attribute_model,
         description='List of plants health attributes',
         as_list=True

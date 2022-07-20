@@ -10,16 +10,11 @@ class Plant_Health_Attribute(Base):
     lower_required_value = Column('lower_required_value', DECIMAL(precision=10, scale=2))
     unit_measurement_id = Column('unit_measurement_id', Integer, ForeignKey("unit_measurement.id"), nullable=False)
     plant_id = Column('plant_id', Integer, ForeignKey("plant.id"), nullable=False)
-    health_attribute_id = Column('health_attribute_id', Integer, ForeignKey("health_attribute_id"), nullable=False)
+    health_attribute_id = Column('health_attribute_id', Integer, ForeignKey("health_attribute.id"), nullable=False)
 
-    unit_measurements = relationship("Unit_Measurement",
-                                     back_populates="plant_health_attribute")
-
-    plants_c = relationship("Plant",
-                            back_populates="plant_health_attribute")
-
-    health_attributes = relationship("Health_Attribute",
-                                     back_populates="plant_health_attribute")
+    plants_c = relationship("Plant", back_populates="plant_health_attributes")
+    health_attributes = relationship("Health_Attribute", back_populates="plant_health_attributes_b")
+    #unit_measurements = relationship("Unit_Measurement", back_populates="plant_health_attributes_c")
 
     def __init__(self, upper_required_value, lower_required_value, unit_measurement_id, plant_id, health_attribute_id):
         self.upper_required_value = upper_required_value

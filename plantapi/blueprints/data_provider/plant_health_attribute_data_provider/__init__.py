@@ -6,10 +6,9 @@ from blueprints.data_provider.dtos.plant_health_attribute import Plant_Health_At
 session = Session(engine)
 
 
-def getPlantHelathAttributeDtos():
+def getPlantHelathAttributeDtosByPlantId(plant_id):
 
-    stmt = select(Plant_Health_Attribute)
-    return session.scalars(stmt)
+    return session.query(Plant_Health_Attribute).get(plant_id)
 
 
 def addPlantHealthAttributeDto(upper_required_value, lower_required_value, unit_measurement_id,

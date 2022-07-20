@@ -2,15 +2,17 @@ from blueprints.data_provider.plant_health_attribute_data_provider import *
 from blueprints.models.plant_health_attributes import *
 
 
-def getPlantHealthAttributes():
+def getPlantHealthAttributesByPlantId(plant_id):
     plantHealthAttributeModels = []
-    for plantHealthAttributeDto in getPlantHelathAttributeDtos():
-        plantHealthAttributeModels.append(make_plant_health_attribute(plantHealthAttributeDto.id,
-                                                                      plantHealthAttributeDto.upper_required_value,
-                                                                      plantHealthAttributeDto.lower_required_value,
-                                                                      plantHealthAttributeDto.unit_measurement_id,
-                                                                      plantHealthAttributeDto.plant_id,
-                                                                      plantHealthAttributeDto.health_attribute_id))
+    #plantHealthAttributeDtoByPlantId = getPlantHealthAttributeDtoById(plant_id)
+    for plantHealthAttributeDtoByPlantId in getPlantHelathAttributeDtosByPlantId(plant_id):
+        plantHealthAttributeModels.append(
+            make_plant_health_attribute(plantHealthAttributeDtoByPlantId.id,
+                                        plantHealthAttributeDtoByPlantId.upper_required_value,
+                                        plantHealthAttributeDtoByPlantId.lower_required_value,
+                                        plantHealthAttributeDtoByPlantId.unit_measurement_id,
+                                        plantHealthAttributeDtoByPlantId.plant_id,
+                                        plantHealthAttributeDtoByPlantId.health_attribute_id))
     return plantHealthAttributeModels
 
 
@@ -21,7 +23,7 @@ def postPlantHealthAttribute(upper_required_value, lower_required_value, unit_me
     return plantHealthAttributeDto
 
 
-def getPlantHealthAttributeById(id):
+def getPlantHealthAttributeById(plant_health_attribute_id, plant_id):
     plantHealthAttributeDto = getPlantHealthAttributeDtoById(id)
     return make_plant_health_attribute(plantHealthAttributeDto.id, plantHealthAttributeDto.upper_required_value,
                                        plantHealthAttributeDto.lower_required_value,

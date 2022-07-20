@@ -4,6 +4,7 @@ from flask import request
 from flask_restx import Resource
 
 from blueprints.services.plant_service import *
+from blueprints.services.plant_health_attribute_service import *
 from blueprints.validations.plant_validation import plant_is_valid
 from blueprints.swagger_models.plants import namespacePlant, plant_list_model, plant_model, plant_health_attribute_model
 
@@ -34,6 +35,7 @@ class plants(Resource):
         data = request.get_json()
         name = data.get('name')
         room_id = data.get('room_id')
+
         if plant_is_valid(name) is not True:
             namespacePlant.abort(400, 'Plant with the given name already exists')
         add_plant = postPlant(name, room_id)
@@ -90,7 +92,7 @@ class plant_health_attributes(Resource):
         """Get plant health attribute list"""
 
         """List with all a specific plants health attributes"""
-        plant_health_attribute_list = getPlantHealthAttribtes()
+        plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
 
         return {
             'plants_health_attributes': plant_health_attribute_list,

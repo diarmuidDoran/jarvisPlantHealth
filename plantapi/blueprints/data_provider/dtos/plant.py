@@ -16,7 +16,7 @@ class Plant(Base):
 
     users = relationship("User_Account", secondary=plant_user_table, back_populates="plants_b")
 
-    '''plant_health_attribute = relationship("Plant_Health_Attribute", back_populates="plants_c")'''
+    plant_health_attributes = relationship("Plant_Health_Attribute", back_populates="plants_c")
 
     def __init__(self, name, room_id):
         self.name = name

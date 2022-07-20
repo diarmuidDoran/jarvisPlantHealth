@@ -9,8 +9,7 @@ class Unit_Measurement(Base):
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     unit = Column('unit', String(255))
 
-    plant_health_attributes = relationship("Plant_Health_Attribute",
-                                           back_populates="unit_measurement",)
+    plant_health_attributes_c = relationship("Plant_Health_Attribute", back_populates="unit_measurements")
 
     def __init__(self, unit):
         self.unit = unit
