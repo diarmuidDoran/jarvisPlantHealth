@@ -21,8 +21,6 @@ def addSensorDto(sensor_name, call_frequency):
 
 def getSensorDtoById(sensor_id):
 
-    '''stmt = select(Room).where(Room.id == room_id)'''
-    """return session.query(Room).filter(Room.id == room_id)"""
     return session.query(Sensor).get(sensor_id)
 
 

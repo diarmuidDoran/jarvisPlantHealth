@@ -15,4 +15,4 @@ class Unit_Measurement(Base):
         self.unit = unit
 
     def __repr__(self):
-        return f"Unit(id={self.id!r}, unit={self.unit!r})"
+        return f"Unit_Measurement(id={self.id!r}, unit={self.unit!r})"

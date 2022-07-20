@@ -1,3 +1,6 @@
+from blueprints.services.plant_health_attribute_service import getPlantHealthAttributes
+
+
 class Plant(object):
     id = 0
     name = ""
@@ -10,6 +13,20 @@ class Plant(object):
         self.room_id = room_id
 
 
+class Plant_Plant_Health_Attribute(object):
+    id = 0
+    name = ""
+    room_id = 0
+    plant_health_attribute_list = getPlantHealthAttributes()
+
+    # The class "constructor" - an initializer
+    def __init__(self, id, name, room_id, plant_health_attribute_list):
+        self.id = id
+        self.name = name
+        self.room_id = room_id
+        self.plant_health_attribute_list = plant_health_attribute_list
+
+
 def make_plant(id, name, room_id):
     plant = Plant(id, name, room_id)
     return plant
@@ -18,3 +35,8 @@ def make_plant(id, name, room_id):
 def make_new_plant(name, room_id):
     plant = Plant(name=name, room_id=room_id)
     return plant
+
+
+def make_plant_with_plant_health_attribute_list(id, name, room_id, plant_health_attributes):
+    plant_health_attribute_data = Plant_Plant_Health_Attribute(id, name, room_id, plant_health_attributes)
+    return plant_health_attribute_data

@@ -5,9 +5,10 @@ from flask_restx import Resource
 
 from blueprints.services.plant_service import *
 from blueprints.services.plant_health_attribute_service import *
+from blueprints.validations.plant_health_attribute_validation import plant_health_attribute_is_valid
 from blueprints.validations.plant_validation import plant_is_valid
-from blueprints.swagger_models.plants import namespacePlant, plant_list_model, plant_model, plant_health_attribute_model
-
+from blueprints.swagger_models.plants import namespacePlant, plant_plant_health_attribute_list_model, plant_model, \
+    plant_health_attribute_model, plant_list_model
 
 plant_example = {'id': 1, 'name': 'Plant name', 'room_id': 1}
 
@@ -87,17 +88,12 @@ class plant_health_attributes(Resource):
 
     @namespacePlant.response(404, 'Sensor not found')
     @namespacePlant.response(500, 'Internal Server error')
-    @namespacePlant.marshal_list_with(plant_health_attribute_model)
+    @namespacePlant.marshal_with(plant_plant_health_attribute_list_model)
     def get(self, plant_id):
-        """Get plant health attribute list"""
-
         """List with all a specific plants health attributes"""
         plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
 
-        return {
-            'plants_health_attributes': plant_health_attribute_list,
-            'total_records': len(plant_health_attribute_list)
-        }
+        return plant_health_attribute_list
 
     @namespacePlant.response(400, 'Plant with the given name already exists')
     @namespacePlant.response(500, 'Internal Server error')
@@ -105,11 +101,18 @@ class plant_health_attributes(Resource):
     @namespacePlant.marshal_with(plant_health_attribute_model, code=HTTPStatus.CREATED)
     def post(self, plant_id):
         """Create a new plant health attribute for a specific plant"""
+        data = request.get_json()
+        upper_required_value = data.get('upper_required_value')
+        lower_required_value = data.get('lower_required_value')
+        unit_measurement_id = data.get('unit_measurement')
+        plant_id = data.get(plant_id)
+        health_attribute_id = data.get('health_attribute_id')
 
-        if request.json['name'] == 'Plant name':
-            namespacePlant.abort(400, 'Plant with the given name already exists')
-
-        return plant_example, 201
+        if plant_health_attribute_is_valid(health_attribute_id) is not True:
+            namespacePlant.abort(400, 'Plant health attribute already exists')
+        add_plant_health_attribute = postPlantHealthAttribute(upper_required_value, lower_required_value,
+                                                              unit_measurement_id, plant_id)
+        return add_plant_health_attribute, 201
 
 
 @namespacePlant.route('/<int:plant_id>/plant_health_attributes/<int:plant_health_attribute_id>')
@@ -120,7 +123,7 @@ class plant_health_attribute(Resource):
     @namespacePlant.response(404, 'Plant not found')
     @namespacePlant.response(500, 'Internal Server error')
     @namespacePlant.marshal_with(plant_health_attribute_model)
-    def get(self, plant_health_attribute_id):
+    def get(self, plant_id, plant_health_attribute_id):
         """Get plant_example information"""
 
         return plant_example
@@ -130,7 +133,7 @@ class plant_health_attribute(Resource):
     @namespacePlant.response(500, 'Internal Server error')
     @namespacePlant.expect(plant_health_attribute_model, validate=True)
     @namespacePlant.marshal_with(plant_health_attribute_model)
-    def put(self, plant_health_attribute_id):
+    def put(self, plant_id, plant_health_attribute_id):
         """Update specific plant health attribute information"""
 
         if request.json['name'] == 'Plant name':
@@ -141,7 +144,7 @@ class plant_health_attribute(Resource):
     @namespacePlant.response(204, 'Request Success (No Content)')
     @namespacePlant.response(404, 'Entity not found')
     @namespacePlant.response(500, 'Internal Server error')
-    def delete(self, plant_health_attribute_id):
+    def delete(self, plant_id, plant_health_attribute_id):
         """Delete a specific plant entity"""
 
         return '', 204

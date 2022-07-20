@@ -2,19 +2,16 @@ from blueprints.data_provider.plant_health_attribute_data_provider import *
 from blueprints.models.plant_health_attributes import *
 
 
-def getPlantHealthAttributesByPlantId(plant_id):
-    plantHealthAttributeModels = []
-    #plantHealthAttributeDtoByPlantId = getPlantHealthAttributeDtoById(plant_id)
-    for plantHealthAttributeDtoByPlantId in getPlantHelathAttributeDtosByPlantId(plant_id):
-        plantHealthAttributeModels.append(
-            make_plant_health_attribute(plantHealthAttributeDtoByPlantId.id,
-                                        plantHealthAttributeDtoByPlantId.upper_required_value,
-                                        plantHealthAttributeDtoByPlantId.lower_required_value,
-                                        plantHealthAttributeDtoByPlantId.unit_measurement_id,
-                                        plantHealthAttributeDtoByPlantId.plant_id,
-                                        plantHealthAttributeDtoByPlantId.health_attribute_id))
-    return plantHealthAttributeModels
-
+def getPlantHealthAttributes():
+    health_attribute_models = []
+    for plant_health_attribute_dto in getPlantHelathAttributeDtos():
+        health_attribute_models.append(make_plant_health_attribute(plant_health_attribute_dto. id,
+                                                                   plant_health_attribute_dto.upper_required_value,
+                                                                   plant_health_attribute_dto.lower_required_value,
+                                                                   plant_health_attribute_dto.unit_measurement_id,
+                                                                   plant_health_attribute_dto.plant_id,
+                                                                   plant_health_attribute_dto.health_attribute_id))
+    return health_attribute_models
 
 def postPlantHealthAttribute(upper_required_value, lower_required_value, unit_measurement_id, plant_id,
                              health_attribute_id):

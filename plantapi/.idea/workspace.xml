@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="08eb5d7d-0719-496d-9baa-05a39d98b307" name="Changes" comment="plant health attribute dto, models, services and dataprovider set up">
+    <list default="true" id="08eb5d7d-0719-496d-9baa-05a39d98b307" name="Changes" comment="plant_health_attribute table set up">
+      <change afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/notification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blueprints/data_provider/notification_data_provider/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/unit_measurements/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blueprints/models/notifications/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blueprints/services/notification_service/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blueprints/swagger_models/unit_measurements/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blueprints/validations/plant_health_attribute_validation/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/health_attribute.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/health_attribute.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/plant.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/plant.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/plant_health_attribute.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/plant_health_attribute.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/unit_measurement.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/unit_measurement.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/user_accounts.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/user_accounts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/data_provider/engine/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/engine/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/data_provider/plant_health_attribute_data_provider/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/plant_health_attribute_data_provider/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/data_provider/sensor_data_provider/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/sensor_data_provider/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/documented_endpoints/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/models/rooms/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/rooms/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/models/plant_health_attributes/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/plant_health_attributes/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/models/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/plants/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/services/plant_health_attribute_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/plant_health_attribute_service/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/services/plant_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/plant_service/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/swagger_models/health_attributes/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/swagger_models/health_attributes/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/swagger_models/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/swagger_models/plants/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -102,7 +115,7 @@
       <option name="presentableId" value="Default" />
       <updated>1657185366903</updated>
       <workItem from="1657185369082" duration="43490000" />
-      <workItem from="1657539556280" duration="199033000" />
+      <workItem from="1657539556280" duration="220914000" />
     </task>
     <task id="LOCAL-00001" summary="2nd API upload">
       <created>1657622297621</created>
@@ -160,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658247881476</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="plant_health_attribute table set up">
+      <created>1658310683919</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1658310683921</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,14 +205,15 @@
     <MESSAGE value="user_account progress" />
     <MESSAGE value="user_account &amp; sensor endpoints complete" />
     <MESSAGE value="plant health attribute dto, models, services and dataprovider set up" />
-    <option name="LAST_COMMIT_MESSAGE" value="plant health attribute dto, models, services and dataprovider set up" />
+    <MESSAGE value="plant_health_attribute table set up" />
+    <option name="LAST_COMMIT_MESSAGE" value="plant_health_attribute table set up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py</url>
-          <line>38</line>
+          <line>39</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -202,7 +223,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py</url>
-          <line>40</line>
+          <line>41</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -305,6 +326,26 @@
           <line>28</line>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/models/sensors/__init__.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/services/plant_service/__init__.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/models/plants/__init__.py</url>
+          <line>40</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -316,6 +357,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/plantapi$main.coverage" NAME="main Coverage Results" MODIFIED="1658310295902" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/plantapi$main.coverage" NAME="main Coverage Results" MODIFIED="1658334724139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -26,3 +26,12 @@ def deletePlantById(id):
 def updatePlantById(plant_id, new_name, new_room_id):
     update_plant = updatePlantDtoById(plant_id, new_name, new_room_id)
     return update_plant
+
+
+def getPlantHealthAttributesByPlantId(plant_id):
+
+    plantDto = getPlantDtoById(plant_id)
+    return make_plant_with_plant_health_attribute_list(plantDto.id, plantDto.name, plantDto.room_id,
+                                                       plantDto.plant_health_attributes)
+
+

@@ -24,4 +24,3 @@ class Plant(Base):
 
     def __repr__(self):
         return f"Plant(plant_id={self.id!r}, name={self.name!r}, room_id={self.room_id!r})"
-
