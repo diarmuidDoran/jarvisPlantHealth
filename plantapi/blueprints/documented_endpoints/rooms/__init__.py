@@ -1,5 +1,6 @@
 # blueprints/documented_endpoints/rooms/__init__.py
 from http import HTTPStatus
+from flask import request
 from flask_restx import Resource
 from markupsafe import escape
 from blueprints.services.room_service import *

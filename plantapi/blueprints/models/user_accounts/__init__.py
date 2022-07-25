@@ -22,13 +22,12 @@ class User_Account(object):
 class User_Account_Plants(object):
     id = 0
     user_name = ""
-    plants = getPlants()
+    plants = []
 
     # The class "constructor" - an initializer
     def __init__(self, id, user_name, plants):
         self.id = id
         self.user_name = user_name
-
         self.plants = plants
 
 

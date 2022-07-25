@@ -15,7 +15,7 @@ class Plant_Health_Attribute(Base):
     plants_c = relationship("Plant", back_populates="plant_health_attributes")
     health_attributes = relationship("Health_Attribute", back_populates="plant_health_attributes_b")
     unit_measurements = relationship("Unit_Measurement", back_populates="plant_health_attributes_c")
-    # notifications_b = relationship("Notification", back_populates="plant_health_attributes_d")
+    notifications = relationship("Notification", back_populates="plant_health_attributes_d")
 
     def __init__(self, upper_required_value, lower_required_value, unit_measurement_id, plant_id, health_attribute_id):
         self.upper_required_value = upper_required_value

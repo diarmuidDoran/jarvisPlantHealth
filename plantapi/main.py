@@ -9,6 +9,7 @@ from blueprints.documented_endpoints import blueprint as documented_endpoint
 app = Flask(__name__)
 api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = postgresConn
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 jarvis_db = SQLAlchemy(app)
 jarvis_db.init_app(app)
 #migrate = Migrate(app.py, jarvis_db)

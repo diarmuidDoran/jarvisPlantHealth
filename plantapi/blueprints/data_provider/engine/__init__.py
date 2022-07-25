@@ -17,4 +17,4 @@ from blueprints.data_provider.dtos.unit_measurement import Unit_Measurement
 from blueprints.data_provider.dtos.user_accounts import User_Account, plant_user_table
 from blueprints.data_provider.dtos.sensor import Sensor
 from blueprints.data_provider.dtos.sensor_reading import Sensor_Reading
-# from blueprints.data_provider.dtos.notification import Notification
+from blueprints.data_provider.dtos.notification import Notification

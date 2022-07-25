@@ -14,7 +14,7 @@ class Room(object):
 class Room_Plants(object):
     id = 0
     name = ""
-    plants = getPlants()
+    plants = []
 
     # The class "constructor" - an initializer
     def __init__(self, id, name, plants):

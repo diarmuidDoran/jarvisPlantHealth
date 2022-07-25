@@ -93,7 +93,6 @@ class plant_health_attributes(Resource):
         """List with all a specific plants health attributes"""
         plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
 
-        print(plant_health_attribute_list.plant_health_attribute_list)
         return plant_health_attribute_list
 
     @namespacePlant.response(400, 'Plant with the given name already exists')
@@ -112,7 +111,7 @@ class plant_health_attributes(Resource):
         if plant_health_attribute_is_valid(health_attribute_id) is not True:
             namespacePlant.abort(400, 'Plant health attribute already exists')
         add_plant_health_attribute = postPlantHealthAttribute(upper_required_value, lower_required_value,
-                                                              unit_measurement_id, plant_id)
+                                                              unit_measurement_id, plant_id, health_attribute_id)
         return add_plant_health_attribute, 201
 
 

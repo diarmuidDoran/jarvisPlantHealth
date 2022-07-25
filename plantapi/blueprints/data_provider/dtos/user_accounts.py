@@ -19,7 +19,6 @@ class User_Account(Base):
     password = Column('password', String(255))
 
     plants_b = relationship("Plant", secondary=plant_user_table, back_populates="users")
-    #notifications = relationship("Notification", back_populates="users_b")
 
     def __init__(self, user_name, first_name, last_name, email, password):
         self.user_name = user_name

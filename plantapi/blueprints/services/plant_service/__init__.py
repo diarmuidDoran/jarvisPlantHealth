@@ -41,6 +41,7 @@ def getPlantHealthAttributesByPlantId(plant_id):
                                                                           plantHealthAttributeDto.unit_measurement_id,
                                                                           plantHealthAttributeDto.plant_id,
                                                                           plantHealthAttributeDto.health_attribute_id))
+
     return make_plant_with_plant_health_attribute_list(plantDto.id, plantDto.name, plantDto.room_id,
                                                        plantHealthAttributeModels)
 

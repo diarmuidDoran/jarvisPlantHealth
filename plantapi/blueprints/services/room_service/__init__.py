@@ -1,4 +1,5 @@
 from blueprints.data_provider.room_data_provider import *
+from blueprints.models.plants import make_plant
 from blueprints.models.rooms import *
 
 def getRooms():
@@ -14,9 +15,13 @@ def postRoom(name):
 
 def getRoomById(id):
     roomDto = getRoomDtoById(id)
+    roomPlantModels = []
+    for roomPlantDto in getPlants():
+        if roomPlantDto.room_id == id:
+            roomPlantModels.append(make_plant(roomPlantDto.id, roomPlantDto.name, roomPlantDto.room_id))
     return make_room_with_plant_list(roomDto.id,
                      roomDto.name,
-                     roomDto.plants)
+                     roomPlantModels)
 
 
 def deleteRoomById(id):

@@ -1,4 +1,5 @@
 from blueprints.data_provider.user_account_data_provider import *
+from blueprints.models.plants import make_plant
 from blueprints.models.user_accounts import *
 
 
@@ -25,9 +26,13 @@ def getUserAccountById(id):
 
 def getUserAccountPlantsById(id):
     user_account_dto = getUserAccountDtoById(id)
+    userPlantModels = []
+    for userPlantDto in getPlants():
+        if userPlantDto.room_id == id:
+            userPlantModels.append(make_plant(userPlantDto.id, userPlantDto.name, userPlantDto.room_id))
     return make_user_account_with_plant_list(user_account_dto.id,
                                              user_account_dto.user_name,
-                                             user_account_dto.plants_b)
+                                             userPlantModels)
 
 
 def deleteUserAccountById(id):
