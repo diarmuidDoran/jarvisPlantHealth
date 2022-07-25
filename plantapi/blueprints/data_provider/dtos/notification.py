@@ -9,7 +9,6 @@ class Notification(Base):
     id = Column('id', Integer, primary_key=True)
     notification_details = Column('notification_details', String(255))
     time_stamp = Column('time_stamp', DateTime(), default=datetime.utcnow())
-    user_account_id = Column('user_account_id', Integer, ForeignKey("user_account.id"), nullable=False)
     plant_health_attribute_id = Column('plant_health_attribute_id', Integer, ForeignKey("plant_health_attribute.id"),
                                        nullable=False)
 

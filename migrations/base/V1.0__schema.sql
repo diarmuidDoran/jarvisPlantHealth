@@ -98,16 +98,12 @@ CREATE TABLE IF NOT EXISTS plant_user
         REFERENCES user_account(id)
 );
 
-CREATE TABLE IF NOT EXISTS notifications
+CREATE TABLE IF NOT EXISTS notification
 (
     id serial PRIMARY KEY,
     notification_details text NOT NULL,
     time_stamp TIMESTAMP NOT NULL,
-    user_id INT NOT NULL,
     plant_health_attribute_id INT NOT NULL,
-    CONSTRAINT fk_user_user_account_id_b
-        FOREIGN KEY(user_id)
-        REFERENCES user_account(id),
     CONSTRAINT fk_plant_health_attribute_plant_health_attribute_id_b
         FOREIGN KEY(plant_health_attribute_id)
         REFERENCES plant_health_attribute(id)

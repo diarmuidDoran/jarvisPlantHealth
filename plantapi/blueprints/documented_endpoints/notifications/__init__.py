@@ -3,6 +3,7 @@ from flask import request
 from flask_restx import Resource
 from http import HTTPStatus
 
+from blueprints.services.notification_service import getNotifications
 from blueprints.swagger_models.notifications import namespaceNotify, notification_model, notification_list_model
 
 notification_example = {'id': 1, 'notification_details': 'Notification details',
@@ -19,12 +20,8 @@ class notifications(Resource):
     @namespaceNotify.marshal_list_with(notification_model)
     def get(self):
         """List with all the notifications"""
-        notification_list = [notification_example]
-
-        return {
-            'notifications': notification_list,
-            'total_records': len(notification_list)
-        }
+        notification = getNotifications()
+        return notification
 
     @namespaceNotify.response(400, 'Notification with the given name already exists')
     @namespaceNotify.response(500, 'Internal Server error')

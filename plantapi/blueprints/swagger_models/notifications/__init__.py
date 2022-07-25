@@ -16,10 +16,6 @@ notification_model = namespaceNotify.model('Notification', {
         required=True,
         description='Time notification was issued'
     ),
-    'user_account_id': fields.Integer(
-        required=True,
-        description='User_account identifier'
-    ),
     'plant_health_attribute_id': fields.Integer(
         required=True,
         description='User_account identifier'

@@ -57,9 +57,9 @@ VALUES
     (10.00, 5.00, 1, 1, 1),
     (14.00, 2.00, 2, 1, 2);
 
-INSERT INTO notifications (notification_details, time_stamp, user_id, plant_health_attribute_id)
+INSERT INTO notification (notification_details, time_stamp, plant_health_attribute_id)
 VALUES 
-    ('Not enough water', '2022-07-21 09:10:00', 1, 1);
+    ('Not enough water', '2022-07-21 09:10:00', 1);
 
 
 INSERT INTO sensor_plant_health_attribute (plant_health_attribute_id, sensor_id)

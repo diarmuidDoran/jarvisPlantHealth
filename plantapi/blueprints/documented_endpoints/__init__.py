@@ -5,9 +5,9 @@ from blueprints.documented_endpoints.plants import namespacePlant as plants_ns
 from blueprints.documented_endpoints.health_attributes import namespaceHealthAttribute as health_attributes_ns
 from blueprints.documented_endpoints.rooms import namespaceRoom as rooms_ns
 from blueprints.documented_endpoints.user_accounts import namespaceUser as users_ns
-from blueprints.documented_endpoints.notifications import namespaceNotify as notifications_ns
 from blueprints.documented_endpoints.sensors import namespaceSensor as sensors_ns
 from blueprints.documented_endpoints.unit_measurements import namespaceUnitMeasurement as unit_measurement_ns
+from blueprints.documented_endpoints.notifications import namespaceNotify as notifications_ns
 
 blueprint = Blueprint('documented_api', __name__, url_prefix='/documented_api')
 
