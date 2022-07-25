@@ -17,7 +17,7 @@ class Plant_Plant_Health_Attribute(object):
     id = 0
     name = ""
     room_id = 0
-    plant_health_attribute_list = getPlantHealthAttributes()
+    plant_health_attribute_list = []
 
     # The class "constructor" - an initializer
     def __init__(self, id, name, room_id, plant_health_attribute_list):

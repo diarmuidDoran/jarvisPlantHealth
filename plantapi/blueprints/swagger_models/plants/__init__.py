@@ -62,7 +62,7 @@ plant_plant_health_attribute_list_model = namespacePlant.model('PlantHealthAttri
         plant_health_attribute_model,
         description='List of plants health attributes',
         as_list=True
-    ),
+    )
 })
 
 plant_list_model = namespacePlant.model('PlantList', {

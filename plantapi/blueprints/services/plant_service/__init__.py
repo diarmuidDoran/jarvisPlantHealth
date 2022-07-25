@@ -1,6 +1,7 @@
 from blueprints.data_provider.plant_data_provider import *
+from blueprints.data_provider.plant_health_attribute_data_provider import *
 from blueprints.models.plants import *
-
+from blueprints.models.plant_health_attributes import *
 
 def getPlants():
     plantModels = []
@@ -31,7 +32,25 @@ def updatePlantById(plant_id, new_name, new_room_id):
 def getPlantHealthAttributesByPlantId(plant_id):
 
     plantDto = getPlantDtoById(plant_id)
+    plantHealthAttributeModels = []
+    for plantHealthAttributeDto in getPlantHelathAttributeDtos():
+        if plantHealthAttributeDto.plant_id == plant_id:
+            plantHealthAttributeModels.append(make_plant_health_attribute(plantHealthAttributeDto.id,
+                                                                          plantHealthAttributeDto.upper_required_value,
+                                                                          plantHealthAttributeDto.lower_required_value,
+                                                                          plantHealthAttributeDto.unit_measurement_id,
+                                                                          plantHealthAttributeDto.plant_id,
+                                                                          plantHealthAttributeDto.health_attribute_id))
     return make_plant_with_plant_health_attribute_list(plantDto.id, plantDto.name, plantDto.room_id,
-                                                       plantDto.plant_health_attributes)
+                                                       plantHealthAttributeModels)
 
 
+def getPlantHealthAttributesById(plant_health_attribute_id):
+
+    plantHealthAttributeDto = getPlantHealthAttributeDtoById(plant_health_attribute_id)
+
+    return make_plant_health_attribute(plantHealthAttributeDto.id, plantHealthAttributeDto.upper_required_value,
+                                       plantHealthAttributeDto.lower_required_value,
+                                       plantHealthAttributeDto.unit_measurement_id,
+                                       plantHealthAttributeDto.plant_id,
+                                       plantHealthAttributeDto.health_attribute_id)

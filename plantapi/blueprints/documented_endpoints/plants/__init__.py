@@ -93,6 +93,7 @@ class plant_health_attributes(Resource):
         """List with all a specific plants health attributes"""
         plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
 
+        print(plant_health_attribute_list.plant_health_attribute_list)
         return plant_health_attribute_list
 
     @namespacePlant.response(400, 'Plant with the given name already exists')
@@ -125,8 +126,13 @@ class plant_health_attribute(Resource):
     @namespacePlant.marshal_with(plant_health_attribute_model)
     def get(self, plant_id, plant_health_attribute_id):
         """Get plant_example information"""
+        plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
+        plant_health_attribute = getPlantHealthAttributesById(plant_health_attribute_id)
 
-        return plant_example
+        # if plant_health_attribute_list.plant_health_attributes.id == plant_health_attribute.id:
+        #     namespacePlant.abort(400, 'Plant health attribute is not associated to this plant')
+
+        return plant_health_attribute
 
     @namespacePlant.response(400, 'Plant with the given name already exists')
     @namespacePlant.response(404, 'Plant not found')
