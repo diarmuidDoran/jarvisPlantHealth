@@ -4,7 +4,7 @@ from flask_restx import Namespace, fields
 namespaceNotify = Namespace('notifications', 'notification endpoints')
 
 notification_model = namespaceNotify.model('Notification', {
-    'notification_id': fields.Integer(
+    'id': fields.Integer(
         readonly=True,
         description='Notification identifier'
     ),

@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08eb5d7d-0719-496d-9baa-05a39d98b307" name="Changes" comment="plant_health_attribute table progress">
-      <change beforePath="$PROJECT_DIR$/../migrations/base/V1.0__schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../migrations/base/V1.0__schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../migrations/local-data-seed/V1.1__insert.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../migrations/local-data-seed/V1.1__insert.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/notification.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/notification.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/documented_endpoints/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/documented_endpoints/notifications/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/notifications/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/swagger_models/notifications/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/swagger_models/notifications/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/models/notifications/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/notifications/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/services/notification_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/notification_service/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +117,7 @@
       <option name="presentableId" value="Default" />
       <updated>1657185366903</updated>
       <workItem from="1657185369082" duration="43490000" />
-      <workItem from="1657539556280" duration="249607000" />
+      <workItem from="1657539556280" duration="252066000" />
     </task>
     <task id="LOCAL-00001" summary="2nd API upload">
       <created>1657622297621</created>
@@ -382,6 +380,21 @@
           <line>36</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/services/notification_service/__init__.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="98" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/models/notifications/__init__.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/notifications/__init__.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -398,7 +411,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/plantapi$main.coverage" NAME="main Coverage Results" MODIFIED="1658765850876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/plantapi$main.coverage" NAME="main Coverage Results" MODIFIED="1658768397888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/plantapi$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1658746793151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

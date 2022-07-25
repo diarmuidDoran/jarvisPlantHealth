@@ -21,6 +21,6 @@ def addNotificationDto(notification_details, time_stamp, user_account_id, plant_
     return new_notification
 
 
-def getPlantDtoById(notification_id):
+def getNotificationDtoById(notification_id):
 
     return session.query(Notification).get(notification_id)

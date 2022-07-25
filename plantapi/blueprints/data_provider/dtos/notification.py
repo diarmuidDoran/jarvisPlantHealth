@@ -14,10 +14,9 @@ class Notification(Base):
 
     plant_health_attributes_d = relationship("Plant_Health_Attribute", back_populates="notifications")
 
-    def __init__(self, notification_details, time_stamp, user_account_id, plant_health_attribute_id):
+    def __init__(self, notification_details, time_stamp, plant_health_attribute_id):
         self.notification_details = notification_details
         self.time_stamp = time_stamp
-        self.user_account_id = user_account_id
         self.plant_health_attribute_id = plant_health_attribute_id
 
     def __repr__(self):
