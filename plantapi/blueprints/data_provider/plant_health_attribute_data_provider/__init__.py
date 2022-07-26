@@ -30,12 +30,10 @@ def getPlantHealthAttributeDtoById(plant_health_attribute_id):
 
 def deletePlantHealthAttributeDtoById(plant_id, plant_health_attribute_id):
     plant_health_attribute = getPlantHealthAttributeDtoById(plant_health_attribute_id)
-    if plant_health_attribute.plant_id == plant_id:
-        session.delete(plant_health_attribute)
-        session.commit()
-        return {'Plant Health Attribute deleted'}
 
-    return {}
+    session.delete(plant_health_attribute)
+    session.commit()
+    return {'Plant Health Attribute deleted'}
 
 
 def updatePlantHealthAttributeDtoById(plant_health_attribute_id, upper_required_value, lower_required_value,

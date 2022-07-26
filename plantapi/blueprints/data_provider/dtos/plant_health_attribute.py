@@ -1,7 +1,13 @@
-from sqlalchemy import Column, Integer, ForeignKey, DECIMAL
+from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, Table
 from sqlalchemy.orm import relationship
 from blueprints.data_provider.engine import Base
 
+sensor_plant_health_attribute_table = Table(
+    "sensor_plant_health_attribute",
+    Base.metadata,
+    Column("plant_health_attribute_id", ForeignKey("plant_health_attribute.id"), primary_key=True),
+    Column("sensor_id", ForeignKey("sensor.id"), primary_key=True)
+)
 
 class Plant_Health_Attribute(Base):
     __tablename__ = "plant_health_attribute"
@@ -16,6 +22,9 @@ class Plant_Health_Attribute(Base):
     health_attributes = relationship("Health_Attribute", back_populates="plant_health_attributes_b")
     unit_measurements = relationship("Unit_Measurement", back_populates="plant_health_attributes_c")
     notifications = relationship("Notification", back_populates="plant_health_attributes_d")
+
+    sensor_b = relationship("Sensor", secondary=sensor_plant_health_attribute_table,
+                            back_populates="plant_health_attributes_d")
 
     def __init__(self, upper_required_value, lower_required_value, unit_measurement_id, plant_id, health_attribute_id):
         self.upper_required_value = upper_required_value

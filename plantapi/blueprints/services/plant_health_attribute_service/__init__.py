@@ -30,6 +30,7 @@ def getPlantHealthAttributeById(plant_health_attribute_id, plant_id):
 
 
 def deletePlantHealthAttributeById(plant_id, plant_health_attribute_id):
+    #delete_plant_health_attribute = deletePlantHealthAttributeDtoById(plant_id, plant_health_attribute_id)
     delete_plant_health_attribute = deletePlantHealthAttributeDtoById(plant_id, plant_health_attribute_id)
     return delete_plant_health_attribute
 

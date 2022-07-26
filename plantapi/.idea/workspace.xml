@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="08eb5d7d-0719-496d-9baa-05a39d98b307" name="Changes" comment="notification table amended documented endpoints added">
-      <change afterPath="$PROJECT_DIR$/blueprints/validations/notification_validation/__init__.py" afterDir="false" />
+    <list default="true" id="08eb5d7d-0719-496d-9baa-05a39d98b307" name="Changes" comment="notification table amended, documented endpoints added, plant_health_attributes endpoints (except the delete endpoint) finished">
+      <change afterPath="$PROJECT_DIR$/tests/room_service_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/plant_health_attribute.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/plant_health_attribute.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/sensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/data_provider/plant_health_attribute_data_provider/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/plant_health_attribute_data_provider/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/documented_endpoints/notifications/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/notifications/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/models/plant_health_attributes/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/plant_health_attributes/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/models/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/plants/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/models/user_accounts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/user_accounts/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/services/plant_health_attribute_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/plant_health_attribute_service/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/services/plant_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/plant_service/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/services/user_account_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/user_account_service/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/swagger_models/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/swagger_models/plants/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/validations/plant_health_attribute_validation/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/validations/plant_health_attribute_validation/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit_measurement_service_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit_measurement_service_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +119,7 @@
       <option name="presentableId" value="Default" />
       <updated>1657185366903</updated>
       <workItem from="1657185369082" duration="43490000" />
-      <workItem from="1657539556280" duration="267713000" />
+      <workItem from="1657539556280" duration="272466000" />
     </task>
     <task id="LOCAL-00001" summary="2nd API upload">
       <created>1657622297621</created>
@@ -218,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658770269569</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="notification table amended, documented endpoints added, plant_health_attributes endpoints (except the delete endpoint) finished">
+      <created>1658846224834</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1658846224836</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,7 +247,8 @@
     <MESSAGE value="plant_health_attribute table set up" />
     <MESSAGE value="plant_health_attribute table progress" />
     <MESSAGE value="notification table amended documented endpoints added" />
-    <option name="LAST_COMMIT_MESSAGE" value="notification table amended documented endpoints added" />
+    <MESSAGE value="notification table amended, documented endpoints added, plant_health_attributes endpoints (except the delete endpoint) finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="notification table amended, documented endpoints added, plant_health_attributes endpoints (except the delete endpoint) finished" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -411,6 +413,26 @@
           <line>20</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/unit_measurement_service_test.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py</url>
+          <line>173</line>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/services/plant_health_attribute_service/__init__.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/data_provider/plant_health_attribute_data_provider/__init__.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -427,7 +449,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/plantapi$main.coverage" NAME="main Coverage Results" MODIFIED="1658845811386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/plantapi$main.coverage" NAME="main Coverage Results" MODIFIED="1658852211521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/plantapi$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1658746793151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
