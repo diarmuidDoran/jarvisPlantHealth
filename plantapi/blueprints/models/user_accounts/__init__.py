@@ -1,6 +1,3 @@
-from blueprints.services.plant_service import getPlants
-
-
 class User_Account(object):
     id = 0
     user_name = ""

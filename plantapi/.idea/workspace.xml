@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="08eb5d7d-0719-496d-9baa-05a39d98b307" name="Changes" comment="plant_health_attribute table progress">
+    <list default="true" id="08eb5d7d-0719-496d-9baa-05a39d98b307" name="Changes" comment="notification table amended documented endpoints added">
+      <change afterPath="$PROJECT_DIR$/blueprints/validations/notification_validation/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/data_provider/dtos/notification.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/dtos/notification.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/data_provider/plant_health_attribute_data_provider/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/data_provider/plant_health_attribute_data_provider/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/documented_endpoints/notifications/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/notifications/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/models/notifications/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/notifications/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/services/notification_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/notification_service/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/models/plant_health_attributes/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/plant_health_attributes/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/models/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/plants/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/models/user_accounts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/models/user_accounts/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/services/plant_health_attribute_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/plant_health_attribute_service/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/services/plant_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/plant_service/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/services/user_account_service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/services/user_account_service/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/swagger_models/plants/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/swagger_models/plants/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/validations/plant_health_attribute_validation/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/validations/plant_health_attribute_validation/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +125,7 @@
       <option name="presentableId" value="Default" />
       <updated>1657185366903</updated>
       <workItem from="1657185369082" duration="43490000" />
-      <workItem from="1657539556280" duration="252066000" />
+      <workItem from="1657539556280" duration="267713000" />
     </task>
     <task id="LOCAL-00001" summary="2nd API upload">
       <created>1657622297621</created>
@@ -203,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658762194225</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="notification table amended documented endpoints added">
+      <created>1658770269569</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1658770269569</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,14 +245,15 @@
     <MESSAGE value="plant health attribute dto, models, services and dataprovider set up" />
     <MESSAGE value="plant_health_attribute table set up" />
     <MESSAGE value="plant_health_attribute table progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="plant_health_attribute table progress" />
+    <MESSAGE value="notification table amended documented endpoints added" />
+    <option name="LAST_COMMIT_MESSAGE" value="notification table amended documented endpoints added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py</url>
-          <line>39</line>
+          <line>41</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -247,7 +263,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py</url>
-          <line>41</line>
+          <line>43</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -267,17 +283,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/models/user_accounts/__init__.py</url>
-          <line>38</line>
+          <line>35</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/models/user_accounts/__init__.py</url>
-          <line>33</line>
+          <line>30</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/models/user_accounts/__init__.py</url>
-          <line>43</line>
+          <line>40</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -327,7 +343,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/services/user_account_service/__init__.py</url>
-          <line>16</line>
+          <line>15</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -357,12 +373,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/plants/__init__.py</url>
-          <line>95</line>
+          <line>98</line>
           <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/services/plant_service/__init__.py</url>
-          <line>44</line>
+          <line>36</line>
           <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -376,24 +392,24 @@
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/blueprints/services/plant_service/__init__.py</url>
-          <line>36</line>
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/blueprints/services/notification_service/__init__.py</url>
-          <line>6</line>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/models/notifications/__init__.py</url>
           <line>13</line>
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/blueprints/documented_endpoints/notifications/__init__.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="100" />
+          <line>42</line>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/services/notification_service/__init__.py</url>
+          <line>15</line>
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blueprints/data_provider/notification_data_provider/__init__.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="104" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -411,7 +427,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/plantapi$main.coverage" NAME="main Coverage Results" MODIFIED="1658768397888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/plantapi$main.coverage" NAME="main Coverage Results" MODIFIED="1658845811386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/plantapi$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1658746793151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

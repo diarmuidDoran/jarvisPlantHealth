@@ -12,9 +12,9 @@ def getNotificationDtos():
     return session.scalars(stmt)
 
 
-def addNotificationDto(notification_details, time_stamp, user_account_id, plant_health_attribute_id):
+def addNotificationDto(notification_details, time_stamp, plant_health_attribute_id):
 
-    new_notification = Notification(notification_details, time_stamp, user_account_id, plant_health_attribute_id)
+    new_notification = Notification(notification_details, time_stamp, plant_health_attribute_id)
 
     session.add(new_notification)
     session.commit()

@@ -2,6 +2,8 @@
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
+from pyparsing import empty
+from sqlalchemy import null
 
 from blueprints.services.plant_service import *
 from blueprints.services.plant_health_attribute_service import *
@@ -40,6 +42,7 @@ class plants(Resource):
         if plant_is_valid(name) is not True:
             namespacePlant.abort(400, 'Plant with the given name already exists')
         add_plant = postPlant(name, room_id)
+
         return add_plant, 201
 
 
@@ -91,9 +94,9 @@ class plant_health_attributes(Resource):
     @namespacePlant.marshal_with(plant_plant_health_attribute_list_model)
     def get(self, plant_id):
         """List with all a specific plants health attributes"""
-        plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
+        plants_plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
 
-        return plant_health_attribute_list
+        return plants_plant_health_attribute_list
 
     @namespacePlant.response(400, 'Plant with the given name already exists')
     @namespacePlant.response(500, 'Internal Server error')
@@ -104,12 +107,13 @@ class plant_health_attributes(Resource):
         data = request.get_json()
         upper_required_value = data.get('upper_required_value')
         lower_required_value = data.get('lower_required_value')
-        unit_measurement_id = data.get('unit_measurement')
-        plant_id = data.get(plant_id)
+        unit_measurement_id = data.get('unit_measurement_id')
+        plant_id = plant_id
         health_attribute_id = data.get('health_attribute_id')
 
-        if plant_health_attribute_is_valid(health_attribute_id) is not True:
+        if plant_health_attribute_is_valid(plant_id, health_attribute_id) is not True:
             namespacePlant.abort(400, 'Plant health attribute already exists')
+
         add_plant_health_attribute = postPlantHealthAttribute(upper_required_value, lower_required_value,
                                                               unit_measurement_id, plant_id, health_attribute_id)
         return add_plant_health_attribute, 201
@@ -120,31 +124,44 @@ class plant_health_attribute(Resource):
 
     """Read, update and delete a specific plant health attribute"""
 
-    @namespacePlant.response(404, 'Plant not found')
+    @namespacePlant.response(404, 'Plant health attribute not found')
     @namespacePlant.response(500, 'Internal Server error')
     @namespacePlant.marshal_with(plant_health_attribute_model)
     def get(self, plant_id, plant_health_attribute_id):
-        """Get plant_example information"""
-        plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
-        plant_health_attribute = getPlantHealthAttributesById(plant_health_attribute_id)
+        """Get specific plant health attribute information"""
+        plant_health_attribute = {}
+        for plantHealthAttributes in getPlantHealthAttributes():
+            if (plantHealthAttributes.plant_id == plant_id) and (plantHealthAttributes.id == plant_health_attribute_id):
+                plant_health_attribute = getPlantHealthAttributesById(plant_health_attribute_id)
 
-        # if plant_health_attribute_list.plant_health_attributes.id == plant_health_attribute.id:
-        #     namespacePlant.abort(400, 'Plant health attribute is not associated to this plant')
+        if plant_health_attribute:
+            return plant_health_attribute, 201
+        else:
+            namespacePlant.abort(400, 'This specific plant health attribute is not associated to this plant '
+                                      'or does not yet exist')
 
-        return plant_health_attribute
-
-    @namespacePlant.response(400, 'Plant with the given name already exists')
-    @namespacePlant.response(404, 'Plant not found')
+    @namespacePlant.response(404, 'Plant health attribute not found')
     @namespacePlant.response(500, 'Internal Server error')
     @namespacePlant.expect(plant_health_attribute_model, validate=True)
     @namespacePlant.marshal_with(plant_health_attribute_model)
     def put(self, plant_id, plant_health_attribute_id):
         """Update specific plant health attribute information"""
 
-        if request.json['name'] == 'Plant name':
-            namespacePlant.abort(400, 'Plant with the given name already exists')
+        data = request.get_json()
+        upper_required_value = data.get('upper_required_value')
+        lower_required_value = data.get('lower_required_value')
+        unit_measurement_id = data.get('unit_measurement_id')
+        plant_id = plant_id
+        health_attribute_id = data.get('health_attribute_id')
 
-        return plant_example
+        if plant_health_attribute_is_valid(plant_id, health_attribute_id) is not True:
+            updated_plant = updatePlantHealthAttributeById(plant_health_attribute_id, upper_required_value,
+                                                           lower_required_value, unit_measurement_id, plant_id,
+                                                           health_attribute_id)
+        else:
+            namespacePlant.abort(404, 'Plant health attribute not found')
+
+        return updated_plant
 
     @namespacePlant.response(204, 'Request Success (No Content)')
     @namespacePlant.response(404, 'Entity not found')
@@ -152,6 +169,8 @@ class plant_health_attribute(Resource):
     def delete(self, plant_id, plant_health_attribute_id):
         """Delete a specific plant entity"""
 
-        return '', 204
-
-
+        delete_plant_health_attribute = deletePlantHealthAttributeById(plant_id, plant_health_attribute_id)
+        if delete_plant_health_attribute:
+            return 'delete_plant_health_attribute', 204
+        else:
+            namespacePlant.response(404, 'Entity not found')

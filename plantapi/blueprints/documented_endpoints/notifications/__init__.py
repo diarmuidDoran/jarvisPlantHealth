@@ -3,8 +3,9 @@ from flask import request
 from flask_restx import Resource
 from http import HTTPStatus
 
-from blueprints.services.notification_service import getNotifications, getNotificationById
+from blueprints.services.notification_service import getNotifications, getNotificationById, postNotification
 from blueprints.swagger_models.notifications import namespaceNotify, notification_model
+from blueprints.validations.notification_validation import notification_is_valid
 
 notification_example = {'id': 1, 'notification_details': 'Notification details',
                         'timestamp': ("08/07/22 09:00", "%d/%m/%y %H:%M"), 'user_account_id': 1,
@@ -29,11 +30,17 @@ class notifications(Resource):
     @namespaceNotify.marshal_with(notification_model, code=HTTPStatus.CREATED)
     def post(self):
         """Create a new notification"""
+        data = request.get_json()
+        notification_details = data.get('notification_details')
+        time_stamp = data.get('time_stamp')
+        plant_health_attribute_id = data.get('plant_health_attribute_id')
 
-        if request.json['name'] == 'Notification name':
+        if notification_is_valid(notification_details, time_stamp) is not True:
             namespaceNotify.abort(400, 'Notification with the given name already exists')
 
-        return notification_example, 201
+        add_notification = postNotification(notification_details, time_stamp, plant_health_attribute_id)
+
+        return add_notification, 201
 
 
 @namespaceNotify.route('/<int:notification_id>')

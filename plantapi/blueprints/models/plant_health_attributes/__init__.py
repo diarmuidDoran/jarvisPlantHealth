@@ -7,7 +7,8 @@ class Plant_Health_Attribute(object):
     health_attribute_id = 0
 
     # The class "constructor" - an initializer
-    def __init__(self, id, upper_required_value, lower_required_value, unit_measurement_id, plant_id, health_attribute_id):
+    def __init__(self, id, upper_required_value, lower_required_value, unit_measurement_id, plant_id,
+                 health_attribute_id):
         self.id = id
         self.upper_required_value = upper_required_value
         self.lower_required_value = lower_required_value

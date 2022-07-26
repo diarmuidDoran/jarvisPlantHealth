@@ -17,14 +17,14 @@ class Plant_Plant_Health_Attribute(object):
     id = 0
     name = ""
     room_id = 0
-    plant_health_attribute_list = []
+    plant_health_attributes = []
 
     # The class "constructor" - an initializer
-    def __init__(self, id, name, room_id, plant_health_attribute_list):
+    def __init__(self, id, name, room_id, plant_health_attributes):
         self.id = id
         self.name = name
         self.room_id = room_id
-        self.plant_health_attribute_list = plant_health_attribute_list
+        self.plant_health_attributes = plant_health_attributes
 
 
 def make_plant(id, name, room_id):
