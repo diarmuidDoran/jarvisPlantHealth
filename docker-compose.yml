@@ -1,22 +1,35 @@
 version: "3"
+networks:
+  jarvis_network:
 services:
   db:
     image: postgres:latest
     restart: always
+    networks:
+      - jarvis_network
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: jarvis_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: unopassword
+      - POSTGRES_DB: jarvis_db
+      - POSTGRES_USER: postgres
+      - POSTGRES_PASSWORD: unopassword
+      - bind-address=0.0.0.0
     volumes:
       - db:/var/lib/postgresql/data
   flyway:
     image: flyway/flyway
+    networks:
+      - jarvis_network
     command: -url=jdbc:postgresql://db/jarvis_db -schemas=public -user=postgres
       -password=unopassword -connectRetries=5 migrate
     volumes:
       - ./migrations:/flyway/sql
+    depends_on:
+      - db
+  api:
+    image: jarvis_plantapi:latest
+    networks:
+      - jarvis_network
     depends_on:
       - db
 volumes:
