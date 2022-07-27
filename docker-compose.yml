@@ -10,9 +10,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB: jarvis_db
-      - POSTGRES_USER: postgres
-      - POSTGRES_PASSWORD: unopassword
+      POSTGRES_DB: jarvis_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: unopassword
     volumes:
       - db:/var/lib/postgresql/data
   flyway:
