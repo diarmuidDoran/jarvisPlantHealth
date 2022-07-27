@@ -12,9 +12,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = postgresConn
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 jarvis_db = SQLAlchemy(app)
 jarvis_db.init_app(app)
+
+
 #migrate = Migrate(app.py, jarvis_db)
-
-
 app.register_blueprint(documented_endpoint)
 
 if __name__ == "__main__":

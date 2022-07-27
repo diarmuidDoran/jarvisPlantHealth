@@ -1,8 +1,9 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from blueprints.data_provider.engine import Base
 
 from blueprints.data_provider.dtos.plant_health_attribute import sensor_plant_health_attribute_table
+
 
 class Sensor(Base):
     __tablename__ = "sensor"
@@ -15,11 +16,7 @@ class Sensor(Base):
                                    cascade="all, delete", passive_deletes=True,)
 
     plant_health_attributes_d = relationship("Plant_Health_Attribute", secondary=sensor_plant_health_attribute_table,
-<<<<<<< Updated upstream
-                                             back_populates="sensor_b", cascade="all, delete",)
-=======
                                              back_populates="sensor_b", cascade="all, delete")
->>>>>>> Stashed changes
 
     def __init__(self, sensor_name, call_frequency):
         self.sensor_name = sensor_name
