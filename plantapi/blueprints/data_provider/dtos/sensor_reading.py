@@ -10,7 +10,7 @@ class Sensor_Reading(Base):
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     sensor_reading = Column('sensor_reading', DECIMAL(precision=10, scale=2))
     time_stamp = Column('time_stamp', DateTime(), default=datetime.utcnow())
-    sensor_id = Column('sensor_id', Integer, ForeignKey("sensor.id"), nullable=False)
+    sensor_id = Column('sensor_id', Integer, ForeignKey("sensor.id", ondelete="CASCADE"), nullable=False)
 
     sensor = relationship("Sensor", back_populates="sensor_readings")
 

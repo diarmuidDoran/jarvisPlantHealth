@@ -5,8 +5,8 @@ from blueprints.data_provider.engine import Base
 plant_user_table = Table(
     "plant_user",
     Base.metadata,
-    Column("plant_id", ForeignKey("plant.id"), primary_key=True),
-    Column("user_id", ForeignKey("user_account.id"), primary_key=True)
+    Column("plant_id", ForeignKey("plant.id", ondelete="CASCADE"), primary_key=True),
+    Column("user_id", ForeignKey("user_account.id", ondelete="CASCADE"), primary_key=True)
 )
 
 class User_Account(Base):
@@ -18,7 +18,7 @@ class User_Account(Base):
     email = Column('email', String(255))
     password = Column('password', String(255))
 
-    plants_b = relationship("Plant", secondary=plant_user_table, back_populates="users")
+    plants_b = relationship("Plant", secondary=plant_user_table, back_populates="users", cascade="all, delete")
 
     def __init__(self, user_name, first_name, last_name, email, password):
         self.user_name = user_name

@@ -9,14 +9,15 @@ class Plant(Base):
     __tablename__ = "plant"
     id = Column('id', Integer, primary_key=True)
     name = Column('name', String(255))
-    room_id = Column('room_id', Integer, ForeignKey("room.id"), nullable=False)
+    room_id = Column('room_id', Integer, ForeignKey("room.id", ondelete="CASCADE"), nullable=False)
 
     room = relationship("Room",
                         back_populates="plants")
 
-    users = relationship("User_Account", secondary=plant_user_table, back_populates="plants_b")
+    users = relationship("User_Account", secondary=plant_user_table, back_populates="plants_b", passive_deletes=True)
 
-    plant_health_attributes = relationship("Plant_Health_Attribute", back_populates="plants_c")
+    plant_health_attributes = relationship("Plant_Health_Attribute", back_populates="plants_c", cascade="all, delete",
+                                           passive_deletes=True,)
 
     def __init__(self, name, room_id):
         self.name = name

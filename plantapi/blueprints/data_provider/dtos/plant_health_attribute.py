@@ -5,8 +5,8 @@ from blueprints.data_provider.engine import Base
 sensor_plant_health_attribute_table = Table(
     "sensor_plant_health_attribute",
     Base.metadata,
-    Column("plant_health_attribute_id", ForeignKey("plant_health_attribute.id"), primary_key=True),
-    Column("sensor_id", ForeignKey("sensor.id"), primary_key=True)
+    Column("plant_health_attribute_id", ForeignKey("plant_health_attribute.id", ondelete="CASCADE")),
+    Column("sensor_id", ForeignKey("sensor.id", ondelete="CASCADE"))
 )
 
 class Plant_Health_Attribute(Base):
@@ -14,17 +14,23 @@ class Plant_Health_Attribute(Base):
     id = Column('id', Integer, primary_key=True)
     upper_required_value = Column('upper_required_value', DECIMAL(precision=10, scale=2))
     lower_required_value = Column('lower_required_value', DECIMAL(precision=10, scale=2))
-    unit_measurement_id = Column('unit_measurement_id', Integer, ForeignKey("unit_measurement.id"), nullable=False)
-    plant_id = Column('plant_id', Integer, ForeignKey("plant.id"), nullable=False)
-    health_attribute_id = Column('health_attribute_id', Integer, ForeignKey("health_attribute.id"), nullable=False)
+    unit_measurement_id = Column('unit_measurement_id', Integer, ForeignKey("unit_measurement.id", ondelete="CASCADE"),
+                                 nullable=False)
+    plant_id = Column('plant_id', Integer, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False)
+    health_attribute_id = Column('health_attribute_id', Integer, ForeignKey("health_attribute.id", ondelete="CASCADE"),
+                                 nullable=False)
 
+    # child relationship connections
     plants_c = relationship("Plant", back_populates="plant_health_attributes")
     health_attributes = relationship("Health_Attribute", back_populates="plant_health_attributes_b")
     unit_measurements = relationship("Unit_Measurement", back_populates="plant_health_attributes_c")
-    notifications = relationship("Notification", back_populates="plant_health_attributes_d")
 
+    # parent relationship connections
+    notifications = relationship("Notification", back_populates="plant_health_attributes_d", cascade="all, delete",
+                                 passive_deletes=True,)
+    # many to many child relationship
     sensor_b = relationship("Sensor", secondary=sensor_plant_health_attribute_table,
-                            back_populates="plant_health_attributes_d")
+                            back_populates="plant_health_attributes_d", passive_deletes=True,)
 
     def __init__(self, upper_required_value, lower_required_value, unit_measurement_id, plant_id, health_attribute_id):
         self.upper_required_value = upper_required_value

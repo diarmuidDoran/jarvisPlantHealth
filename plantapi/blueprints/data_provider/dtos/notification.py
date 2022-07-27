@@ -9,7 +9,8 @@ class Notification(Base):
     id = Column('id', Integer, primary_key=True)
     notification_details = Column('notification_details', String(255))
     time_stamp = Column('time_stamp', DateTime(), default=datetime.utcnow())
-    plant_health_attribute_id = Column('plant_health_attribute_id', Integer, ForeignKey("plant_health_attribute.id"),
+    plant_health_attribute_id = Column('plant_health_attribute_id', Integer,
+                                       ForeignKey("plant_health_attribute.id", ondelete="CASCADE"),
                                        nullable=False)
 
     plant_health_attributes_d = relationship("Plant_Health_Attribute", back_populates="notifications")

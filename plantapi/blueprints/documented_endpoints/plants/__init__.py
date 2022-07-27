@@ -2,8 +2,6 @@
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
-from pyparsing import empty
-from sqlalchemy import null
 
 from blueprints.services.plant_service import *
 from blueprints.services.plant_health_attribute_service import *
@@ -158,10 +156,9 @@ class plant_health_attribute(Resource):
             updated_plant = updatePlantHealthAttributeById(plant_health_attribute_id, upper_required_value,
                                                            lower_required_value, unit_measurement_id, plant_id,
                                                            health_attribute_id)
+            return updated_plant
         else:
             namespacePlant.abort(404, 'Plant health attribute not found')
-
-        return updated_plant
 
     @namespacePlant.response(204, 'Request Success (No Content)')
     @namespacePlant.response(404, 'Entity not found')

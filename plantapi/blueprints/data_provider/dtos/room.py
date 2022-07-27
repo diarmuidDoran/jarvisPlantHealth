@@ -11,7 +11,10 @@ class Room(Base):
 
     plants = relationship("Plant",
                           back_populates="room",
-                          order_by="Plant.id",)
+                          order_by="Plant.id",
+                          cascade="all, delete",
+                          passive_deletes=True,
+                          )
 
     def __init__(self, name):
         self.name = name

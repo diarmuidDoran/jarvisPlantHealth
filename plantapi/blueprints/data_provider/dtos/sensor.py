@@ -11,10 +11,15 @@ class Sensor(Base):
     sensor_name = Column('sensor_name', String(255))
     call_frequency = Column('call_frequency', String(255))
 
-    sensor_readings = relationship("Sensor_Reading", back_populates="sensor",)
+    sensor_readings = relationship("Sensor_Reading", back_populates="sensor",
+                                   cascade="all, delete", passive_deletes=True,)
 
     plant_health_attributes_d = relationship("Plant_Health_Attribute", secondary=sensor_plant_health_attribute_table,
-                                             back_populates="sensor_b")
+<<<<<<< Updated upstream
+                                             back_populates="sensor_b", cascade="all, delete",)
+=======
+                                             back_populates="sensor_b", cascade="all, delete")
+>>>>>>> Stashed changes
 
     def __init__(self, sensor_name, call_frequency):
         self.sensor_name = sensor_name
