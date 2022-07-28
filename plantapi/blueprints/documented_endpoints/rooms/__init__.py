@@ -18,7 +18,7 @@ class rooms(Resource):
     @namespaceRoom.response(500, 'Internal Server error')
     @namespaceRoom.marshal_list_with(room_model)
     def get(self):
-        rooms = getRooms()
+        rooms = get_rooms()
         return rooms
 
 
@@ -31,7 +31,7 @@ class rooms(Resource):
         name = request.json['name']
         if room_is_valid(name) is not True:
             namespaceRoom.abort(400, 'Room with the given name already exists')
-        add_room = postRoom(name)
+        add_room = post_room(name)
         return add_room, 201
 
 
@@ -44,7 +44,7 @@ class room(Resource):
     @namespaceRoom.marshal_with(room_list_model)
     def get(self, room_id):
         """Get room_example information"""
-        room = getRoomById(room_id)
+        room = get_room_by_id(room_id)
         return room
 
     @namespaceRoom.response(400, 'Room with the given name already exists')
@@ -57,8 +57,8 @@ class room(Resource):
         new_name = request.json['name']
         if room_is_valid(new_name) is not True:
             namespaceRoom.abort(400, 'Room with the given name already exists')
-
-        updated_room = updateRoomById(room_id, new_name)
+        #get_room_by_id check if it exists
+        updated_room = update_room_by_id(room_id, new_name)
 
         return updated_room
 
@@ -67,6 +67,6 @@ class room(Resource):
     @namespaceRoom.response(500, 'Internal Server error')
     def delete(self, room_id):
         """Delete a specific room entity"""
-        delete_room = deleteRoomById(room_id)
+        delete_room = delete_room_by_id(room_id)
 
         return delete_room, 204

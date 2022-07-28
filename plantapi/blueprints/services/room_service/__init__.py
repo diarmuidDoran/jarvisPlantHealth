@@ -2,32 +2,36 @@ from blueprints.data_provider.room_data_provider import *
 from blueprints.models.plants import make_plant
 from blueprints.models.rooms import *
 
-def getRooms():
-    roomModels = []
+
+def get_rooms():
+    room_models = []
     for roomDto in getRoomDtos():
-        roomModels.append(make_room(roomDto.id, roomDto.name))
-    return roomModels
+        room_models.append(make_room(roomDto.id, roomDto.name))
+    return room_models
 
 
-def postRoom(name):
+def post_room(name):
     new_room = addRoomDto(name)
     return new_room
 
-def getRoomById(id):
-    roomDto = getRoomDtoById(id)
-    roomPlantModels = []
+
+def get_room_by_id(id):
+    room_dto = getRoomDtoById(id)
+    #if room_dto is empty:
+
+    room_plant_models = []
     for roomPlantDto in getPlants():
-        if roomPlantDto.room_id == id:
-            roomPlantModels.append(make_plant(roomPlantDto.id, roomPlantDto.name, roomPlantDto.room_id))
-    return make_room_with_plant_list(roomDto.id,
-                     roomDto.name,
-                     roomPlantModels)
+        if roomPlantDto.room_id == room_dto.id:
+            room_plant_models.append(make_plant(roomPlantDto.id, roomPlantDto.name, roomPlantDto.room_id))
+    return make_room_with_plant_list(room_dto.id,
+                                     room_dto.name,
+                                     room_plant_models)
 
 
-def deleteRoomById(id):
+def delete_room_by_id(id):
     deleteRoomDtoById(id)
 
 
-def updateRoomById(id, new_name):
+def update_room_by_id(id, new_name):
     update_room = updateRoomDtoById(id, new_name)
     return update_room
