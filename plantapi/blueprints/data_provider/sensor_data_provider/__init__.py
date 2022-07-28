@@ -5,10 +5,12 @@ from blueprints.data_provider.dtos.sensor import Sensor
 
 session = Session(engine)
 
+
 def getSensorDtos():
 
     stmt = select(Sensor)
     return session.scalars(stmt)
+
 
 def addSensorDto(sensor_name, call_frequency):
 
@@ -29,6 +31,4 @@ def deleteSensorDtoById(sensor_id):
     session.delete(sensor)
     session.commit()
 
-    return {'Sensor ' + sensor.name + ' deleted'}
-
-
+    return {"Sensor " + sensor.name + " deleted"}

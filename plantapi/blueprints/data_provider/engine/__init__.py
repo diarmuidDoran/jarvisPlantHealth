@@ -4,7 +4,9 @@ from sqlalchemy.orm import sessionmaker
 
 from blueprints import config
 
-engine = create_engine('postgresql://postgres:unopassword@localhost:5432/jarvis_db', echo=True, future=True)
+engine = create_engine(
+    "postgresql://postgres:unopassword@localhost:5432/jarvis_db", echo=True, future=True
+)
 
 # declarative base class
 Base = declarative_base()

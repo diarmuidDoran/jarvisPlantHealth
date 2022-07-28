@@ -17,15 +17,17 @@ def post_room(name):
 
 def get_room_by_id(id):
     room_dto = getRoomDtoById(id)
-    #if room_dto is empty:
-
-    room_plant_models = []
-    for roomPlantDto in getPlants():
-        if roomPlantDto.room_id == room_dto.id:
-            room_plant_models.append(make_plant(roomPlantDto.id, roomPlantDto.name, roomPlantDto.room_id))
-    return make_room_with_plant_list(room_dto.id,
-                                     room_dto.name,
-                                     room_plant_models)
+    # if room_dto is empty
+    try:
+        room_plant_models = []
+        for roomPlantDto in getPlants():
+            if roomPlantDto.room_id == room_dto.id:
+                room_plant_models.append(
+                    make_plant(roomPlantDto.id, roomPlantDto.name, roomPlantDto.room_id)
+                )
+        return make_room_with_plant_list(room_dto.id, room_dto.name, room_plant_models)
+    except AttributeError:
+        return []
 
 
 def delete_room_by_id(id):

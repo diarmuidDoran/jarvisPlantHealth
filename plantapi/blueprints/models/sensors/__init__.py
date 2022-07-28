@@ -37,7 +37,11 @@ def make_new_sensor(sensor_name, call_frequency):
     return sensor
 
 
-def make_sensor_with_sensor_readings_list(id, sensor_name, call_frequency, sensor_readings):
+def make_sensor_with_sensor_readings_list(
+    id, sensor_name, call_frequency, sensor_readings
+):
 
-    sensor_data = Sensor_Sensor_Readings(id, sensor_name, call_frequency, sensor_readings)
+    sensor_data = Sensor_Sensor_Readings(
+        id, sensor_name, call_frequency, sensor_readings
+    )
     return sensor_data

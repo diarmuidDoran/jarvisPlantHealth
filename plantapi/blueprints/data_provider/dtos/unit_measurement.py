@@ -6,11 +6,15 @@ from blueprints.data_provider.engine import Base
 class Unit_Measurement(Base):
     __tablename__ = "unit_measurement"
 
-    id = Column('id', Integer, primary_key=True, autoincrement=True)
-    unit = Column('unit', String(255))
+    id = Column("id", Integer, primary_key=True, autoincrement=True)
+    unit = Column("unit", String(255))
 
-    plant_health_attributes_c = relationship("Plant_Health_Attribute", back_populates="unit_measurements",
-                                             cascade="all, delete", passive_deletes=True,)
+    plant_health_attributes_c = relationship(
+        "Plant_Health_Attribute",
+        back_populates="unit_measurements",
+        cascade="all, delete",
+        passive_deletes=True,
+    )
 
     def __init__(self, unit):
         self.unit = unit

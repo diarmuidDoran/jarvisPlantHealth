@@ -12,11 +12,21 @@ def getPlantHelathAttributeDtos():
     return session.scalars(stmt)
 
 
-def addPlantHealthAttributeDto(upper_required_value, lower_required_value, unit_measurement_id,
-                               plant_id, health_attribute_id):
+def addPlantHealthAttributeDto(
+    upper_required_value,
+    lower_required_value,
+    unit_measurement_id,
+    plant_id,
+    health_attribute_id,
+):
 
-    new_plant_health_attribute = Plant_Health_Attribute(upper_required_value, lower_required_value,
-                                                        unit_measurement_id, plant_id, health_attribute_id)
+    new_plant_health_attribute = Plant_Health_Attribute(
+        upper_required_value,
+        lower_required_value,
+        unit_measurement_id,
+        plant_id,
+        health_attribute_id,
+    )
 
     session.add(new_plant_health_attribute)
     session.commit()
@@ -33,12 +43,20 @@ def deletePlantHealthAttributeDtoById(plant_id, plant_health_attribute_id):
 
     session.delete(plant_health_attribute)
     session.commit()
-    return {'Plant Health Attribute deleted'}
+    return {"Plant Health Attribute deleted"}
 
 
-def updatePlantHealthAttributeDtoById(plant_health_attribute_id, upper_required_value, lower_required_value,
-                                      unit_measurement_id, plant_id, health_attribute_id):
-    plant_health_attribute_to_update = getPlantHealthAttributeDtoById(plant_health_attribute_id)
+def updatePlantHealthAttributeDtoById(
+    plant_health_attribute_id,
+    upper_required_value,
+    lower_required_value,
+    unit_measurement_id,
+    plant_id,
+    health_attribute_id,
+):
+    plant_health_attribute_to_update = getPlantHealthAttributeDtoById(
+        plant_health_attribute_id
+    )
 
     plant_health_attribute_to_update.upper_required_value = upper_required_value
     plant_health_attribute_to_update.lower_required_value = lower_required_value

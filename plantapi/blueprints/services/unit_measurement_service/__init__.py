@@ -5,5 +5,7 @@ from blueprints.models.unit_measurements import *
 def get_unit_measurements():
     unit_measurement_models = []
     for unitMeasurementDto in get_unit_measurement_dtos():
-        unit_measurement_models.append(make_unit_measurement(unitMeasurementDto.id, unitMeasurementDto.unit))
+        unit_measurement_models.append(
+            make_unit_measurement(unitMeasurementDto.id, unitMeasurementDto.unit)
+        )
     return unit_measurement_models

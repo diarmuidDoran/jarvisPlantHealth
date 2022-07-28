@@ -5,8 +5,14 @@ from blueprints.models.sensor_readings import *
 def getSensorReadings():
     sensorReadingModels = []
     for sensor_reading_dto in getSensorReadingDtos():
-        sensorReadingModels.append(make_sensor_reading(sensor_reading_dto.id, sensor_reading_dto.sensor_reading,
-                                                       sensor_reading_dto.time_stamp, sensor_reading_dto.sensor_id))
+        sensorReadingModels.append(
+            make_sensor_reading(
+                sensor_reading_dto.id,
+                sensor_reading_dto.sensor_reading,
+                sensor_reading_dto.time_stamp,
+                sensor_reading_dto.sensor_id,
+            )
+        )
     return sensorReadingModels
 
 

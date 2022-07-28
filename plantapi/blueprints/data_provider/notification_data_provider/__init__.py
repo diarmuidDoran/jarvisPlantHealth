@@ -14,7 +14,9 @@ def getNotificationDtos():
 
 def addNotificationDto(notification_details, time_stamp, plant_health_attribute_id):
 
-    new_notification = Notification(notification_details, time_stamp, plant_health_attribute_id)
+    new_notification = Notification(
+        notification_details, time_stamp, plant_health_attribute_id
+    )
 
     session.add(new_notification)
     session.commit()

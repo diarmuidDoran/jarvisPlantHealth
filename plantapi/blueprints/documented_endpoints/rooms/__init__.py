@@ -8,63 +8,65 @@ from blueprints.validations.room_validation import room_is_valid
 from blueprints.swagger_models.rooms import room_list_model, namespaceRoom, room_model
 
 
-room_example = {'id': 1, 'name': 'Room name'}
+room_example = {"id": 1, "name": "Room name"}
 
 
-@namespaceRoom.route('')
+@namespaceRoom.route("")
 class rooms(Resource):
     """Get rooms list and create new rooms"""
 
-    @namespaceRoom.response(500, 'Internal Server error')
+    @namespaceRoom.response(500, "Internal Server error")
     @namespaceRoom.marshal_list_with(room_model)
     def get(self):
         rooms = get_rooms()
         return rooms
 
-
-    @namespaceRoom.response(400, 'Entity with the given name already exists')
-    @namespaceRoom.response(500, 'Internal Server error')
+    @namespaceRoom.response(400, "Entity with the given name already exists")
+    @namespaceRoom.response(500, "Internal Server error")
     @namespaceRoom.expect(room_model)
     @namespaceRoom.marshal_with(room_model, code=HTTPStatus.CREATED)
     def post(self):
         """Create a new room"""
-        name = request.json['name']
+        name = request.json["name"]
         if room_is_valid(name) is not True:
-            namespaceRoom.abort(400, 'Room with the given name already exists')
+            namespaceRoom.abort(400, "Room with the given name already exists")
         add_room = post_room(name)
         return add_room, 201
 
 
-@namespaceRoom.route('/<int:room_id>')
+@namespaceRoom.route("/<int:room_id>")
 class room(Resource):
     """Read, update and delete a specific room"""
 
-    @namespaceRoom.response(404, 'Room not found')
-    @namespaceRoom.response(500, 'Internal Server error')
+    @namespaceRoom.response(404, "Room not found")
+    @namespaceRoom.response(500, "Internal Server error")
     @namespaceRoom.marshal_with(room_list_model)
     def get(self, room_id):
         """Get room_example information"""
         room = get_room_by_id(room_id)
+        if len(room) == 0:
+            namespaceRoom.abort(404, "Room not found")
+
         return room
 
-    @namespaceRoom.response(400, 'Room with the given name already exists')
-    @namespaceRoom.response(404, 'Room not found')
-    @namespaceRoom.response(500, 'Internal Server error')
+    @namespaceRoom.response(400, "Room with the given name already exists")
+    @namespaceRoom.response(404, "Room not found")
+    @namespaceRoom.response(500, "Internal Server error")
     @namespaceRoom.expect(room_model, validate=True)
     @namespaceRoom.marshal_with(room_model)
     def put(self, room_id):
         """Update room information"""
-        new_name = request.json['name']
+        new_name = request.json["name"]
         if room_is_valid(new_name) is not True:
-            namespaceRoom.abort(400, 'Room with the given name already exists')
-        #get_room_by_id check if it exists
+            namespaceRoom.abort(400, "Room with the given name already exists")
+        # get_room_by_id check if it exists
         updated_room = update_room_by_id(room_id, new_name)
 
         return updated_room
 
-    @namespaceRoom.response(204, 'Request Success (No Content)')
-    @namespaceRoom.response(404, 'Room not found')
-    @namespaceRoom.response(500, 'Internal Server error')
+    @namespaceRoom.response(204, "Request Success (No Content)")
+    @namespaceRoom.response(404, "Room not found")
+    @namespaceRoom.response(500, "Internal Server error")
     def delete(self, room_id):
         """Delete a specific room entity"""
         delete_room = delete_room_by_id(room_id)

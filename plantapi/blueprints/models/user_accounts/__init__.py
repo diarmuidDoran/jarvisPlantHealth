@@ -39,6 +39,11 @@ def make_user_account_with_plant_list(id, user_name, plants):
 
 
 def make_new_user_account(user_name, first_name, last_name, email, password):
-    user_account = User_Account(user_name=user_name, first_name=first_name, last_name=last_name, email=email,
-                                password=password)
+    user_account = User_Account(
+        user_name=user_name,
+        first_name=first_name,
+        last_name=last_name,
+        email=email,
+        password=password,
+    )
     return user_account

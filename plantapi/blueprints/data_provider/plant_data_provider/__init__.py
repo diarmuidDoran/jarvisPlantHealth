@@ -23,7 +23,7 @@ def addPlantDto(name, room_id):
 
 def getPlantDtoById(plant_id):
 
-    '''stmt = select(Plant).where(Plant.id == plant_id)'''
+    """stmt = select(Plant).where(Plant.id == plant_id)"""
     """return session.query(Plant).filter(Plant.id == plant_id)"""
     return session.query(Plant).get(plant_id)
 
@@ -33,7 +33,8 @@ def deletePlantDtoById(plant_id):
     session.delete(plant)
     session.commit()
 
-    return {'Plant ' + plant.name + ' deleted'}
+    return {"Plant " + plant.name + " deleted"}
+
 
 def updatePlantDtoById(plant_id, new_name, new_room_id):
     plant_to_update = getPlantDtoById(plant_id)

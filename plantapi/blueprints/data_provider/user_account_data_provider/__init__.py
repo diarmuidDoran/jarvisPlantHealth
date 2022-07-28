@@ -15,8 +15,7 @@ def getUserAccountDtos():
 
 def addUserAccountDto(user_name, first_name, last_name, email, password):
 
-    new_user_account = User_Account(user_name, first_name, last_name, email,
-                                    password)
+    new_user_account = User_Account(user_name, first_name, last_name, email, password)
 
     session.add(new_user_account)
     session.commit()
@@ -25,7 +24,7 @@ def addUserAccountDto(user_name, first_name, last_name, email, password):
 
 def getUserAccountDtoById(user_account_id):
 
-    '''stmt = select(User_Account).where(User_Account.id == user_account_id)'''
+    """stmt = select(User_Account).where(User_Account.id == user_account_id)"""
     """return session.query(User_Account).filter(User_Account.id == user_account_id)"""
     return session.query(User_Account).get(user_account_id)
 
@@ -35,9 +34,17 @@ def deleteUserAccountDtoById(user_account_id):
     session.delete(user_account)
     session.commit()
 
-    return {'User Account ' + user_account.user_name + ' deleted'}
+    return {"User Account " + user_account.user_name + " deleted"}
 
-def updateUserAccountDtoById(user_account_id, new_user_name, new_first_name, new_last_name, new_email, new_password):
+
+def updateUserAccountDtoById(
+    user_account_id,
+    new_user_name,
+    new_first_name,
+    new_last_name,
+    new_email,
+    new_password,
+):
     user_account_to_update = getUserAccountDtoById(user_account_id)
 
     user_account_to_update.name = new_user_name
@@ -49,4 +56,3 @@ def updateUserAccountDtoById(user_account_id, new_user_name, new_first_name, new
     session.commit()
 
     return user_account_to_update
-

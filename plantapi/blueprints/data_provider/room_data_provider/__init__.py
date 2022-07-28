@@ -5,10 +5,12 @@ from blueprints.data_provider.dtos.room import Room
 
 session = Session(engine)
 
+
 def getRoomDtos():
 
     stmt = select(Room)
     return session.scalars(stmt)
+
 
 def addRoomDto(name):
 
@@ -21,7 +23,7 @@ def addRoomDto(name):
 
 def getRoomDtoById(room_id):
 
-    '''stmt = select(Room).where(Room.id == room_id)'''
+    """stmt = select(Room).where(Room.id == room_id)"""
     """return session.query(Room).filter(Room.id == room_id)"""
     return session.query(Room).get(room_id)
 
@@ -31,7 +33,8 @@ def deleteRoomDtoById(room_id):
     session.delete(room)
     session.commit()
 
-    return {'Room ' + room.name + ' deleted'}
+    return {"Room " + room.name + " deleted"}
+
 
 def updateRoomDtoById(room_id, new_name):
     room_to_update = getRoomDtoById(room_id)
@@ -41,4 +44,3 @@ def updateRoomDtoById(room_id, new_name):
     session.commit()
 
     return room_to_update
-
