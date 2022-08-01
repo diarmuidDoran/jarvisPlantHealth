@@ -27,7 +27,7 @@ def get_room_by_id(id):
                 )
         return make_room_with_plant_list(room_dto.id, room_dto.name, room_plant_models)
     except AttributeError:
-        return []
+        return None
 
 
 def delete_room_by_id(id):

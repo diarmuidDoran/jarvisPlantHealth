@@ -17,7 +17,7 @@ class Sensor_Sensor_Readings(object):
     id = 0
     sensor_name = ""
     call_frequency = ""
-    sensor_readings = getSensorReadings()
+    sensor_readings = []
 
     # The class "constructor" - an initializer
     def __init__(self, id, sensor_name, call_frequency, sensor_readings):

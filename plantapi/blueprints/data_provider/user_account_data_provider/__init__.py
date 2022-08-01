@@ -7,13 +7,13 @@ from blueprints.data_provider.dtos.user_accounts import User_Account
 session = Session(engine)
 
 
-def getUserAccountDtos():
+def get_user_account_dtos():
 
     stmt = select(User_Account)
     return session.scalars(stmt)
 
 
-def addUserAccountDto(user_name, first_name, last_name, email, password):
+def add_user_account_dto(user_name, first_name, last_name, email, password):
 
     new_user_account = User_Account(user_name, first_name, last_name, email, password)
 
@@ -22,22 +22,22 @@ def addUserAccountDto(user_name, first_name, last_name, email, password):
     return new_user_account
 
 
-def getUserAccountDtoById(user_account_id):
+def get_user_account_dto_by_id(user_account_id):
 
     """stmt = select(User_Account).where(User_Account.id == user_account_id)"""
     """return session.query(User_Account).filter(User_Account.id == user_account_id)"""
     return session.query(User_Account).get(user_account_id)
 
 
-def deleteUserAccountDtoById(user_account_id):
-    user_account = getUserAccountDtoById(user_account_id)
+def delete_user_account_dto_by_id(user_account_id):
+    user_account = get_user_account_dto_by_id(user_account_id)
     session.delete(user_account)
     session.commit()
 
     return {"User Account " + user_account.user_name + " deleted"}
 
 
-def updateUserAccountDtoById(
+def update_user_account_dto_by_id(
     user_account_id,
     new_user_name,
     new_first_name,
@@ -45,7 +45,7 @@ def updateUserAccountDtoById(
     new_email,
     new_password,
 ):
-    user_account_to_update = getUserAccountDtoById(user_account_id)
+    user_account_to_update = get_user_account_dto_by_id(user_account_id)
 
     user_account_to_update.name = new_user_name
     user_account_to_update.first_name = new_first_name

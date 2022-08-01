@@ -2,12 +2,10 @@ import json
 import unittest
 from unittest import mock
 
-import requests.models
 from flask_restx import marshal
 
 from blueprints.services.room_service import *
 from blueprints.swagger_models.rooms import room_model, room_list_model
-from blueprints.swagger_models.plants import plant_model
 
 
 class RoomServiceTest(unittest.TestCase):
@@ -23,10 +21,7 @@ class RoomServiceTest(unittest.TestCase):
 
     @mock.patch("blueprints.services.room_service.getRoomDtos")
     def test_room_service_get_rooms_returns_array(self, get_room_dtos_mock):
-        expected_result = [
-                           {"id": 1, "name": "test1"},
-                           {"id": 2, "name": "test2"}
-                           ]
+        expected_result = [{"id": 1, "name": "test1"}, {"id": 2, "name": "test2"}]
 
         room_models = []
         for result in expected_result:
@@ -41,7 +36,7 @@ class RoomServiceTest(unittest.TestCase):
         get_room_dtos_mock.assert_called()
 
     @mock.patch("blueprints.services.room_service.addRoomDto")
-    def test_room_service_add_rooms(self, add_room_dtos_mock):
+    def test_room_service_post_rooms(self, add_room_dtos_mock):
         expected_result = {"test"}
         add_room_dtos_mock.return_value = {"test"}
 
@@ -50,38 +45,31 @@ class RoomServiceTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
         add_room_dtos_mock.assert_called()
 
-    @mock.patch("blueprints.services.room_service.getRoomDtoById")
-    @mock.patch("blueprints.services.room_service.getPlants")
-    def test_room_service_get_room_by_id_returns_room(self, get_plant_dtos_mock, get_room_dto_by_id_mock):
-        # fix representative data
-        id = 1
-        expected_room_result = {"id": 1, "name": "test1"}
-        expected_plants_result = [{"id": 1, "name": "TPlant1", "room_id": 1},
-                                  {"id": 2, "name": "TPlant2", "room_id": 2}
-                                  ]
-
-        expected_result = {"id": 1,
-                           "name": "test1",
-                           "plants": [
-                               {"id": 1,
-                                "name": "TPlant1",
-                                "room_id": 1
-                                }
-                           ]
-                           }
-
+    def room_by_id_results(
+        self,
+        id,
+        expected_plants_result,
+        expected_room_result,
+        expected_result,
+        get_plant_dtos_mock,
+        get_room_dto_by_id_mock,
+    ):
         room_plant_models = []
         for plant_result in expected_plants_result:
-            if plant_result['room_id'] == expected_room_result['id']:
+            if plant_result["room_id"] == expected_room_result["id"]:
                 room_plant_models.append(
-                    make_plant(plant_result['id'], plant_result['name'], plant_result['room_id'])
+                    make_plant(
+                        plant_result["id"],
+                        plant_result["name"],
+                        plant_result["room_id"],
+                    )
                 )
 
         get_plant_dtos_mock.return_value = room_plant_models
 
-        get_room_dto_by_id_mock.return_value = make_room_with_plant_list(expected_room_result['id'],
-                                                                         expected_room_result['name'],
-                                                                         room_plant_models)
+        get_room_dto_by_id_mock.return_value = make_room_with_plant_list(
+            expected_room_result["id"], expected_room_result["name"], room_plant_models
+        )
 
         result = get_room_by_id(id)
         new_result = json.loads(json.dumps(marshal(result, room_list_model)))
@@ -89,37 +77,94 @@ class RoomServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_result)
         get_room_dto_by_id_mock.assert_called()
 
-    # test for no matching room
     @mock.patch("blueprints.services.room_service.getRoomDtoById")
     @mock.patch("blueprints.services.room_service.getPlants")
-    def test_room_service_get_room_by_id_returns_no_room(self, get_plant_dtos_mock, get_room_dto_by_id_mock):
-        # fix representative data
-        id = 7
+    def test_room_service_get_room_by_id_returns_room(
+        self, get_plant_dtos_mock, get_room_dto_by_id_mock
+    ):
+        # and test for one matching plant
+        id = 1
         expected_room_result = {"id": 1, "name": "test1"}
-        expected_plants_result = [{"id": 1, "name": "TPlant1", "room_id": 1},
-                                  {"id": 2, "name": "TPlant2", "room_id": 2}
-                                  ]
-        mock_resp = requests.models.Response()
+        expected_plants_result = [
+            {"id": 1, "name": "TPlant1", "room_id": 1},
+            {"id": 2, "name": "TPlant2", "room_id": 2},
+        ]
 
-        mock_resp.status_code = 404
+        expected_result = {
+            "id": 1,
+            "name": "test1",
+            "plants": [{"id": 1, "name": "TPlant1", "room_id": 1}],
+        }
+        self.room_by_id_results(
+            id,
+            expected_plants_result,
+            expected_room_result,
+            expected_result,
+            get_plant_dtos_mock,
+            get_room_dto_by_id_mock,
+        )
 
-        get_room_dto_by_id_mock.return_value = mock_resp
-        # res = requests
+    @mock.patch("blueprints.services.room_service.getRoomDtoById")
+    @mock.patch("blueprints.services.room_service.getPlants")
+    def test_room_service_get_room_by_id_returns_room_with_many_plants(
+        self, get_plant_dtos_mock, get_room_dto_by_id_mock
+    ):
+        # and test for many matching plants
+        id = 1
+        expected_room_result = {"id": 1, "name": "test1"}
+        expected_plants_result = [
+            {"id": 1, "name": "TPlant1", "room_id": 1},
+            {"id": 2, "name": "TPlant2", "room_id": 1},
+            {"id": 3, "name": "TPlant3", "room_id": 1},
+            {"id": 4, "name": "TPlant4", "room_id": 1},
+        ]
 
-        # result = get_room_by_id(id)
-        # new_result = json.loads(json.dumps(marshal(result, room_list_model)))
-        #
-        # self.assertEqual(new_result, )
-        # get_room_dto_by_id_mock.assert_called()
+        expected_result = {
+            "id": 1,
+            "name": "test1",
+            "plants": [
+                {"id": 1, "name": "TPlant1", "room_id": 1},
+                {"id": 2, "name": "TPlant2", "room_id": 1},
+                {"id": 3, "name": "TPlant3", "room_id": 1},
+                {"id": 4, "name": "TPlant4", "room_id": 1},
+            ],
+        }
 
-    # test for one matching plant
+        self.room_by_id_results(
+            id,
+            expected_plants_result,
+            expected_room_result,
+            expected_result,
+            get_plant_dtos_mock,
+            get_room_dto_by_id_mock,
+        )
 
-    # test for many matching plants
+    @mock.patch("blueprints.services.room_service.getRoomDtoById")
+    @mock.patch("blueprints.services.room_service.getPlants")
+    def test_room_service_get_room_by_id_returns_room_with_no_plants(
+        self, get_plant_dtos_mock, get_room_dto_by_id_mock
+    ):
+        # test for no matching plants
+        id = 1
+        expected_room_result = {"id": 1, "name": "test1"}
+        expected_plants_result = [
+            {"id": 1, "name": "TPlant1", "room_id": 2},
+            {"id": 2, "name": "TPlant2", "room_id": 2},
+        ]
 
-    # test for no matching plants
+        expected_result = {"id": 1, "name": "test1", "plants": []}
+
+        self.room_by_id_results(
+            id,
+            expected_plants_result,
+            expected_room_result,
+            expected_result,
+            get_plant_dtos_mock,
+            get_room_dto_by_id_mock,
+        )
 
     @mock.patch("blueprints.services.room_service.updateRoomDtoById")
-    def test_room_service_update_rooms(self, update_room_by_id_mock):
+    def test_room_service_update_room_by_id(self, update_room_by_id_mock):
         expected_result = {"test1"}
         update_room_by_id_mock.return_value = {"test1"}
 

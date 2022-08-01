@@ -1,26 +1,15 @@
 # blueprints/documented_endpoints/user_accounts/__init__.py
 from http import HTTPStatus
 
-from flask import request
 from flask_restx import Resource
 
 from blueprints.services.user_account_service import *
 from blueprints.swagger_models.user_accounts import (
     namespaceUser,
-    user_list_model,
     user_model,
     user_plant_list_model,
 )
 from blueprints.validations.user_account_validation import user_account_is_valid
-
-user_example = {
-    "id": 1,
-    "user_name": "User Name",
-    "first_name": "User",
-    "last_name": "Name",
-    "email": "user.name@gmail.com",
-    "password": "pa55w0rd",
-}
 
 
 @namespaceUser.route("")
@@ -31,7 +20,7 @@ class user_accounts(Resource):
     @namespaceUser.marshal_list_with(user_model)
     def get(self):
         """List with all the user_accounts"""
-        user_accounts = getUserAccounts()
+        user_accounts = get_user_accounts()
         """{
                     'user_accounts': user_accounts,
                     'total_records': len(user_accounts)
@@ -56,7 +45,7 @@ class user_accounts(Resource):
                 400, "User with the given user_name or email already exists"
             )
 
-        add_user_account = postUserAccount(
+        add_user_account = post_user_account(
             user_name, first_name, last_name, email, password
         )
 
@@ -72,7 +61,10 @@ class user(Resource):
     @namespaceUser.marshal_with(user_model)
     def get(self, user_account_id):
         """Get user_example information"""
-        user_account = getUserAccountById(user_account_id)
+        if get_user_account_by_id(user_account_id) is None:
+            namespaceUser.abort(404, "User account not found")
+
+        user_account = get_user_account_by_id(user_account_id)
 
         return user_account
 
@@ -82,7 +74,11 @@ class user(Resource):
     @namespaceUser.expect(user_model, validate=True)
     @namespaceUser.marshal_with(user_model)
     def put(self, user_account_id):
-        """Update entity information"""
+
+        if get_user_account_by_id(user_account_id) is None:
+            namespaceUser.abort(404, "User account not found")
+
+        """Update user account information"""
 
         data = request.get_json()
         new_user_name = data.get("user_name")
@@ -96,7 +92,7 @@ class user(Resource):
                 400, "User with the given user_name or email already exists"
             )
 
-        update_user_account = updateUserAccountById(
+        update_user_account = update_user_account_by_id(
             user_account_id,
             new_user_name,
             new_first_name,
@@ -112,7 +108,9 @@ class user(Resource):
     @namespaceUser.response(500, "Internal Server error")
     def delete(self, user_account_id):
         """Delete a specific entity"""
-        delete_user_account = deleteUserAccountById(user_account_id)
+        if get_user_account_by_id(user_account_id) is None:
+            namespaceUser.abort(404, "User account not found")
+        delete_user_account = delete_user_account_by_id(user_account_id)
         return delete_user_account, 204
 
 
@@ -125,6 +123,9 @@ class user_plants(Resource):
     @namespaceUser.marshal_with(user_plant_list_model)
     def get(self, user_account_id):
         """Get user_account_example information"""
-        user_account_plants = getUserAccountPlantsById(user_account_id)
+        if get_user_account_by_id(user_account_id) is None:
+            namespaceUser.abort(404, "User account not found")
+
+        user_account_plants = get_user_account_plants_by_id(user_account_id)
 
         return user_account_plants

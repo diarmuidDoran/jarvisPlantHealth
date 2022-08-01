@@ -70,14 +70,18 @@ class sensor(Resource):
     @namespaceSensor.marshal_with(sensor_model)
     def get(self, sensor_id):
         """Get sensor_example information"""
-        sensor_search = getSensorById(sensor_id)
-        return sensor_search
+        if getSensorById(sensor_id) is None:
+            namespaceSensor.abort(404, "Sensor not found")
+
+        return getSensorById(sensor_id)
 
     @namespaceSensor.response(204, "Request Success (No Content)")
     @namespaceSensor.response(404, "Sensor not found")
     @namespaceSensor.response(500, "Internal Server error")
     def delete(self, sensor_id):
         """Delete a specific sensor"""
+        if getSensorById(sensor_id) is None:
+            namespaceSensor.abort(404, "Sensor not found")
         delete_sensor = deleteSensorById(sensor_id)
 
         return delete_sensor, 204
@@ -91,11 +95,14 @@ class sensor_readings(Resource):
     @namespaceSensor.response(500, "Internal Server error")
     @namespaceSensor.marshal_with(sensor_reading_list_model)
     def get(self, sensor_id):
+        if getSensorById(sensor_id) is None:
+            namespaceSensor.abort(404, "Sensor not found")
         """List with all a specific sensors readings"""
         sensor_reading_list = getSensorReadingsById(sensor_id)
 
         return sensor_reading_list
 
+    @namespaceSensor.response(404, "Sensor not found")
     @namespaceSensor.response(400, "Sensor reading already exists")
     @namespaceSensor.response(500, "Internal Server error")
     @namespaceSensor.expect(sensor_reading_model)
@@ -103,6 +110,8 @@ class sensor_readings(Resource):
         sensor_reading_model_response, code=HTTPStatus.CREATED
     )
     def post(self, sensor_id):
+        if getSensorById(sensor_id) is None:
+            namespaceSensor.abort(404, "Sensor not found")
         """Create a new sensor reading"""
         data = request.get_json()
         sensor_reading = data.get("sensor_reading")

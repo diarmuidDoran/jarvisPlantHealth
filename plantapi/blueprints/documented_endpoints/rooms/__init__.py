@@ -2,7 +2,6 @@
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
-from markupsafe import escape
 from blueprints.services.room_service import *
 from blueprints.validations.room_validation import room_is_valid
 from blueprints.swagger_models.rooms import room_list_model, namespaceRoom, room_model
@@ -44,7 +43,8 @@ class room(Resource):
     def get(self, room_id):
         """Get room_example information"""
         room = get_room_by_id(room_id)
-        if len(room) == 0:
+
+        if room is None:
             namespaceRoom.abort(404, "Room not found")
 
         return room
@@ -55,6 +55,8 @@ class room(Resource):
     @namespaceRoom.expect(room_model, validate=True)
     @namespaceRoom.marshal_with(room_model)
     def put(self, room_id):
+        if get_room_by_id(room_id) is None:
+            namespaceRoom.abort(404, "Room not found")
         """Update room information"""
         new_name = request.json["name"]
         if room_is_valid(new_name) is not True:
@@ -68,6 +70,8 @@ class room(Resource):
     @namespaceRoom.response(404, "Room not found")
     @namespaceRoom.response(500, "Internal Server error")
     def delete(self, room_id):
+        if get_room_by_id(room_id) is None:
+            namespaceRoom.abort(404, "Room not found")
         """Delete a specific room entity"""
         delete_room = delete_room_by_id(room_id)
 

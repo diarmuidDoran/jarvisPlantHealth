@@ -18,8 +18,10 @@ def postSensor(sensor_name, call_frequency):
 
 def getSensorById(id):
     sensorDto = getSensorDtoById(id)
-    return make_sensor(sensorDto.id, sensorDto.sensor_name, sensorDto.call_frequency)
-
+    try:
+        return make_sensor(sensorDto.id, sensorDto.sensor_name, sensorDto.call_frequency)
+    except AttributeError:
+        return None
 
 def deleteSensorById(id):
     deleteSensorDtoById(id)
