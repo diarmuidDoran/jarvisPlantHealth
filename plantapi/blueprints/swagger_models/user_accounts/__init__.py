@@ -1,7 +1,7 @@
 # blueprints/swagger_models/user_accounts/__init__.py
 from flask_restx import Namespace, fields
 
-from blueprints.swagger_models.plants import plant_model
+from blueprints.swagger_models.plants import plant_model, plant_ids_model
 
 namespaceUser = Namespace("user_accounts", "userAccount endpoints")
 
@@ -17,6 +17,21 @@ user_model = namespaceUser.model(
             required=True, description="Users password to be encrypted"
         ),
     },
+)
+
+user_plant_model = namespaceUser.model(
+    "UserAccountAndPlants",
+    {
+        "id": fields.Integer(readonly=True, description="Plant identifier"),
+        "user_name": fields.String(required=True, description="User account name"),
+        "first_name": fields.String(required=True, description="User first name"),
+        "last_name": fields.String(required=True, description="User last name"),
+        "email": fields.String(required=True, description="User email address"),
+        "password": fields.String(
+            required=True, description="Users password to be encrypted"
+        ),
+        "plants": fields.Nested(plant_ids_model, description="List of plants by id", as_list=True),
+    }
 )
 
 user_list_model = namespaceUser.model(

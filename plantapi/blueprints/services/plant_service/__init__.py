@@ -18,7 +18,10 @@ def postPlant(name, room_id):
 
 def getPlantById(id):
     plantDto = getPlantDtoById(id)
-    return make_plant(plantDto.id, plantDto.name, plantDto.room_id)
+    try:
+        return make_plant(plantDto.id, plantDto.name, plantDto.room_id)
+    except AttributeError:
+        return None
 
 
 def deletePlantById(id):
@@ -50,3 +53,8 @@ def getPlantHealthAttributesById(plant_health_attribute_id):
         plantHealthAttributeDto.plant_id,
         plantHealthAttributeDto.health_attribute_id,
     )
+
+
+def postPlantUser(plant_id, user_id):
+    plantDto = addPlantUserDto(plant_id, user_id)
+    return plantDto

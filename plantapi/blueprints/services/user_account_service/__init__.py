@@ -12,7 +12,7 @@ def get_user_accounts():
                 userAccountDto.first_name,
                 userAccountDto.last_name,
                 userAccountDto.email,
-                userAccountDto.password,
+                userAccountDto.password
             )
         )
 
@@ -28,24 +28,27 @@ def post_user_account(user_name, first_name, last_name, email, password):
 
 def get_user_account_by_id(id):
     user_account_dto = get_user_account_dto_by_id(id)
-    return make_user_account(
-        user_account_dto.id,
-        user_account_dto.user_name,
-        user_account_dto.first_name,
-        user_account_dto.last_name,
-        user_account_dto.email,
-        user_account_dto.password,
-    )
+    try:
+        return make_user_account(
+            user_account_dto.id,
+            user_account_dto.user_name,
+            user_account_dto.first_name,
+            user_account_dto.last_name,
+            user_account_dto.email,
+            user_account_dto.password,
+        )
+    except AttributeError:
+        return None
 
 
 def get_user_account_plants_by_id(id):
     user_account_dto = get_user_account_dto_by_id(id)
-    # try:
-    return make_user_account_with_plant_list(
-        user_account_dto.id, user_account_dto.user_name, user_account_dto.plants_b
-    )
-    # except AttributeError:
-    #     return None
+    try:
+        return make_user_account_with_plant_list(
+            user_account_dto.id, user_account_dto.user_name, user_account_dto.plants_b
+        )
+    except AttributeError:
+        return None
 
 
 def delete_user_account_by_id(id):

@@ -9,7 +9,7 @@ from blueprints.swagger_models.user_accounts import (
     user_model,
     user_plant_list_model,
 )
-from blueprints.validations.user_account_validation import user_account_is_valid
+from blueprints.validations.user_account_validation import user_account_is_valid, user_account_update_is_valid
 
 
 @namespaceUser.route("")
@@ -21,10 +21,7 @@ class user_accounts(Resource):
     def get(self):
         """List with all the user_accounts"""
         user_accounts = get_user_accounts()
-        """{
-                    'user_accounts': user_accounts,
-                    'total_records': len(user_accounts)
-                }"""
+
         return user_accounts
 
     @namespaceUser.response(400, "User account with the given name already exists")
@@ -60,11 +57,11 @@ class user(Resource):
     @namespaceUser.response(500, "Internal Server error")
     @namespaceUser.marshal_with(user_model)
     def get(self, user_account_id):
-        """Get user_example information"""
-        if get_user_account_by_id(user_account_id) is None:
-            namespaceUser.abort(404, "User account not found")
 
         user_account = get_user_account_by_id(user_account_id)
+
+        if user_account is None:
+            namespaceUser.abort(404, "User account not found")
 
         return user_account
 
@@ -87,19 +84,13 @@ class user(Resource):
         new_email = data.get("email")
         new_password = data.get("password")
 
-        if user_account_is_valid(new_user_name, new_email) is not True:
+        if user_account_update_is_valid(user_account_id, new_user_name, new_email) is not True:
             namespaceUser.abort(
                 400, "User with the given user_name or email already exists"
             )
 
-        update_user_account = update_user_account_by_id(
-            user_account_id,
-            new_user_name,
-            new_first_name,
-            new_last_name,
-            new_email,
-            new_password,
-        )
+        update_user_account = update_user_account_by_id(user_account_id, new_user_name, new_first_name, new_last_name,
+                                                        new_email, new_password)
 
         return update_user_account, 201
 

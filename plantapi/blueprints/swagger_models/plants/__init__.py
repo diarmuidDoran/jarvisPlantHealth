@@ -12,6 +12,14 @@ plant_model = namespacePlant.model(
     },
 )
 
+plant_ids_model = namespacePlant.model(
+    "Plant ID list",
+    {
+        "id": fields.Integer(required=True, description="Plant identifier"),
+
+    },
+)
+
 plant_health_attribute_model = namespacePlant.model(
     "Plant Health Attributes",
     {
@@ -65,4 +73,13 @@ plant_health_attribute_list_model = namespacePlant.model(
             as_list=True,
         )
     },
+)
+
+plant_user_relationship_model = namespacePlant.model(
+    "PlantUserRelationship",
+    {
+        "id": fields.Integer(readonly=True, description="Plant User relationship identifier"),
+        "plant_id": fields.Integer(required=True, description="Plant identifier"),
+        "user_id": fields.Integer(required=True, description="User Account identifier")
+    }
 )

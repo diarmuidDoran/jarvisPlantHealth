@@ -16,6 +16,26 @@ class User_Account(object):
         self.password = password
 
 
+class All_User_Account_Plant(object):
+    id = 0
+    user_name = ""
+    first_name = ""
+    last_name = ""
+    email = ""
+    password = ""
+    plants_b = []
+
+    # The class "constructor" - an initializer
+    def __init__(self, id, user_name, first_name, last_name, email, password, plants_b):
+        self.id = id
+        self.user_name = user_name
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.password = password
+        self.plants_b = plants_b
+
+
 class User_Account_Plants(object):
     id = 0
     user_name = ""
@@ -47,3 +67,8 @@ def make_new_user_account(user_name, first_name, last_name, email, password):
         password=password,
     )
     return user_account
+
+
+def make_plant_user(id, name, room_id):
+    plant = Plant(id, name, room_id)
+    return plant

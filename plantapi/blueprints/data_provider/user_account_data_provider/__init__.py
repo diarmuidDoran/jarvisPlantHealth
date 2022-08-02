@@ -47,7 +47,7 @@ def update_user_account_dto_by_id(
 ):
     user_account_to_update = get_user_account_dto_by_id(user_account_id)
 
-    user_account_to_update.name = new_user_name
+    user_account_to_update.user_name = new_user_name
     user_account_to_update.first_name = new_first_name
     user_account_to_update.last_name = new_last_name
     user_account_to_update.email = new_email

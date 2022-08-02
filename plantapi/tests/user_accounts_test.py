@@ -4,6 +4,7 @@ from unittest import mock
 
 from flask_restx import marshal
 
+from blueprints.data_provider.plant_data_provider import getPlantDtos
 from blueprints.models.plants import make_plant
 from blueprints.services.user_account_service import *
 from blueprints.swagger_models.user_accounts import *
@@ -135,9 +136,7 @@ class UserAccountServiceTest(unittest.TestCase):
             "password": "update1test1",
         }
 
-        result = update_user_account_by_id(
-            1, "update1", "update", "1", "update1@gmail.com", "update1test1"
-        )
+        result = update_user_account_by_id(1, "update1", "update", "1", "update1@gmail.com", "update1test1")
 
         self.assertEqual(result, expected_result)
         update_user_by_id_mock.assert_called()
@@ -198,6 +197,12 @@ class UserAccountServiceTest(unittest.TestCase):
         }
 
         expected_plant_results = []
+
+        # plant_models = []
+        # for plantDto in getPlantDtos():
+        #     if plantDto.id == expected_user_account_result[]
+        #     plant_models.append(make_plant(plantDto.id, plantDto.name, plantDto.room_id))
+        # return plant_models
 
         expected_result = {"user_name": "test1", "plants": []}
 
