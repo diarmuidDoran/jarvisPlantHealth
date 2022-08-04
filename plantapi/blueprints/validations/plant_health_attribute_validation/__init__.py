@@ -1,5 +1,5 @@
 from blueprints.data_provider.plant_health_attribute_data_provider import (
-    getPlantHelathAttributeDtos,
+    getPlantHelathAttributeDtos, getPlantHealthAttributeDtoById
 )
 
 
@@ -11,3 +11,10 @@ def plant_health_attribute_is_valid(plant_id, health_attribute_id):
         ):
             return False
     return True
+
+def plant_health_attribute_id_is_valid(plant_health_attribute_id):
+
+    plant_dto = getPlantHealthAttributeDtoById(plant_health_attribute_id)
+    if plant_dto.id == plant_health_attribute_id:
+        return True
+    return False

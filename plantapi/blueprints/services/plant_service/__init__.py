@@ -56,5 +56,4 @@ def getPlantHealthAttributesById(plant_health_attribute_id):
 
 
 def postPlantUser(plant_id, user_id):
-    plantDto = addPlantUserDto(plant_id, user_id)
-    return plantDto
+    addPlantUserDto(plant_id, user_id)

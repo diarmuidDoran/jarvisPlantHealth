@@ -114,6 +114,7 @@ class plant_user_relationship(Resource):
 
     @namespacePlant.response(404, "Plant id or user_id not found")
     @namespacePlant.response(400, "Plant id and User id already share a relationship")
+    @namespacePlant.response(201, "Relationship added")
     @namespacePlant.response(500, "Internal Server error")
     def post(self, plant_id, user_id):
         """Create a new plant user relationship"""
@@ -121,25 +122,9 @@ class plant_user_relationship(Resource):
         if (plant_id_is_valid(plant_id) is not True) or (user_id_is_valid(user_id) is not True):
             namespacePlant.abort(404, "Plant id or user_id not found")
 
-        add_plant_user = postPlantUser(plant_id, user_id)
+        postPlantUser(plant_id, user_id)
 
-        return add_plant_user, (201, "relationship added")
-
-    @namespacePlant.response(204, "Request Success")
-    @namespacePlant.response(500, "Internal Server error")
-    def delete(self, plant_id, user_id):
-
-        if getPlantById(plant_id) is None:
-            namespacePlant.abort(404, "Plant not found")
-
-        if user_id_is_valid(user_id) is not True:
-            namespacePlant.abort(404, "user_id not found")
-
-        """Delete a specific plant entity"""
-        delete_plant_user_relationship = deletePlantById(plant_id, user_id)
-
-        return delete_plant, 204
-
+        return 201
 
 
 @namespacePlant.route("/<int:plant_id>/plant_health_attributes")

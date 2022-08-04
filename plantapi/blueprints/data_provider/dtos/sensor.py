@@ -18,7 +18,7 @@ class Sensor(Base):
         "Sensor_Reading",
         back_populates="sensor",
         cascade="all, delete",
-        passive_deletes=True,
+        passive_deletes=False,
     )
 
     plant_health_attributes_d = relationship(

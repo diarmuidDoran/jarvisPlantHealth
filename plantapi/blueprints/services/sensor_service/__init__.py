@@ -35,3 +35,7 @@ def getSensorReadingsById(id):
         sensorDto.call_frequency,
         sensorDto.sensor_readings,
     )
+
+
+def postSensorPlantHelathAttribute(sensor_id, plant_health_attribute_id):
+    addSensorPlantHealthAttributeDto(sensor_id, plant_health_attribute_id)

@@ -52,14 +52,14 @@ class Plant_Health_Attribute(Base):
         "Notification",
         back_populates="plant_health_attributes_d",
         cascade="all, delete",
-        passive_deletes=True,
+        passive_deletes=False,
     )
     # many to many child relationship
     sensor_b = relationship(
         "Sensor",
         secondary=sensor_plant_health_attribute_table,
         back_populates="plant_health_attributes_d",
-        passive_deletes=True,
+        passive_deletes=False,
     )
 
     def __init__(

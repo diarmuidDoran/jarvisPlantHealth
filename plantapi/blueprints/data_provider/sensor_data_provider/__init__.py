@@ -2,6 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from blueprints.data_provider.engine import engine
 from blueprints.data_provider.dtos.sensor import Sensor
+from blueprints.data_provider.dtos.plant_health_attribute import Plant_Health_Attribute
 
 session = Session(engine)
 
@@ -31,4 +32,14 @@ def deleteSensorDtoById(sensor_id):
     session.delete(sensor)
     session.commit()
 
-    return {"Sensor " + sensor.name + " deleted"}
+    return {"Sensor " + sensor.sensor_name + " deleted"}
+
+
+def addSensorPlantHealthAttributeDto(sensor_id, plant_health_attribute_id):
+
+    plant_health_attribute = session.query(Plant_Health_Attribute).get(plant_health_attribute_id)
+    sensor = session.query(Sensor).get(sensor_id)
+
+    sensor.plant_health_attributes_d.append(plant_health_attribute)
+
+    session.commit()

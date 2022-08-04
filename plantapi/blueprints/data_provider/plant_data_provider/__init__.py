@@ -2,7 +2,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from blueprints.data_provider.engine import engine
 from blueprints.data_provider.dtos.plant import Plant
-from blueprints.data_provider.dtos.user_accounts import User_Account
+from blueprints.data_provider.dtos.user_accounts import User_Account, plant_user_table
+
 session = Session(engine)
 
 
@@ -29,7 +30,9 @@ def getPlantDtoById(plant_id):
 
 
 def deletePlantDtoById(plant_id):
+
     plant = getPlantDtoById(plant_id)
+
     session.delete(plant)
     session.commit()
 
@@ -52,7 +55,6 @@ def addPlantUserDto(plant_id, user_id):
     user = session.query(User_Account).get(user_id)
     plant = session.query(Plant).get(plant_id)
 
-    user_plant_relationship = user.plants_b.append(plant)
+    user.plants_b.append(plant)
 
     session.commit()
-    return user_plant_relationship

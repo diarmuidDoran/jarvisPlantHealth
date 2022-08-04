@@ -19,14 +19,14 @@ class Plant(Base):
         "User_Account",
         secondary=plant_user_table,
         back_populates="plants_b",
-        passive_deletes=True,
+        passive_deletes=False,
     )
 
     plant_health_attributes = relationship(
         "Plant_Health_Attribute",
         back_populates="plants_c",
         cascade="all, delete",
-        passive_deletes=True,
+        passive_deletes=False,
     )
 
     def __init__(self, name, room_id):
