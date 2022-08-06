@@ -1,9 +1,9 @@
 /* istanbul ignore file */
 import React, { memo } from "react";
 import { TextField, Button } from "@mui/material";
-import { useLoginLogic } from "./use-login-logic";
+import { usePlantLogic } from "./use-plant-logic";
 
-export const Login = memo(() => {
+export const PlantByID = memo(() => {
   const {
     username,
     password,
@@ -12,13 +12,13 @@ export const Login = memo(() => {
     onPasswordChange,
     onSubmit,
     onGetData,
-  } = useLoginLogic();
+  } = usePlantLogic();
   return (
     <div>
-      <div>Login</div>
+      <div>Plant by ID</div>
       <div>
         <TextField
-          id="login-username"
+          id="plant-by-id-username"
           label="User Name"
           variant="outlined"
           value={username}
@@ -27,7 +27,7 @@ export const Login = memo(() => {
       </div>
       <div>
         <TextField
-          id="login-password"
+          id="plant-by-id-password"
           label="Password"
           variant="outlined"
           value={password}
@@ -35,12 +35,12 @@ export const Login = memo(() => {
         />
       </div>
       <div>
-        <Button id="login-submit" variant="text" onClick={onSubmit}>
+        <Button id="plant-by-id-submit" variant="text" onClick={onSubmit}>
           Login
         </Button>
       </div>
       <div>
-        <Button id="login-get-data" variant="text" onClick={onGetData}>
+        <Button id="plant-by-id-get-data" variant="text" onClick={onGetData}>
           Get Data
         </Button>
       </div>
