@@ -1,10 +1,11 @@
-from flask import request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from blueprints.data_provider.engine import engine
 from blueprints.data_provider.dtos.user_accounts import User_Account
+from argon2 import PasswordHasher
 
 session = Session(engine)
+ph = PasswordHasher()
 
 
 def get_user_account_dtos():
@@ -13,9 +14,14 @@ def get_user_account_dtos():
     return session.scalars(stmt)
 
 
+def encrypt(plain_text_password):
+    hashed_password = ph.hash(plain_text_password)
+    return hashed_password
+
+
 def add_user_account_dto(user_name, first_name, last_name, email, password):
 
-    new_user_account = User_Account(user_name, first_name, last_name, email, password)
+    new_user_account = User_Account(user_name, first_name, last_name, email, encrypt(password))
 
     session.add(new_user_account)
     session.commit()

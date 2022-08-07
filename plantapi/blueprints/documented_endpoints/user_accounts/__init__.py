@@ -1,6 +1,6 @@
 # blueprints/documented_endpoints/user_accounts/__init__.py
 from http import HTTPStatus
-
+from flask import request
 from flask_restx import Resource
 
 from blueprints.services.user_account_service import *
@@ -9,7 +9,7 @@ from blueprints.swagger_models.user_accounts import (
     user_model,
     user_plant_list_model,
 )
-from blueprints.validations.user_account_validation import user_account_is_valid, user_account_update_is_valid
+from blueprints.validations.user_account_validation import *
 
 
 @namespaceUser.route("")
@@ -24,6 +24,8 @@ class user_accounts(Resource):
 
         return user_accounts
 
+    @namespaceUser.response(400, "Email address not valid, valid email example, string.string@string.com")
+    @namespaceUser.response(400, "User account with the given email already exists")
     @namespaceUser.response(400, "User account with the given name already exists")
     @namespaceUser.response(500, "Internal Server error")
     @namespaceUser.expect(user_model)
@@ -37,9 +39,19 @@ class user_accounts(Resource):
         email = data.get("email")
         password = data.get("password")
 
-        if user_account_is_valid(user_name, email) is not True:
+        if user_account_email_is_valid(email) is not True:
             namespaceUser.abort(
-                400, "User with the given user_name or email already exists"
+                400, "Email address not valid, valid email example, string.string@string.com"
+            )
+
+        if user_account_is_valid_email_available(email) is not True:
+            namespaceUser.abort(
+                400, "User with the given email already exists"
+            )
+
+        if user_account_is_valid_available(user_name, email) is not True:
+            namespaceUser.abort(
+                400, "User with the given user_name already exists"
             )
 
         add_user_account = post_user_account(
