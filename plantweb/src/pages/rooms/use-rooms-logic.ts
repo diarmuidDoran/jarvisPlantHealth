@@ -2,11 +2,11 @@ import { ChangeEvent, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from 'shared/constants';
 
-export const usePlantsLogic = () => {
+export const useRoomsLogic = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [allPlantData, setData] = useState<any>([]);
+    const [allRoomData, setRoomData] = useState<any>([]);
 
     const history = useHistory();
 
@@ -24,30 +24,30 @@ export const usePlantsLogic = () => {
         alert(username + ' ' + password);
     }, [username, password]);
 
-    const onPlantClick = useCallback((id: string) => {
-        history.push(`${PATHS.plants}/${id}`)
+    const onRoomClick = useCallback((id: string) => {
+        history.push(`${PATHS.rooms}/${id}`)
     }, [history]);
 
-    const mockData = [
+    const mockRoomData = [
         {
             id: 1,
-            name: 'Plant 1',
+            name: 'Room 1',
         },
         {
             id: 2,
-            name: 'APlant 2',
+            name: 'Room 2',
         },
         {
             id: 3,
-            name: 'APlant 3',
+            name: 'Room 3',
         },
         {
             id: 4,
-            name: 'ZPlant 4',
+            name: 'Room 4',
         }
     ];
 
-    const sortPlantDataByNameDesc = [...mockData].sort((a, b) => {
+    const sortRoomDataByNameDesc = [...mockRoomData].sort((a, b) => {
             if(a.name > b.name){
                 return 1;
             }
@@ -57,20 +57,20 @@ export const usePlantsLogic = () => {
             return 0;
     }); 
 
-    const onGetPlantData = useCallback(() => {
+    const onGetRoomData = useCallback(() => {
 
-        console.log(sortPlantDataByNameDesc);
-        setData(sortPlantDataByNameDesc);
-    }, [setData])
+        console.log(sortRoomDataByNameDesc);
+        setRoomData(sortRoomDataByNameDesc);
+    }, [setRoomData])
     
     return {
         username,
         password,
-        allPlantData,
+        allRoomData,
         onUsernameChange,
         onPasswordChange,
         onSubmit,
-        onGetPlantData,
-        onPlantClick,
+        onGetRoomData,
+        onRoomClick,
     }
 }

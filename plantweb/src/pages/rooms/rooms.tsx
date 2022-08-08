@@ -7,31 +7,30 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { usePlantsLogic } from "./use-plants-logic";
+import { useRoomsLogic } from "./use-rooms-logic";
 import AddIcon from "@mui/icons-material/Add";
 
-export const Plants = memo(() => {
+export const Rooms = memo(() => {
   const {
-    
-    allPlantData,
-    onGetPlantData,
-    onPlantClick,
-  } = usePlantsLogic();
+    allRoomData,
+    onGetRoomData,
+    onRoomClick,
+  } = useRoomsLogic();
 
   useEffect(() => {
-    onGetPlantData();
+    onGetRoomData();
   }, []);
 
   return (
     <div>
-      <div>Plants</div>
+      <div>Rooms</div>
       <div>
-        <List component="nav" aria-label="plant_folders">
-          {allPlantData.map((plant: any, index: number) => {
+        <List component="nav" aria-label="room_folders">
+          {allRoomData.map((room: any, index: number) => {
             return (
               <Divider key={index}>
-                <ListItem button onClick={() => onPlantClick(plant.id)}>
-                  <ListItemText primary={plant.name} />
+                <ListItem button onClick={() => onRoomClick(room.id)}>
+                  <ListItemText primary={room.name} />
                 </ListItem>
               </Divider>
             );
