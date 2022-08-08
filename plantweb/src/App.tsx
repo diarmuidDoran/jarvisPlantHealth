@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { PATHS } from 'shared/constants';
 
-import { Routes } from 'components/routes'
+import { Routes } from 'components/routes';
 
 function App() {
   return (
