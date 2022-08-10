@@ -5,5 +5,9 @@ export const PATHS = {
     plant: '/plants/:id',
     addPlant: '/add-plant',
     rooms: '/rooms',
+    room: '/rooms/:id',
+    addRoom: '/add-room',
     sensors: '/sensors',
+    sensor: '/sensors/:id',
+    addSensor: '/add-sensor',
   };

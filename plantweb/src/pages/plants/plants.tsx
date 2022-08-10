@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import React, { memo, useEffect } from "react";
 import {
   Divider,
@@ -12,15 +11,15 @@ import AddIcon from "@mui/icons-material/Add";
 
 export const Plants = memo(() => {
   const {
-    
-    allPlantData,
-    onGetPlantData,
+    plants,
+    onGetPlantsData,
     onPlantClick,
     onAddPlantClick,
+    
   } = usePlantsLogic();
 
   useEffect(() => {
-    onGetPlantData();
+    onGetPlantsData();
   }, []);
 
   return (
@@ -28,7 +27,7 @@ export const Plants = memo(() => {
       <div>Plants</div>
       <div>
         <List component="nav" aria-label="plant_folders">
-          {allPlantData.map((plant: any, index: number) => {
+          {plants.map((plant: any, index: number) => {
             return (
               <Divider key={index}>
                 <ListItem button onClick={() => onPlantClick(plant.id)}>

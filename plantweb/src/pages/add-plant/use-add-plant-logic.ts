@@ -3,6 +3,8 @@ import { useCallback, useState } from 'react';
 import { useRoomsLogic } from 'pages/rooms/use-rooms-logic';
 import { Rooms } from 'pages/rooms';
 
+import { mockPlantData, mockPlantHelathAttributeData } from "shared/mocks";
+
 export const useAddPlantLogic = () => {
 
     const [plantName, setPlantName] = useState('')
@@ -14,45 +16,16 @@ export const useAddPlantLogic = () => {
     const [plantData, setPlantData] = useState<any>([]);
     const [plantHelathAttributeData, setPlantHealthAttributeData] = useState<any>([]);
 
-
     const {
         allRoomData,
         onGetRoomData,
     } = useRoomsLogic();
 
     const onGetPlantData = useCallback(() => {
-        const mockPlantData = [
-            {
-            id: 1,
-            name: 'Plant 1',
-            },
-            {
-                id: 2,
-                name: 'Plant 2',
-            }
-        ]
         setPlantData(mockPlantData);
     }, [setPlantData])
 
     const onGetPlantHealthAttributeData = useCallback(() => {
-        const mockPlantHelathAttributeData = [
-            {
-                id: 1,
-                upper_required_value: 2,
-                lower_required_value: 0.5,
-                unit_measurement_id: 1,
-                plant_id: 1,
-                health_attribute_id: 1,
-            },
-            {
-                id: 2,
-                upper_required_value: 2,
-                lower_required_value: 0.5,
-                unit_measurement_id: 1,
-                plant_id: 2,
-                health_attribute_id: 1,
-            }
-        ]
         setPlantHealthAttributeData(mockPlantHelathAttributeData);
     }, [setPlantHealthAttributeData])
 

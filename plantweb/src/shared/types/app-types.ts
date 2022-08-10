@@ -1,0 +1,1 @@
+export type NetworkStatus = 'none' | 'in-flight' | 'success' | 'error';

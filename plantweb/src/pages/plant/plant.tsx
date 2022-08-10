@@ -1,63 +1,61 @@
 /* istanbul ignore file */
-import React, { memo } from "react";
-import { TextField, Button } from "@mui/material";
+import React, { memo, useEffect } from "react";
+import { TextField, Button, Fab } from "@mui/material";
 import { usePlantLogic } from "./use-plant-logic";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+export type PlantByIDProps = {
+  id: string;
+};
 
-export const PlantByID = memo(() => {
-  const {
-    username,
-    password,
-    data,
-    onUsernameChange,
-    onPasswordChange,
-    onSubmit,
-    onGetData,
-  } = usePlantLogic();
+export const PlantByID = memo(({ id }: PlantByIDProps) => {
+  const { plant, onGetPlantData } = usePlantLogic();
+
+  useEffect(() => {
+    onGetPlantData(id);
+  }, [id]);
+
   return (
     <div>
-      <div>Plant by ID</div>
-      <div>
-        <TextField
-          id="plant-by-id-username"
-          label="User Name"
-          variant="outlined"
-          value={username}
-          onChange={onUsernameChange}
-        />
-      </div>
-      <div>
-        <TextField
-          id="plant-by-id-password"
-          label="Password"
-          variant="outlined"
-          value={password}
-          onChange={onPasswordChange}
-        />
-      </div>
-      <div>
-        <Button id="plant-by-id-submit" variant="text" onClick={onSubmit}>
-          Login
-        </Button>
-      </div>
-      <div>
-        <Button id="plant-by-id-get-data" variant="text" onClick={onGetData}>
-          Get Data
-        </Button>
-      </div>
-      <div>
-        {data.length > 0 && (
+      {plant === undefined && <>no plant</>}
+      {plant && (
+        <>
+          <div>{plant.name}</div>
           <div>
-            <div>Data</div>
-            <div>
-              {data.map((item: any, index: number) => (
-                <div key={index}>
-                  ID:{item.id} Name:{item.name}
-                </div>
-              ))}
-            </div>
+            <Fab size="small" color="secondary" aria-label="edit">
+              <EditIcon />
+            </Fab>
           </div>
-        )}
-      </div>
+          <div>
+            <Fab size="small" color="secondary" aria-label="edit">
+              <DeleteIcon />
+            </Fab>
+          </div>
+          <div>
+            Room: {plant.room_id} this needs updated to displey the rooms name
+          </div>
+          <div>Current Sensor Reading</div>
+          <div>Connected Sensors</div>
+          <div>
+            <Button id="Sesnsor Name" variant="text">
+              Sensor Name
+            </Button>
+            <Fab size="small" color="secondary" aria-label="edit">
+              <EditIcon />
+            </Fab>
+            <Fab size="small" color="secondary" aria-label="edit">
+              <DeleteIcon />
+            </Fab>
+          </div>
+          <div>
+            Add another plant health attribute to be monitored
+            <Fab size="small" color="primary" aria-label="add">
+              <AddIcon />
+            </Fab>
+          </div>
+        </>
+      )}
     </div>
   );
 });

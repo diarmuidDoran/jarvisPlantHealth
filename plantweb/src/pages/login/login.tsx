@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import React, { memo } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Link } from "@mui/material";
 import { useLoginLogic } from "./use-login-logic";
 
 export const Login = memo(() => {
@@ -40,6 +40,11 @@ export const Login = memo(() => {
         </Button>
       </div>
       <div>
+        <Link href="#" underline="hover">
+          {'Forgotten Password'}
+        </Link>
+      </div>
+      <div>
         <Button id="login-get-data" variant="text" onClick={onGetData}>
           Get Data
         </Button>
@@ -57,6 +62,12 @@ export const Login = memo(() => {
             </div>
           </div>
         )}
+      </div>
+      <div>
+        New to the app?
+        <Link href="#" underline="hover">
+          {' Sign Up '}
+        </Link>
       </div>
     </div>
   );

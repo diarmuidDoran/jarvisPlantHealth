@@ -5,7 +5,7 @@ import { useSensorsLogic } from "./use-sensors-logic";
 import AddIcon from "@mui/icons-material/Add";
 
 export const Sensors = memo(() => {
-  const { allSensorData, onGetSensorData, onSensorClick } = useSensorsLogic();
+  const { allSensorData, onGetSensorData, onSensorClick, onAddSensorClick } = useSensorsLogic();
 
   useEffect(() => {
     onGetSensorData();
@@ -29,7 +29,7 @@ export const Sensors = memo(() => {
       </div>
 
       <div>
-        <Fab color="primary" aria-label="add">
+        <Fab color="primary" aria-label="add" onClick={onAddSensorClick}>
           <AddIcon />
         </Fab>
       </div>

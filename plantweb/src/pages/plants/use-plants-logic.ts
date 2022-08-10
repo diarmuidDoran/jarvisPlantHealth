@@ -2,12 +2,15 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { PATHS } from "shared/constants";
 
+import { mockPlantData } from "shared/mocks";
+import { usePlants } from 'shared/hooks/use-plants'
+
 export const usePlantsLogic = () => {
   const [name, setName] = useState("");
   const [room_id, setRoomID] = useState("");
-  const [allPlantData, setPlantData] = useState<any>([]);
 
   const history = useHistory();
+  const { plants, getPlants } = usePlants();
 
   const onNameChange = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -41,30 +44,7 @@ export const usePlantsLogic = () => {
     history.push(path);
   }, [history]);
 
-  const mockPlantData = [
-    {
-      id: 1,
-      name: "Plant 1",
-      room_id: 1,
-    },
-    {
-      id: 2,
-      name: "APlant 2",
-      room_id: 1,
-    },
-    {
-      id: 3,
-      name: "APlant 3",
-      room_id: 2,
-    },
-    {
-      id: 4,
-      name: "ZPlant 4",
-      room_id: 2,
-    },
-  ];
-
-  const sortPlantDataByNameDesc = [...mockPlantData].sort((a, b) => {
+  const sortPlantsDataByNameDesc = [...mockPlantData].sort((a, b) => {
     if (a.name > b.name) {
       return 1;
     }
@@ -74,19 +54,18 @@ export const usePlantsLogic = () => {
     return 0;
   });
 
-  const onGetPlantData = useCallback(() => {
-    console.log(sortPlantDataByNameDesc);
-    setPlantData(sortPlantDataByNameDesc);
-  }, [setPlantData]);
+  const onGetPlantsData = useCallback(() => {
+    getPlants();
+  }, [getPlants]);
 
   return {
     name,
     room_id,
-    allPlantData,
+    plants,
     onNameChange,
     onRoomIDChange,
     onSubmit,
-    onGetPlantData,
+    onGetPlantsData,
     onPlantClick,
     onAddPlantClick,
   };

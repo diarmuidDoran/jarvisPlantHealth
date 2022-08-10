@@ -15,6 +15,7 @@ export const Rooms = memo(() => {
     allRoomData,
     onGetRoomData,
     onRoomClick,
+    onAddRoomClick,
   } = useRoomsLogic();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export const Rooms = memo(() => {
       </div>
       
       <div>
-        <Fab color="primary" aria-label="add">
+        <Fab color="primary" aria-label="add" onClick={onAddRoomClick}>
           <AddIcon />
         </Fab>
       </div>
