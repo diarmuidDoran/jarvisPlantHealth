@@ -1,5 +1,6 @@
 # main.py
 from flask import Flask
+from flask_cors import CORS
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
@@ -8,6 +9,7 @@ from blueprints.config import postgresConn
 from blueprints.documented_endpoints import blueprint as documented_endpoint
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = postgresConn
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
