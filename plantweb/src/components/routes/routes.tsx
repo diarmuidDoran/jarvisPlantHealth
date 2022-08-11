@@ -22,7 +22,7 @@ export const Routes = memo(() => {
       <Route exact path={PATHS.rooms} component={() => <Rooms />} />
       <Route exact path={PATHS.addRoom} component={() => <AddRoom />} />
       <Route exact path={PATHS.sensors} component={() => <Sensors />} />
-      <Route exact path={PATHS.sensor} component={() => <SensorByID />} />
+      
       <Route exact path={PATHS.addSensor} component={() => <AddSensor />} />
       {/* <Route exact path={PATHS.plant} component={() => <PlantByID />} /> */}
       <Route
@@ -38,6 +38,14 @@ export const Routes = memo(() => {
         path={`${PATHS.rooms}/:id`}
         component={(props: RouteComponentProps<{ id: string }>) => (
           <RoomByID {...{ id: props.match.params.id }} />
+        )}
+      />
+      {/* <Route exact path={PATHS.sensor} component={() => <SensorByID />} /> */}
+      <Route
+        exact
+        path={`${PATHS.sensors}/:id`}
+        component={(props: RouteComponentProps<{ id: string }>) => (
+          <SensorByID {...{ id: props.match.params.id }} />
         )}
       />
     </Switch>

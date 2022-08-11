@@ -8,18 +8,11 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import {
-  Divider,
   Fab,
-  List,
-  ListItem,
-  ListItemText,
-  MenuItem,
 } from "@mui/material";
 import { useSensorLogic } from "./use-sensor-logic";
-import { usePlantsLogic } from "pages/plants/use-plants-logic";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+export type SensorByIDProps = { id: string };
 
 interface Column {
   id: "sensorReading" | "unitMeasurement" | "date" | "time";
@@ -30,7 +23,11 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-  { id: "sensorReading", label: "Sensor\u00a0Reading\u00a0Value", minWidth: 100 },
+  {
+    id: "sensorReading",
+    label: "Sensor\u00a0Reading\u00a0Value",
+    minWidth: 100,
+  },
   { id: "unitMeasurement", label: "Unit\u00a0Measurement", minWidth: 100 },
   {
     id: "date",
@@ -56,12 +53,12 @@ interface Data {
 }
 
 function createData(
-    sensorReading: string,
-    unitMeasurement: string,
-    date: number,
-    time: number,
+  sensorReading: string,
+  unitMeasurement: string,
+  date: number,
+  time: number
 ): Data {
-  return { sensorReading, unitMeasurement, date, time};
+  return { sensorReading, unitMeasurement, date, time };
 }
 
 const rows = [
@@ -82,8 +79,9 @@ const rows = [
   createData("Brazil", "BR", 210147125, 8515767),
 ];
 
-export const SensorByID = memo(() => {
-  const { allRoomData, onGetRoomData, onRoomClick } = useSensorLogic();
+export const SensorByID = memo(({ id }: SensorByIDProps) => {
+  const { allRoomData, sensor, onGetRoomData, onGetSensor, onRoomClick } =
+    useSensorLogic();
 
   //Table functions
   const [page, setPage] = React.useState(0);
@@ -100,76 +98,85 @@ export const SensorByID = memo(() => {
     setPage(0);
   };
 
+  useEffect(() => {
+    onGetSensor(id);
+  }, [id]);
+
   return (
     <div>
-      <div>Sensor</div>
-      <div>
-        <Fab size="small" color="secondary" aria-label="edit">
-          <DeleteIcon />
-        </Fab>
-      </div>
-      <div>
-        Call Frequency 
-        <p>
-            call frequency min
-        </p>
-      </div>
-        {/* Table */}
-      <div>
-        <Paper sx={{ width: "80%", overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.unitMeasurement}
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </div>
-    </div> 
+      {sensor === undefined && <>No sensor for this id, go back. </>}
+      {sensor && (
+        <>
+          <div>{sensor.name}</div>
+          <div>
+            <Fab size="small" color="secondary" aria-label="edit">
+              <DeleteIcon />
+            </Fab>
+          </div>
+          <div>
+            Call Frequency: {sensor.call_frequency}
+          </div>
+          {/* Table */}
+          <div>
+            <Paper sx={{ width: "80%", overflow: "hidden" }}>
+              <TableContainer sx={{ maxHeight: 440 }}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{ minWidth: column.minWidth }}
+                        >
+                          {column.label}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row) => {
+                        return (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={row.unitMeasurement}
+                          >
+                            {columns.map((column) => {
+                              const value = row[column.id];
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === "number"
+                                    ? column.format(value)
+                                    : value}
+                                </TableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
+          </div>
+        </>
+      )}
+    </div>
   );
-})
+});

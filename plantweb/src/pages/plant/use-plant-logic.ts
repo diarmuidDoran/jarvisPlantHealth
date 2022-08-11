@@ -1,18 +1,19 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
-import { getPlantByID,} from 'shared/mocks';
+import { usePlants } from "shared/hooks/use-plants";
 
 export const usePlantLogic = () => {
+  const { plant, getPlant } = usePlants();
 
-    const [plant, setPlant] = useState<any>(undefined);
+  const onGetPlantData = useCallback(
+    (id: number) => {
+      getPlant(id);
+    },
+    [getPlant]
+  );
 
-    const onGetPlantData = useCallback((id: string) => {
-        const plant = getPlantByID(id);
-        setPlant(plant);
-    }, [setPlant, getPlantByID])
-
-    return {
-        plant,
-        onGetPlantData,
-    }
-}
+  return {
+    plant,
+    onGetPlantData,
+  };
+};

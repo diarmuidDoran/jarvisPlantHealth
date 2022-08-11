@@ -30,8 +30,6 @@ export const useSensorsLogic = () => {
     }); 
 
     const onGetSensorData = useCallback(() => {
-
-        console.log(sortSensorDataByNameDesc);
         setSensorData(sortSensorDataByNameDesc);
     }, [setSensorData]);
     

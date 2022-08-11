@@ -13,7 +13,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
   const { plant, onGetPlantData } = usePlantLogic();
 
   useEffect(() => {
-    onGetPlantData(id);
+    onGetPlantData(Number(id));
   }, [id]);
 
   return (

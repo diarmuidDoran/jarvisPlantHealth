@@ -1,21 +1,22 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from 'shared/constants';
 
 import { mockRoomData, getRoomByID, getPlantByRoomID } from "shared/mocks";
-import { usePlants } from 'shared/hooks/use-plants'
+
+import { useRooms } from "shared/hooks/use-rooms";
 
 export const useRoomLogic = () => {
 
+    const { room, getRoom } = useRooms();
     const [allRoomData, setRoomData] = useState<any>([]);
-    const [selectedRoomID, setSelectedRoomID] = useState();
 
-    const [room, setRoom] = useState<any>(undefined);
+    const [roomOld, setRoom] = useState<any>(undefined);
     const [plants, setPlant] = useState<any>(undefined);
 
     const onGetRoom = useCallback((id: string) => {
-        const room = getRoomByID(id);
-        setRoom(room);
+        const roomOld = getRoomByID(id);
+        setRoom(roomOld);
     }, [setRoom, getRoomByID])
 
     const onGetRoomPlants = useCallback((id: string) => {
@@ -50,12 +51,16 @@ export const useRoomLogic = () => {
             return 0;
     }); 
 
-    const onGetRoomData = useCallback(() => {
-        setRoomData(sortRoomDataByNameDesc);
-    }, [setRoomData])
-    
+    const onGetRoomData = useCallback(
+        (id: number) => {
+          getRoom(id);
+        },
+        [getRoom]
+      );
+
     return {
         room,
+        roomOld,
         plants,
         allRoomData,
         onGetRoom,

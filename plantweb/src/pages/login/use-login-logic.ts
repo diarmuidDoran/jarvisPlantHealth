@@ -7,12 +7,10 @@ export const useLoginLogic = () => {
     const [data, setData] = useState<any>([]);
 
     const onUsernameChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        console.log(value)
         setUsername(value);
       }, [setUsername]);
 
     const onPasswordChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        console.log(value)
         setPassword(value);
       }, [setPassword]);
 
@@ -31,8 +29,6 @@ export const useLoginLogic = () => {
                 name: 'Plant 2',
             }
         ]
-        console.log('Woooooooooooooooo');
-        console.log(mockData);
         setData(mockData);
     }, [setData])
 

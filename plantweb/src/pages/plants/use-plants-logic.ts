@@ -2,7 +2,6 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { PATHS } from "shared/constants";
 
-import { mockPlantData } from "shared/mocks";
 import { usePlants } from 'shared/hooks/use-plants'
 
 export const usePlantsLogic = () => {
@@ -10,11 +9,11 @@ export const usePlantsLogic = () => {
   const [room_id, setRoomID] = useState("");
 
   const history = useHistory();
+
   const { plants, getPlants } = usePlants();
 
   const onNameChange = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      console.log(value);
       setName(value);
     },
     [setName]
@@ -22,7 +21,6 @@ export const usePlantsLogic = () => {
 
   const onRoomIDChange = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      console.log(value);
       setRoomID(value);
     },
     [setRoomID]
@@ -44,7 +42,8 @@ export const usePlantsLogic = () => {
     history.push(path);
   }, [history]);
 
-  const sortPlantsDataByNameDesc = [...mockPlantData].sort((a, b) => {
+  //Sort plants in alphabetical order
+  const sortPlantsDataByNameDesc = [...plants].sort((a, b) => {
     if (a.name > b.name) {
       return 1;
     }
@@ -54,6 +53,7 @@ export const usePlantsLogic = () => {
     return 0;
   });
 
+  //get an array of the plants data via the api
   const onGetPlantsData = useCallback(() => {
     getPlants();
   }, [getPlants]);

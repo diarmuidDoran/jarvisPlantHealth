@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import React, { memo, useEffect } from "react";
 import {
   Divider,
@@ -12,7 +11,9 @@ import AddIcon from "@mui/icons-material/Add";
 
 export const Rooms = memo(() => {
   const {
+    rooms,
     allRoomData,
+    onGetRoomDataOLD,
     onGetRoomData,
     onRoomClick,
     onAddRoomClick,
@@ -27,7 +28,7 @@ export const Rooms = memo(() => {
       <div>Rooms</div>
       <div>
         <List component="nav" aria-label="room_folders">
-          {allRoomData.map((room: any, index: number) => {
+          {rooms.map((room: any, index: number) => {
             return (
               <Divider key={index}>
                 <ListItem button onClick={() => onRoomClick(room.id)}>

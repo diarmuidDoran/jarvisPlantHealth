@@ -23,10 +23,10 @@ export const AddRoom = memo(() => {
     onGetRoomName,
   } = useAddRoomLogic();
 
-  const { allRoomData, onGetRoomData } = useRoomsLogic();
+  const { allRoomData, onGetRoomDataOLD } = useRoomsLogic();
 
   useEffect(() => {
-    onGetRoomData();
+    onGetRoomDataOLD();
   }, []);
 
   return (

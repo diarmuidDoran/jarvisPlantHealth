@@ -18,7 +18,7 @@ export const useAddPlantLogic = () => {
 
     const {
         allRoomData,
-        onGetRoomData,
+        onGetRoomDataOLD,
     } = useRoomsLogic();
 
     const onGetPlantData = useCallback(() => {

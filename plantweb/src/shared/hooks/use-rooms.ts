@@ -1,11 +1,8 @@
 import { useCallback, useState } from "react";
 import { useNetworkStatus } from "./use-network-status";
-import { mockPlantData } from "shared/mocks/plants";
-import {Plant} from "shared/types";
-import { usePlantApi } from "api/plant-api";
+import { RoomResponse, RoomByIDResponse, useRoomApi } from "api/room-api";
 
-
-export const usePlants = () => {
+export const useRooms = () => {
   const {
     status: networkStatus,
     setInFlight,
@@ -14,25 +11,25 @@ export const usePlants = () => {
   } = useNetworkStatus();
 
   const {
-    getPlants,
-    getPlant,
-  } = usePlantApi(); 
+    getRooms,
+    getRoom,
+  } = useRoomApi(); 
 
-  const [plants, setPlants] = useState<Plant[]>([]);
-  const [plant, setPlant] = useState<Plant>();
+  const [rooms, setRooms] = useState<RoomResponse[]>([]);
+  const [room, setRoom] = useState<RoomByIDResponse>();
   const [errorMessage, setErrorMessage] = useState("");
 
-  const getAllPlants = useCallback(
+  const getAllRooms = useCallback(
     async () => {
       setErrorMessage("");
 
       setInFlight();
 
       try {
-        const response = await getPlants();
+        const response = await getRooms();
 
         setSuccess();
-        setPlants(response.data);
+        setRooms(response.data);
       } catch (e: any) {
         setNetworkStatusError();
         setErrorMessage(e);
@@ -40,21 +37,20 @@ export const usePlants = () => {
         return;
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
-  const getPlantByID = useCallback(
+  const getRoomByID = useCallback(
     async (id:number) => {
       setErrorMessage("");
 
       setInFlight();
 
       try {
-        const response = await getPlant(id);
+        const response = await getRoom(id);
 
         setSuccess();
-        setPlant(response.data);
+        setRoom(response.data);
       } catch (e: any) {
         setNetworkStatusError();
         setErrorMessage(e);
@@ -67,10 +63,10 @@ export const usePlants = () => {
   );
 
   return {
-    plants,
-    plant,
-    getPlants: getAllPlants,
-    getPlant: getPlantByID,
+    rooms,
+    room,
+    getRooms: getAllRooms,
+    getRoom: getRoomByID,
     networkStatus,
     errorMessage,
   } as const;

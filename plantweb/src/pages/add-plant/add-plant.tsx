@@ -28,10 +28,10 @@ export const AddPlant = memo(() => {
     onGetPlantHealthAttributeData,
   } = useAddPlantLogic();
 
-  const { allRoomData, onGetRoomData } = useRoomsLogic();
+  const { allRoomData, onGetRoomDataOLD } = useRoomsLogic();
 
   useEffect(() => {
-    onGetRoomData();
+    onGetRoomDataOLD();
   }, []);
 
   return (

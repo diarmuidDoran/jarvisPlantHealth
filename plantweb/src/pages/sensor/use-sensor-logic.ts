@@ -2,14 +2,19 @@ import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from 'shared/constants';
 
-import { mockRoomData } from "shared/mocks";
+import { mockRoomData, mockSensorData, getSensorByID } from "shared/mocks";
 import { usePlants } from 'shared/hooks/use-plants';
 
 export const useSensorLogic = () => {
    
     const [allRoomData, setRoomData] = useState<any>([]);
     
-    const [selectedRoomID, setSelectedRoomID] = useState()
+    const [sensor, setSensor] = useState<any>(undefined);
+
+    const onGetSensor = useCallback((id: string) => {
+        const sensor = getSensorByID(id);
+        setSensor(sensor);
+    }, [setSensor, getSensorByID])
     
     const history = useHistory();
 
@@ -32,8 +37,10 @@ export const useSensorLogic = () => {
     }, [setRoomData])
     
     return {
+        sensor,
         allRoomData,
         onGetRoomData,
+        onGetSensor,
         onRoomClick,
     }
 }
