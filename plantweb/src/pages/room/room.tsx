@@ -9,7 +9,6 @@ import {
   MenuItem,
 } from "@mui/material";
 import { useRoomLogic } from "./use-room-logic";
-import { usePlantsLogic } from "pages/plants/use-plants-logic";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,14 +19,8 @@ export type RoomByIDProps = {
 export const RoomByID = memo(({ id }: RoomByIDProps) => {
   const {
     room,
-    roomOld,
-    plants,
-    allRoomData,
     onGetRoomData,
-    onRoomClick,
     onRoomsClick,
-    onGetRoom,
-    onGetRoomPlants,
     onRoomPlantClick,
   } = useRoomLogic();
 
@@ -81,8 +74,8 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
                       variant="body2"
                       onClick={() => onRoomsClick()}
                     >
-                      No Plants currently assignid to this room, Click to return
-                      to Rooms"
+                      No Plants currently assigned to this room, Click to return
+                      to Rooms
                     </Link>
                   </div>
                 </>

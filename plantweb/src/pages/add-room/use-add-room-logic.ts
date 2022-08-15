@@ -1,29 +1,34 @@
 import { SelectChangeEvent } from '@mui/material';
-import { useCallback, useState } from 'react';
-import { useRoomsLogic } from 'pages/rooms/use-rooms-logic';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { Rooms } from 'pages/rooms';
 
-import { mockRoomData,} from "shared/mocks";
 
 export const useAddRoomLogic = () => {
-    const [room, setRoom] = useState('');
     const [roomName, setRoomName] = useState('')
+
+    const onRoomNameChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+        setRoomName(value);
+      }, [setRoomName]);
 
 
     const onGetRoomName= useCallback(() => {
         setRoomName('');
     }, [setRoomName])
 
+    const onSubmit = useCallback(() => {
+        alert(roomName);
+    }, [roomName]);
 
-    const handleRoomChange = (event: SelectChangeEvent) => {
-        setRoom(event.target.value as string)
+
+    const handleRoomNameChange = (event: SelectChangeEvent) => {
+        setRoomName(event.target.value as string)
     };
 
     return {
-        room,
         roomName,
-        handleRoomChange,
+        handleRoomNameChange,
         onGetRoomName,
-       
+        onRoomNameChange,
+        onSubmit,
     }
 }

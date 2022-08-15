@@ -12,22 +12,17 @@ import {
   Stack,
 } from "@mui/material";
 import { useAddRoomLogic } from "./use-add-room-logic";
-import { useRoomsLogic } from "pages/rooms/use-rooms-logic";
-import AddIcon from "@mui/icons-material/Add";
 
 export const AddRoom = memo(() => {
   const {
-    room,
     roomName,
-    handleRoomChange,
-    onGetRoomName,
+    onRoomNameChange,
+    onSubmit,
   } = useAddRoomLogic();
 
-  const { allRoomData, onGetRoomDataOLD } = useRoomsLogic();
 
-  useEffect(() => {
-    onGetRoomDataOLD();
-  }, []);
+  // useEffect(() => {
+  // }, []);
 
   return (
     <div>
@@ -44,11 +39,12 @@ export const AddRoom = memo(() => {
           label="Room Name"
           variant="outlined"
           value={roomName}
+          onChange={onRoomNameChange}
         />
       </div>
       <div>
         <Stack spacing={2} direction="row">
-          <Button variant="outlined">Add Room</Button>
+          <Button variant="outlined" onClick={onSubmit}>Add Room</Button>
         </Stack>
       </div>
     </div>
