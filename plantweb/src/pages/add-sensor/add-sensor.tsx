@@ -25,7 +25,7 @@ export const AddSensor = memo(() => {
     onGetSensorCallFrequency,
   } = useAddSensorLogic();
 
-  const { allSensorData, onGetSensorData } = useSensorsLogic();
+  const { sensors, onGetSensorData } = useSensorsLogic();
 
   useEffect(() => {
     onGetSensorData();

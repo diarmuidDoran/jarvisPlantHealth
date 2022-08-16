@@ -5,7 +5,7 @@ import { useSensorsLogic } from "./use-sensors-logic";
 import AddIcon from "@mui/icons-material/Add";
 
 export const Sensors = memo(() => {
-  const { allSensorData, onGetSensorData, onSensorClick, onAddSensorClick } = useSensorsLogic();
+  const { sensors, onGetSensorData, onSensorClick, onAddSensorClick } = useSensorsLogic();
 
   useEffect(() => {
     onGetSensorData();
@@ -16,11 +16,11 @@ export const Sensors = memo(() => {
       <div>Sensors</div>
       <div>
         <List component="nav" aria-label="sensor_folders">
-          {allSensorData.map((sensor: any, index: number) => {
+          {sensors.map((sensor: any, index: number) => {
             return (
               <Divider key={index}>
                 <ListItem button onClick={() => onSensorClick(sensor.id)}>
-                  <ListItemText primary={sensor.name} />
+                  <ListItemText primary={sensor.sensor_name} />
                 </ListItem>
               </Divider>
             );

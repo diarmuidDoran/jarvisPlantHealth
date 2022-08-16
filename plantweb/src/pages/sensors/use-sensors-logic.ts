@@ -4,9 +4,11 @@ import { PATHS } from 'shared/constants';
 
 import { mockSensorData } from "shared/mocks";
 
+import { useSensors } from "shared/hooks/use-sensors";
+
 export const useSensorsLogic = () => {
 
-    const [allSensorData, setSensorData] = useState<any>([]);
+    const { sensors, getSensors } = useSensors();
 
     const history = useHistory();
 
@@ -30,12 +32,11 @@ export const useSensorsLogic = () => {
     }); 
 
     const onGetSensorData = useCallback(() => {
-        setSensorData(sortSensorDataByNameDesc);
-    }, [setSensorData]);
+        getSensors();
+    }, [getSensors]);
     
     return {
-
-        allSensorData,
+        sensors,
         onGetSensorData,
         onSensorClick,
         onAddSensorClick,

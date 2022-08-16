@@ -17,6 +17,7 @@ export const useRooms = () => {
 
   const [rooms, setRooms] = useState<RoomResponse[]>([]);
   const [room, setRoom] = useState<RoomByIDResponse>();
+  
   const [errorMessage, setErrorMessage] = useState("");
 
   const getAllRooms = useCallback(

@@ -1,8 +1,8 @@
-import { getRooms, getRoom} from "./sensor-api";
+import { getSensors, getSensor} from "./sensor-api";
 
-export const useRoomApi = () => {
+export const useSensorApi = () => {
   return {
-    getRooms: () => getRooms({}),
-    getRoom: (id: number) => getRoom(id, {}),
+    getSensors: () => getSensors({}),
+    getSensor: (id: number) => getSensor(id, {}),
   };
 };

@@ -80,7 +80,7 @@ const rows = [
 ];
 
 export const SensorByID = memo(({ id }: SensorByIDProps) => {
-  const { allRoomData, sensor, onGetRoomData, onGetSensor, onRoomClick } =
+  const { sensor, onGetSensorData } =
     useSensorLogic();
 
   //Table functions
@@ -99,7 +99,7 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
   };
 
   useEffect(() => {
-    onGetSensor(id);
+    onGetSensorData(Number(id));
   }, [id]);
 
   return (
@@ -107,7 +107,7 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
       {sensor === undefined && <>No sensor for this id, go back. </>}
       {sensor && (
         <>
-          <div>{sensor.name}</div>
+          <div>{sensor.sensor_name}</div>
           <div>
             <Fab size="small" color="secondary" aria-label="edit">
               <DeleteIcon />

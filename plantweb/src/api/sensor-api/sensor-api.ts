@@ -1,12 +1,11 @@
 import {AxiosRequestConfig} from "axios";
 import {get} from 'api/api';
-import { SensorResponse, RoomByIDResponse } from "./sensor-api-types";
+import { SensorResponse, SensorByIDResponse } from "./sensor-api-types";
 
-export const getRooms = (config?: AxiosRequestConfig) => {
-    return get<RoomResponse[]>('/rooms', config);
+export const getSensors = (config?: AxiosRequestConfig) => {
+    return get<SensorResponse[]>('/sensors', config);
 }
 
-export const getRoom = (room: number, config?: AxiosRequestConfig) => {
-    return get<RoomByIDResponse>(`/rooms/${room}`, config);
+export const getSensor = (sensor: number, config?: AxiosRequestConfig) => {
+    return get<SensorByIDResponse>(`/sensors/${sensor}`, config);
 }
-

@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useNetworkStatus } from "./use-network-status";
-import { mockPlantData } from "shared/mocks/plants";
+// import { mockPlantData } from "shared/mocks/plants";
 import {Plant} from "shared/types";
 import { usePlantApi } from "api/plant-api";
 
@@ -20,6 +20,7 @@ export const usePlants = () => {
 
   const [plants, setPlants] = useState<Plant[]>([]);
   const [plant, setPlant] = useState<Plant>();
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const getAllPlants = useCallback(

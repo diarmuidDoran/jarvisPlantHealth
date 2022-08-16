@@ -13,5 +13,5 @@ export type SensroReading = {
 export type SensorByIDResponse = {
     sensor_name: string;
     call_frequency: string;
-    sensor_readings: [SensroReading]
+    sensor_readings: [SensroReading];
 }

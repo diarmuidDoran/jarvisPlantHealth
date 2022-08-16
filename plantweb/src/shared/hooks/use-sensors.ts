@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { useNetworkStatus } from "./use-network-status";
-import { RoomResponse, RoomByIDResponse, useRoomApi } from "api/room-api";
+import { SensorResponse, SensorByIDResponse, useSensorApi } from "api/sensor-api";
 
-export const useRooms = () => {
+export const useSensors = () => {
   const {
     status: networkStatus,
     setInFlight,
@@ -11,25 +11,25 @@ export const useRooms = () => {
   } = useNetworkStatus();
 
   const {
-    getRooms,
-    getRoom,
-  } = useRoomApi(); 
+    getSensor,
+    getSensors,
+  } = useSensorApi(); 
 
-  const [rooms, setRooms] = useState<RoomResponse[]>([]);
-  const [room, setRoom] = useState<RoomByIDResponse>();
+  const [sensors, setSensors] = useState<SensorResponse[]>([]);
+  const [sensor, setSensor] = useState<SensorByIDResponse>();
   const [errorMessage, setErrorMessage] = useState("");
 
-  const getAllRooms = useCallback(
+  const getAllSensors = useCallback(
     async () => {
       setErrorMessage("");
 
       setInFlight();
 
       try {
-        const response = await getRooms();
+        const response = await getSensors();
 
         setSuccess();
-        setRooms(response.data);
+        setSensors(response.data);
       } catch (e: any) {
         setNetworkStatusError();
         setErrorMessage(e);
@@ -40,17 +40,17 @@ export const useRooms = () => {
     []
   );
 
-  const getRoomByID = useCallback(
+  const getSensorByID = useCallback(
     async (id:number) => {
       setErrorMessage("");
 
       setInFlight();
 
       try {
-        const response = await getRoom(id);
+        const response = await getSensor(id);
 
         setSuccess();
-        setRoom(response.data);
+        setSensor(response.data);
       } catch (e: any) {
         setNetworkStatusError();
         setErrorMessage(e);
@@ -58,15 +58,14 @@ export const useRooms = () => {
         return;
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   return {
-    rooms,
-    room,
-    getRooms: getAllRooms,
-    getRoom: getRoomByID,
+    sensors,
+    sensor,
+    getSensors: getAllSensors,
+    getSensor: getSensorByID,
     networkStatus,
     errorMessage,
   } as const;

@@ -10,3 +10,7 @@ export type RoomByIDResponse = {
     name: string;
     plants: [Plant]
 }
+
+export type AddEditRoom = {
+    name: string;
+}

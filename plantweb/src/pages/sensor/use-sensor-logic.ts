@@ -3,23 +3,19 @@ import { useHistory } from 'react-router-dom';
 import { PATHS } from 'shared/constants';
 
 import { mockRoomData, mockSensorData, getSensorByID } from "shared/mocks";
-import { usePlants } from 'shared/hooks/use-plants';
+
+import { useSensors } from 'shared/hooks/use-sensors';
 
 export const useSensorLogic = () => {
    
     const [allRoomData, setRoomData] = useState<any>([]);
-    
-    const [sensor, setSensor] = useState<any>(undefined);
 
-    const onGetSensor = useCallback((id: string) => {
-        const sensor = getSensorByID(id);
-        setSensor(sensor);
-    }, [setSensor, getSensorByID])
+    const { sensor, getSensor } = useSensors();
     
     const history = useHistory();
 
-    const onRoomClick = useCallback((id: string) => {
-        history.push(`${PATHS.rooms}/${id}`)
+    const onSensorClick = useCallback((id: string) => {
+        history.push(`${PATHS.sensors}/${id}`)
     }, [history]);
 
     const sortRoomDataByNameDesc = [...mockRoomData].sort((a, b) => {
@@ -32,15 +28,15 @@ export const useSensorLogic = () => {
             return 0;
     }); 
 
-    const onGetRoomData = useCallback(() => {
-        setRoomData(sortRoomDataByNameDesc);
-    }, [setRoomData])
+    const onGetSensorData = useCallback(
+        (id: number) => {
+          getSensor(id);
+        },
+        [getSensor]
+      );
     
     return {
         sensor,
-        allRoomData,
-        onGetRoomData,
-        onGetSensor,
-        onRoomClick,
+        onGetSensorData,
     }
 }
