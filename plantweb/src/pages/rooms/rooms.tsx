@@ -1,23 +1,10 @@
 import React, { memo, useEffect } from "react";
-import {
-  Divider,
-  Fab,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
+import { Divider, Fab, List, ListItem, ListItemText } from "@mui/material";
 import { useRoomsLogic } from "./use-rooms-logic";
 import AddIcon from "@mui/icons-material/Add";
 
 export const Rooms = memo(() => {
-  const {
-    rooms,
-    allRoomData,
-    onGetRoomDataOLD,
-    onGetRoomData,
-    onRoomClick,
-    onAddRoomClick,
-  } = useRoomsLogic();
+  const { rooms, onGetRoomData, onRoomClick, onAddRoomClick } = useRoomsLogic();
 
   useEffect(() => {
     onGetRoomData();
@@ -39,7 +26,7 @@ export const Rooms = memo(() => {
           })}
         </List>
       </div>
-      
+
       <div>
         <Fab color="primary" aria-label="add" onClick={onAddRoomClick}>
           <AddIcon />

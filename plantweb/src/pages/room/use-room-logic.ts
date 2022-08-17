@@ -1,49 +1,52 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { PATHS } from 'shared/constants';
-
-import { mockRoomData, getRoomByID, getPlantByRoomID } from "shared/mocks";
+import { useCallback } from "react";
+import { useHistory } from "react-router-dom";
+import { PATHS } from "shared/constants";
 
 import { useRooms } from "shared/hooks/use-rooms";
 
 export const useRoomLogic = () => {
+  const { room, getRoom, deleteRoom } = useRooms();
 
-    const { room, getRoom } = useRooms();
+  const history = useHistory();
 
-    const history = useHistory();
+  const onRoomsClick = useCallback(() => {
+    history.push(`${PATHS.rooms}`);
+  }, [history]);
 
-    const onRoomsClick = useCallback(() => {
-        history.push(`${PATHS.rooms}`)
-    }, [history]);
+  const onEditRoomClick = useCallback(
+    (id: string) => {
+      history.push(`${PATHS.rooms}/${id}/edit`);
+    },
+    [history]
+  );
 
-    const onRoomPlantClick = useCallback(
-        (id: string) => {
-          history.push(`${PATHS.plants}/${id}`);
-        },
-        [history]
-      );
+  const onDeleteRoomClick = useCallback(
+    (id: number) => {
+      deleteRoom(id);
+    },
+    [deleteRoom]
+  );
 
-    const sortRoomDataByNameDesc = [...mockRoomData].sort((a, b) => {
-            if(a.name > b.name){
-                return 1;
-            }
-            if(a.name < b.name){
-                return -1;
-            }
-            return 0;
-    }); 
+  const onRoomPlantClick = useCallback(
+    (id: string) => {
+      history.push(`${PATHS.plants}/${id}`);
+    },
+    [history]
+  );
 
-    const onGetRoomData = useCallback(
-        (id: number) => {
-          getRoom(id);
-        },
-        [getRoom]
-      );
+  const onGetRoomData = useCallback(
+    (id: number) => {
+      getRoom(id);
+    },
+    [getRoom]
+  );
 
-    return {
-        room,
-        onGetRoomData,
-        onRoomPlantClick,
-        onRoomsClick,
-    }
-}
+  return {
+    room,
+    onGetRoomData,
+    onDeleteRoomClick,
+    onRoomPlantClick,
+    onRoomsClick,
+    onEditRoomClick,
+  };
+};

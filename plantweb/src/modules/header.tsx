@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React from "react";
 import { PATHS } from "shared/constants";
-import { Box, Tab, Tabs } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { Tab } from "@mui/material";
 import AppHeaderNavLink, {
   NavLink,
 } from "components/app-header-nav-link/app-header-nav-link";
@@ -13,7 +12,7 @@ export type AppHeaderProps = {
   links: NavLink[];
 };
 
-// create React Functional Component variable that will render our code for our header.
+// create React Functional Component variable that will render code for the header.
 // React.FC takes a type of the props that can be passed into the component
 const AppHeader: React.FC<AppHeaderProps> = React.memo(
   ({ title, description, links }) => {
@@ -58,7 +57,6 @@ function LinkTab(props: LinkTabProps) {
 }
 
 export const NavTab = () => {
-
   let value = 0;
 
   if (window.location.pathname.indexOf(PATHS.rooms) > -1) {

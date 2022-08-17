@@ -1,9 +1,7 @@
 import { useCallback, useState } from "react";
 import { useNetworkStatus } from "./use-network-status";
-// import { mockPlantData } from "shared/mocks/plants";
-import {Plant} from "shared/types";
+import { Plant } from "shared/types";
 import { usePlantApi } from "api/plant-api";
-
 
 export const usePlants = () => {
   const {
@@ -13,10 +11,8 @@ export const usePlants = () => {
     setError: setNetworkStatusError,
   } = useNetworkStatus();
 
-  const {
-    getPlants,
-    getPlant,
-  } = usePlantApi(); 
+  const { getPlants, getPlant, addPlant, editPlant, deletePlant } =
+    usePlantApi();
 
   const [plants, setPlants] = useState<Plant[]>([]);
   const [plant, setPlant] = useState<Plant>();
@@ -46,7 +42,7 @@ export const usePlants = () => {
   );
 
   const getPlantByID = useCallback(
-    async (id:number) => {
+    async (id: number) => {
       setErrorMessage("");
 
       setInFlight();
@@ -67,11 +63,84 @@ export const usePlants = () => {
     []
   );
 
+  const addPlantCallback = useCallback(
+    async (name: string, room_id: number) => {
+      setErrorMessage("");
+      setInFlight();
+
+      try {
+        const response = await addPlant({ name, room_id });
+
+        setSuccess();
+
+        return response.data;
+      } catch (e: any) {
+        setNetworkStatusError();
+        setErrorMessage(e);
+
+        return;
+      }
+    },
+    [addPlant, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
+  );
+
+  const editPlantCallback = useCallback(
+    async (id: number, name: string, room_id: number) => {
+      setErrorMessage("");
+      setInFlight();
+
+      try {
+        const response = await editPlant(id, { name, room_id });
+
+        setSuccess();
+
+        return response.data;
+      } catch (e: any) {
+        setNetworkStatusError();
+        setErrorMessage(e);
+
+        return;
+      }
+    },
+    [editPlant, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
+  );
+
+  const deletePlantByID = useCallback(
+    async (id: number) => {
+      setErrorMessage("");
+
+      setInFlight();
+
+      try {
+        const response = await deletePlant(id);
+
+        setSuccess();
+
+        return response.data;
+      } catch (e: any) {
+        setNetworkStatusError();
+        setErrorMessage(e);
+
+        return;
+      }
+    },
+    [
+      deletePlant,
+      setErrorMessage,
+      setInFlight,
+      setNetworkStatusError,
+      setSuccess,
+    ]
+  );
+
   return {
     plants,
     plant,
     getPlants: getAllPlants,
     getPlant: getPlantByID,
+    postPlant: addPlantCallback,
+    editPlant: editPlantCallback,
+    deletePlant: deletePlantByID,
     networkStatus,
     errorMessage,
   } as const;

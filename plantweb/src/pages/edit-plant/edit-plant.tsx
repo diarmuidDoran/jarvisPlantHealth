@@ -10,14 +10,17 @@ import {
   Select,
   Stack,
 } from "@mui/material";
-import { useAddPlantLogic } from "./use-add-plant-logic";
+import { useEditPlantLogic } from "./use-edit-plant-logic";
 import { useRoomsLogic } from "pages/rooms/use-rooms-logic";
 import { useSensorsLogic } from "pages/sensors/use-sensors-logic";
 import AddIcon from "@mui/icons-material/Add";
+export type PlantByIDProps = {
+  id: string;
+};
 
-
-export const AddPlant = memo(() => {
+export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
   const {
+    plant,
     plantName,
     room,
     upperRequiredValue,
@@ -33,7 +36,7 @@ export const AddPlant = memo(() => {
     handleUnitChange,
     handleSensorChange,
     onSubmit,
-  } = useAddPlantLogic();
+  } = useEditPlantLogic(Number(id));
 
   const { rooms, onGetRoomData } = useRoomsLogic();
   const { sensors, onGetSensorData } = useSensorsLogic();
@@ -45,10 +48,10 @@ export const AddPlant = memo(() => {
 
   return (
     <div>
-      <div>Add Plant</div>
+      <div>Edit {plant?.name}</div>
       <div>
         <p>
-          Complete the below fields to add your new plant, avoid using existing
+          Complete the below fields to edit {plant?.name}, avoid using existing
           plant names.
         </p>
       </div>
@@ -82,7 +85,7 @@ export const AddPlant = memo(() => {
         </Box>
       </div>
       <div>
-        <p>Add the plant health attributes to be monitored</p>
+        <p>Edit plant health attributes to be monitored</p>
       </div>
       <div>
         <TextField
@@ -169,7 +172,9 @@ export const AddPlant = memo(() => {
       </div>
       <div>
         <Stack spacing={2} direction="row">
-          <Button variant="outlined" onClick={onSubmit}>Add Plant</Button>
+          <Button variant="outlined" onClick={onSubmit}>
+            Add Plant
+          </Button>
         </Stack>
       </div>
     </div>

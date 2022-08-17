@@ -1,6 +1,5 @@
-/* istanbul ignore file */
 import React, { memo, useEffect } from "react";
-import { TextField, Button, Fab } from "@mui/material";
+import { Button, Fab } from "@mui/material";
 import { usePlantLogic } from "./use-plant-logic";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -10,7 +9,14 @@ export type PlantByIDProps = {
 };
 
 export const PlantByID = memo(({ id }: PlantByIDProps) => {
-  const { plant, onGetPlantData } = usePlantLogic();
+  const {
+    plant,
+    onGetPlantData,
+    onPlantsClick,
+    onEditPlantClick,
+    onDeletePlantClick,
+    onPlantSensorClick,
+  } = usePlantLogic();
 
   useEffect(() => {
     onGetPlantData(Number(id));
@@ -18,17 +24,30 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
 
   return (
     <div>
-      {plant === undefined && <>no plant</>}
+      {plant === undefined && <>no plant for this id, go back.</>}
       {plant && (
         <>
           <div>{plant.name}</div>
           <div>
-            <Fab size="small" color="secondary" aria-label="edit">
+            <Fab
+              size="small"
+              color="secondary"
+              aria-label="edit"
+              onClick={() => onEditPlantClick(String(plant.id))}
+            >
               <EditIcon />
             </Fab>
           </div>
           <div>
-            <Fab size="small" color="secondary" aria-label="edit">
+            <Fab
+              size="small"
+              color="secondary"
+              aria-label="edit"
+              onClick={() => {
+                onDeletePlantClick(plant.id);
+                onPlantsClick();
+              }}
+            >
               <DeleteIcon />
             </Fab>
           </div>
@@ -38,7 +57,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
           <div>Current Sensor Reading</div>
           <div>Connected Sensors</div>
           <div>
-            <Button id="Sesnsor Name" variant="text">
+            <Button id="Sesnsor Name" variant="text" onClick={() => onPlantSensorClick(String())}>
               Sensor Name
             </Button>
             <Fab size="small" color="secondary" aria-label="edit">

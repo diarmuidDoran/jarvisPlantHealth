@@ -1,13 +1,14 @@
+import { SelectChangeEvent } from "@mui/material";
 import { ChangeEvent, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useRooms } from "shared/hooks/use-rooms";
 import { PATHS } from "shared/constants";
 
-export const useAddRoomLogic = () => {
+export const useEditRoomLogic = (id: number) => {
   const [roomName, setRoomName] = useState("");
 
-  const { postRoom } = useRooms();
+  const { getRoom, editRoom, room } = useRooms();
 
   const history = useHistory();
 
@@ -18,15 +19,26 @@ export const useAddRoomLogic = () => {
     [setRoomName]
   );
 
+  const onGetRoomData = useCallback(() => {
+    getRoom(id);
+  }, [id, getRoom]);
+
   const onSubmit = useCallback(async () => {
-    const newRoom = await postRoom(roomName);
-    if (newRoom) {
-      history.push(`${PATHS.rooms}/${newRoom.id}`);
+    const updateRoom = await editRoom(id, roomName);
+    if (updateRoom) {
+      history.push(`${PATHS.rooms}/${updateRoom.id}`);
     }
-  }, [postRoom, history, roomName]);
+  }, [id, roomName]);
+
+  const handleRoomNameChange = (event: SelectChangeEvent) => {
+    setRoomName(event.target.value as string);
+  };
 
   return {
+    room,
     roomName,
+    handleRoomNameChange,
+    onGetRoomData,
     onRoomNameChange,
     onSubmit,
   };

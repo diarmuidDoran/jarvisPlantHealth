@@ -6,10 +6,8 @@ import {
   List,
   ListItem,
   ListItemText,
-  MenuItem,
 } from "@mui/material";
 import { useRoomLogic } from "./use-room-logic";
-import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 export type RoomByIDProps = {
@@ -22,6 +20,8 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
     onGetRoomData,
     onRoomsClick,
     onRoomPlantClick,
+    onEditRoomClick,
+    onDeleteRoomClick,
   } = useRoomLogic();
 
   useEffect(() => {
@@ -35,12 +35,25 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
         <>
           <div>{room.name}</div>
           <div>
-            <Fab size="small" color="secondary" aria-label="edit">
+            <Fab
+              size="small"
+              color="secondary"
+              aria-label="edit"
+              onClick={() => onEditRoomClick(String(room.id))}
+            >
               <EditIcon />
             </Fab>
           </div>
           <div>
-            <Fab size="small" color="secondary" aria-label="edit">
+            <Fab
+              size="small"
+              color="secondary"
+              aria-label="edit"
+              onClick={() => {
+                onDeleteRoomClick(room.id);
+                onRoomsClick();
+              }}
+            >
               <DeleteIcon />
             </Fab>
           </div>

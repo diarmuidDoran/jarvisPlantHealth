@@ -6,9 +6,11 @@ import { Login } from "pages/login";
 import { Plants } from "pages/plants";
 import { PlantByID } from "pages/plant";
 import { AddPlant } from "pages/add-plant";
+import { EditPlantByID } from "pages/edit-plant";
 import { Rooms } from "pages/rooms";
 import { RoomByID } from "pages/room";
 import { AddRoom } from "pages/add-room";
+import { EditRoomByID } from "pages/edit-room";
 import { Sensors } from "pages/sensors";
 import { SensorByID } from "pages/sensor";
 import { AddSensor } from "pages/add-sensor";
@@ -22,7 +24,7 @@ export const Routes = memo(() => {
       <Route exact path={PATHS.rooms} component={() => <Rooms />} />
       <Route exact path={PATHS.addRoom} component={() => <AddRoom />} />
       <Route exact path={PATHS.sensors} component={() => <Sensors />} />
-      
+
       <Route exact path={PATHS.addSensor} component={() => <AddSensor />} />
       {/* <Route exact path={PATHS.plant} component={() => <PlantByID />} /> */}
       <Route
@@ -32,6 +34,15 @@ export const Routes = memo(() => {
           <PlantByID {...{ id: props.match.params.id }} />
         )}
       />
+
+      <Route
+        exact
+        path={`${PATHS.plants}/:id/edit`}
+        component={(props: RouteComponentProps<{ id: string }>) => (
+          <EditPlantByID {...{ id: props.match.params.id }} />
+        )}
+      />
+
       {/* <Route exact path={PATHS.room} component={() => <RoomByID />} /> */}
       <Route
         exact
@@ -40,6 +51,15 @@ export const Routes = memo(() => {
           <RoomByID {...{ id: props.match.params.id }} />
         )}
       />
+
+      <Route
+        exact
+        path={`${PATHS.rooms}/:id/edit`}
+        component={(props: RouteComponentProps<{ id: string }>) => (
+          <EditRoomByID {...{ id: props.match.params.id }} />
+        )}
+      />
+
       {/* <Route exact path={PATHS.sensor} component={() => <SensorByID />} /> */}
       <Route
         exact

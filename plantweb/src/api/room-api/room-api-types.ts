@@ -8,9 +8,9 @@ export type RoomResponse = {
 export type RoomByIDResponse = {
     id: number;
     name: string;
-    plants: [Plant]
+    plants: Plant[];
 }
 
-export type AddEditRoom = {
+export type RoomRequest = {
     name: string;
 }

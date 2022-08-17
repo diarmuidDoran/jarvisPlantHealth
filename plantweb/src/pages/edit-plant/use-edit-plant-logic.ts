@@ -5,12 +5,12 @@ import { useHistory } from "react-router-dom";
 import { usePlants } from "shared/hooks/use-plants";
 import { PATHS } from "shared/constants";
 
-export const useAddPlantLogic = () => {
+export const useEditPlantLogic = (id: number) => {
 
     const [plantName, setPlantName] = useState("");
     const [room, setRoom] = useState("");
 
-    const { postPlant } = usePlants();
+    const { getPlant, editPlant, plant } = usePlants();
 
     const history = useHistory();
 
@@ -26,6 +26,10 @@ export const useAddPlantLogic = () => {
         },
         [setPlantName]
     );
+
+    const onGetPlantData = useCallback(() => {
+        getPlant(id);
+      }, [id, getPlant]);
 
     const handleRoomChange = (event: SelectChangeEvent) => {
         setRoom(event.target.value as string)
@@ -65,13 +69,14 @@ export const useAddPlantLogic = () => {
     // }, [setPlantHealthAttributeData])
 
     const onSubmit = useCallback(async () => {
-        const newPlant = await postPlant(plantName, Number(room));
-        if (newPlant) {
-          history.push(`${PATHS.plants}/${newPlant.id}`);
+        const updatePlant = await editPlant(id, plantName, Number(room));
+        if (updatePlant) {
+          history.push(`${PATHS.plants}/${updatePlant.id}`);
         }
-      }, [postPlant, plantName, room, history]);
+      }, [editPlant, history, id, plantName, room]);
 
     return {
+        plant,
         plantName,
         room,
         upperRequiredValue,
@@ -87,5 +92,6 @@ export const useAddPlantLogic = () => {
         handleUnitChange,
         handleSensorChange,
         onSubmit,
+        onGetPlantData,
     }
 }

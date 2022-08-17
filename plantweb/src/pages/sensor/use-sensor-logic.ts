@@ -7,8 +7,6 @@ import { mockRoomData, mockSensorData, getSensorByID } from "shared/mocks";
 import { useSensors } from 'shared/hooks/use-sensors';
 
 export const useSensorLogic = () => {
-   
-    const [allRoomData, setRoomData] = useState<any>([]);
 
     const { sensor, getSensor } = useSensors();
     
