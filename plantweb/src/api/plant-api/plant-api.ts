@@ -1,6 +1,6 @@
 import {AxiosRequestConfig} from "axios";
 import {get, post, put, deleteCall} from 'api/api';
-import { PlantResponse, PlantRequest } from "./plant-api-types";
+import { PlantResponse, PlantRequest, PlantPlantHealthAttributeResponse, PlantHealthAttributeResponse, PlantHealthAttributeRequest } from "./plant-api-types";
 
 export const getPlants = (config?: AxiosRequestConfig) => {
     return get<PlantResponse[]>('/plants', config);
@@ -22,3 +22,22 @@ export const deletePlant = (plant: number, config?: AxiosRequestConfig) => {
     return deleteCall(`/plants/${plant}`, config);
 }
 
+export const getPlantPlantHealthAttributes = (plant: number, config?: AxiosRequestConfig) => {
+    return get<PlantPlantHealthAttributeResponse>(`/plants/${plant}/plant_health_attributes`, config);
+}
+
+export const getPlantPlantHealthAttribute = (plant: number, plant_health_attribute: number, config?: AxiosRequestConfig) => {
+    return get<PlantHealthAttributeResponse>(`/plants/${plant}/plant_health_attributes/${plant_health_attribute}`, config);
+}
+
+export const addPlantPlantHealthAttribute = (plant: number, data: PlantHealthAttributeRequest, config?: AxiosRequestConfig) => {
+    return post<PlantHealthAttributeResponse>(`/plants/${plant}/plant_health_attributes}`, data, config);
+}
+
+export const editPlantPlantHealthAttribute = (plant: number, plant_health_attribute: number, data: PlantHealthAttributeRequest, config?: AxiosRequestConfig) => {
+    return put<PlantHealthAttributeResponse>(`/plants/${plant}/plant_health_attributes/${plant_health_attribute}}`, data, config);
+}
+
+export const deletePlantPlantHealthAttribute = (plant: number, plant_health_attribute: number, config?: AxiosRequestConfig) => {
+    return deleteCall<PlantHealthAttributeResponse>(`/plants/${plant}/plant_health_attributes/${plant_health_attribute}}`, config);
+}

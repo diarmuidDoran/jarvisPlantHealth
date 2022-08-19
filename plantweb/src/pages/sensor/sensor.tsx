@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export type SensorByIDProps = { id: string };
 
 interface Column {
-  id: "sensorReading" | "unitMeasurement" | "date" | "time";
+  id: "sensor_reading" | "unit_measurement" | "time_stamp" ;
   label: string;
   minWidth?: number;
   align?: "right";
@@ -24,64 +24,44 @@ interface Column {
 
 const columns: readonly Column[] = [
   {
-    id: "sensorReading",
+    id: "sensor_reading",
     label: "Sensor\u00a0Reading\u00a0Value",
     minWidth: 100,
-  },
-  { id: "unitMeasurement", label: "Unit\u00a0Measurement", minWidth: 100 },
-  {
-    id: "date",
-    label: "Date",
-    minWidth: 100,
     align: "right",
     format: (value: number) => value.toLocaleString("en-US"),
   },
+  { id: "unit_measurement", label: "Unit\u00a0Measurement", minWidth: 100 },
   {
-    id: "time",
-    label: "Time",
+    id: "time_stamp",
+    label: "Date-Time",
     minWidth: 100,
-    align: "right",
-    format: (value: number) => value.toLocaleString("en-US"),
   },
 ];
 
 interface Data {
-  sensorReading: string;
-  unitMeasurement: string;
-  date: number;
-  time: number;
+  sensorReading: number;
+  unit_measurement:string;
+  time_stamp: string;
 }
 
 function createData(
-  sensorReading: string,
-  unitMeasurement: string,
-  date: number,
-  time: number
+  sensorReading: number,
+  unit_measurement: string,
+  time_stamp: string,
 ): Data {
-  return { sensorReading, unitMeasurement, date, time };
+  return { sensorReading, unit_measurement, time_stamp };
 }
 
-const rows = [
-  createData("India", "IN", 1324171354, 3287263),
-  createData("China", "CN", 1403500365, 9596961),
-  createData("Italy", "IT", 60483973, 301340),
-  createData("United States", "US", 327167434, 9833520),
-  createData("Canada", "CA", 37602103, 9984670),
-  createData("Australia", "AU", 25475400, 7692024),
-  createData("Germany", "DE", 83019200, 357578),
-  createData("Ireland", "IE", 4857000, 70273),
-  createData("Mexico", "MX", 126577691, 1972550),
-  createData("Japan", "JP", 126317000, 377973),
-  createData("France", "FR", 67022000, 640679),
-  createData("United Kingdom", "GB", 67545757, 242495),
-  createData("Russia", "RU", 146793744, 17098246),
-  createData("Nigeria", "NG", 200962417, 923768),
-  createData("Brazil", "BR", 210147125, 8515767),
-];
 
 export const SensorByID = memo(({ id }: SensorByIDProps) => {
-  const { sensor, onGetSensorData } =
+  const { sensor, sensorReadings, onGetSensorData, onSensorsClick, onDeleteSensorClick, onGetSensorReadingsData,} =
     useSensorLogic();
+
+    const rows = [
+      sensorReadings?.sensor_readings.map((sensor_reading: any, index: number) => 
+        createData(sensor_reading.sensor_reading, "" , sensor_reading.time_stamp),
+      )
+    ];
 
   //Table functions
   const [page, setPage] = React.useState(0);
@@ -100,6 +80,7 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
 
   useEffect(() => {
     onGetSensorData(Number(id));
+    onGetSensorReadingsData(Number(id));
   }, [id]);
 
   return (
@@ -109,7 +90,10 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
         <>
           <div>{sensor.sensor_name}</div>
           <div>
-            <Fab size="small" color="secondary" aria-label="edit">
+            <Fab size="small" color="secondary" aria-label="edit" onClick={() => {
+                onDeleteSensorClick(sensor.id);
+                onSensorsClick();
+              }}>
               <DeleteIcon />
             </Fab>
           </div>
@@ -135,18 +119,18 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows
+                    {sensorReadings?.sensor_readings
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .map((row) => {
+                      .map((row: any, index: number) => {
                         return (
                           <TableRow
                             hover
                             role="checkbox"
                             tabIndex={-1}
-                            key={row.unitMeasurement}
+                            key={index}
                           >
                             {columns.map((column) => {
                               const value = row[column.id];

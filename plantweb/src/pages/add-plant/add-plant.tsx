@@ -11,20 +11,21 @@ import {
   Stack,
 } from "@mui/material";
 import { useAddPlantLogic } from "./use-add-plant-logic";
-import { useRoomsLogic } from "pages/rooms/use-rooms-logic";
-import { useSensorsLogic } from "pages/sensors/use-sensors-logic";
 import AddIcon from "@mui/icons-material/Add";
-
 
 export const AddPlant = memo(() => {
   const {
     plantName,
     room,
+    rooms,
+    units,
+    sensors,
+    health_attributes,
     upperRequiredValue,
     lowerRequiredValue,
-    plantHealthAttribute,
-    unitMeasurement,
-    sensor,
+    healthAttributeID,
+    unitMeasurementID,
+    sensorID,
     onPlantNameChange,
     handleRoomChange,
     onPlantHealthUpperLimitChange,
@@ -33,14 +34,18 @@ export const AddPlant = memo(() => {
     handleUnitChange,
     handleSensorChange,
     onSubmit,
+    onGetRoomData,
+    onGetSensorData,
+    onGetUnitMeasurementData,
+    onGetHealthAttributeData,
   } = useAddPlantLogic();
 
-  const { rooms, onGetRoomData } = useRoomsLogic();
-  const { sensors, onGetSensorData } = useSensorsLogic();
 
   useEffect(() => {
     onGetRoomData();
     onGetSensorData();
+    onGetUnitMeasurementData();
+    onGetHealthAttributeData();
   }, []);
 
   return (
@@ -111,13 +116,15 @@ export const AddPlant = memo(() => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={plantHealthAttribute}
+              value={healthAttributeID}
               label="Plant Health Attribute"
               onChange={handleHealthAttributeChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {health_attributes.map((health_attribute: any) => (
+                <MenuItem key={health_attribute.id} value={health_attribute.id}>
+                  {health_attribute.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
@@ -131,13 +138,15 @@ export const AddPlant = memo(() => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={unitMeasurement}
+              value={unitMeasurementID}
               label="Unit Measurement"
               onChange={handleUnitChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {units.map((unit: any) => (
+                <MenuItem key={unit.id} value={unit.id}>
+                  {unit.unit}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
@@ -149,7 +158,7 @@ export const AddPlant = memo(() => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={sensor}
+              value={sensorID}
               label="Sensor"
               onChange={handleSensorChange}
             >
@@ -169,7 +178,9 @@ export const AddPlant = memo(() => {
       </div>
       <div>
         <Stack spacing={2} direction="row">
-          <Button variant="outlined" onClick={onSubmit}>Add Plant</Button>
+          <Button variant="outlined" onClick={onSubmit}>
+            Add Plant
+          </Button>
         </Stack>
       </div>
     </div>

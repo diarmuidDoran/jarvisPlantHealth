@@ -11,15 +11,31 @@ export type PlantByIDProps = {
 export const PlantByID = memo(({ id }: PlantByIDProps) => {
   const {
     plant,
+    sensors,
+    sensor,
+    rooms,
     onGetPlantData,
+    onGetPlantPlantHealthAttributesData,
     onPlantsClick,
     onEditPlantClick,
+    onEditSensorClick,
     onDeletePlantClick,
     onPlantSensorClick,
+    onGetRoomsData,
+    onGetUnitMeasurementsData,
+    onGetHealthAttributesData,
+    onGetSensorsData,
+    onGetSensorData,
   } = usePlantLogic();
 
   useEffect(() => {
     onGetPlantData(Number(id));
+    onGetPlantPlantHealthAttributesData(Number(id))
+    onGetRoomsData();
+    onGetUnitMeasurementsData();
+    onGetHealthAttributesData();
+    onGetSensorsData();
+    onGetSensorData(Number(id));
   }, [id]);
 
   return (
@@ -60,7 +76,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
             <Button id="Sesnsor Name" variant="text" onClick={() => onPlantSensorClick(String())}>
               Sensor Name
             </Button>
-            <Fab size="small" color="secondary" aria-label="edit">
+            <Fab size="small" color="secondary" aria-label="edit" onClick={() => onEditSensorClick(String(sensor?.id))}>
               <EditIcon />
             </Fab>
             <Fab size="small" color="secondary" aria-label="edit">

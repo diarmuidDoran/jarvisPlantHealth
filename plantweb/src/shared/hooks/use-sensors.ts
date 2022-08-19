@@ -1,6 +1,10 @@
 import { useCallback, useState } from "react";
 import { useNetworkStatus } from "./use-network-status";
-import { SensorResponse, SensorByIDResponse, useSensorApi } from "api/sensor-api";
+import {
+  SensorResponse,
+  SensorSensorReadingsResponse,
+  useSensorApi,
+} from "api/sensor-api";
 
 export const useSensors = () => {
   const {
@@ -10,26 +14,61 @@ export const useSensors = () => {
     setError: setNetworkStatusError,
   } = useNetworkStatus();
 
-  const {
-    getSensor,
-    getSensors,
-  } = useSensorApi(); 
+  const { getSensors, getSensor, addSensor, deleteSensor, getSensorSensorReadings, addSensorReading } = useSensorApi();
 
   const [sensors, setSensors] = useState<SensorResponse[]>([]);
-  const [sensor, setSensor] = useState<SensorByIDResponse>();
+  const [sensor, setSensor] = useState<SensorResponse>();
+  const [sensorReadings, setSensorReadings] = useState<SensorSensorReadingsResponse>();
+
   const [errorMessage, setErrorMessage] = useState("");
 
-  const getAllSensors = useCallback(
-    async () => {
-      setErrorMessage("");
+  const getAllSensors = useCallback(async () => {
+    setErrorMessage("");
 
+    setInFlight();
+
+    try {
+      const response = await getSensors();
+
+      setSuccess();
+      setSensors(response.data);
+    } catch (e: any) {
+      setNetworkStatusError();
+      setErrorMessage(e);
+
+      return;
+    }
+  }, []);
+
+  const getSensorByID = useCallback(async (id: number) => {
+    setErrorMessage("");
+
+    setInFlight();
+
+    try {
+      const response = await getSensor(id);
+
+      setSuccess();
+      setSensor(response.data);
+    } catch (e: any) {
+      setNetworkStatusError();
+      setErrorMessage(e);
+
+      return;
+    }
+  }, []);
+
+  const addSensorCallback = useCallback(
+    async (sensor_name: string, call_frequency: string) => {
+      setErrorMessage("");
       setInFlight();
 
       try {
-        const response = await getSensors();
+        const response = await addSensor({ sensor_name, call_frequency });
 
         setSuccess();
-        setSensors(response.data);
+
+        return response.data;
       } catch (e: any) {
         setNetworkStatusError();
         setErrorMessage(e);
@@ -37,20 +76,21 @@ export const useSensors = () => {
         return;
       }
     },
-    []
+    [addSensor, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
   );
 
-  const getSensorByID = useCallback(
-    async (id:number) => {
+  const deleteSensorByID = useCallback(
+    async (id: number) => {
       setErrorMessage("");
 
       setInFlight();
 
       try {
-        const response = await getSensor(id);
+        const response = await deleteSensor(id);
 
         setSuccess();
-        setSensor(response.data);
+
+        return response.data;
       } catch (e: any) {
         setNetworkStatusError();
         setErrorMessage(e);
@@ -58,14 +98,66 @@ export const useSensors = () => {
         return;
       }
     },
-    []
+    [
+      deleteSensor,
+      setErrorMessage,
+      setInFlight,
+      setNetworkStatusError,
+      setSuccess,
+    ]
   );
+
+  const getSensorReadingsBySensorID = useCallback(async (id: number) => {
+    setErrorMessage("");
+
+    setInFlight();
+
+    try {
+      const response = await getSensorSensorReadings(id);
+
+      setSuccess();
+      setSensorReadings(response.data);
+    } catch (e: any) {
+      setNetworkStatusError();
+      setErrorMessage(e);
+
+      return;
+    }
+  }, []);
+
+
+  const addSensorReadingCallback = useCallback(
+    async (sensor_id: number, sensor_reading: number, time_stamp: string) => {
+      setErrorMessage("");
+      setInFlight();
+
+      try {
+        const response = await addSensorReading(sensor_id , { sensor_reading , time_stamp });
+
+        setSuccess();
+
+        return response.data;
+      } catch (e: any) {
+        setNetworkStatusError();
+        setErrorMessage(e);
+
+        return;
+      }
+    },
+    [addSensor, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
+  );
+
 
   return {
     sensors,
     sensor,
+    sensorReadings,
     getSensors: getAllSensors,
     getSensor: getSensorByID,
+    postSensor: addSensorCallback,
+    deleteSensor: deleteSensorByID,
+    getSensorReadings: getSensorReadingsBySensorID,
+    postSensorReading: addSensorReadingCallback,
     networkStatus,
     errorMessage,
   } as const;

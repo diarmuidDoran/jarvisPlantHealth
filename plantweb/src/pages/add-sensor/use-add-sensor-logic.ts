@@ -1,35 +1,48 @@
-import { SelectChangeEvent } from '@mui/material';
-import { useCallback, useState } from 'react';
-import { useSensorsLogic } from 'pages/sensors/use-sensors-logic';
-import { Rooms } from 'pages/rooms';
+// import { SelectChangeEvent } from '@mui/material';
+import { ChangeEvent, useCallback, useState } from 'react';
+import { useHistory } from "react-router-dom";
+import { useSensors } from "shared/hooks/use-sensors";
+import { PATHS } from "shared/constants";
 
-import { mockSensorData,} from "shared/mocks";
 
 export const useAddSensorLogic = () => {
-    const [sensor, setSensor] = useState('');
     const [sensorName, setSensorName] = useState('')
     const [sensorCallFrequency, setSensorCallFrequency] = useState('')
 
-    const onGetSensorName= useCallback(() => {
-        setSensorName('');
-    }, [setSensorName])
+    const { postSensor } = useSensors();
 
-    const onGetSensorCallFrequency= useCallback(() => {
-        setSensorCallFrequency('');
-    }, [setSensorCallFrequency])
+  const history = useHistory();
 
+    const handleSensorNameChange = useCallback(
+        ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+          setSensorName(value);
+        },
+        [setSensorName]
+      );
 
-    const handleSensorChange = (event: SelectChangeEvent) => {
-        setSensor(event.target.value as string)
-    };
+    const handleSensorCallFrequencyChange = useCallback(
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+        setSensorCallFrequency(value);
+    },
+    [setSensorCallFrequency]
+    );
+
+    // const handleSensorCallFrequencyChange = (event: SelectChangeEvent) => {
+    //     setSensorCallFrequency(event.target.value as string)
+    // };
+
+    const onSubmit = useCallback(async () => {
+        const newSensor = await postSensor(sensorName, sensorCallFrequency);
+        if (newSensor) {
+          history.push(`${PATHS.sensors}/${newSensor.id}`);
+        }
+      }, [postSensor, history, sensorName, sensorCallFrequency]);
 
     return {
-        sensor,
         sensorName,
         sensorCallFrequency,
-        handleSensorChange,
-        onGetSensorName,
-        onGetSensorCallFrequency,
-       
+        handleSensorNameChange,
+        handleSensorCallFrequencyChange,
+        onSubmit,
     }
 }
