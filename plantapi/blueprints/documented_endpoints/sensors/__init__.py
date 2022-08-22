@@ -20,7 +20,8 @@ from blueprints.validations.plant_health_attribute_validation import (
 from blueprints.validations.sensor_reading_validation import (
     sensor_reading_time_is_valid,
 )
-from blueprints.validations.sensor_validation import sensor_is_valid, sensor_id_is_valid
+from blueprints.validations.sensor_validation import (sensor_is_valid, sensor_id_is_valid,
+    sensor_plant_health_attribute_is_valid)
 
 sensor_example = {
     "sensor_id": 1,
@@ -139,7 +140,7 @@ class sensor_plant_health_attribute_relationships(Resource):
     @namespaceSensor.marshal_with(sensor_plant_health_attributes_model)
     def get(self):
         """List with all the sensor plant health relationships"""
-        sensor_plant_health_attributes = getSensorPlantHelathAttribute()
+        sensor_plant_health_attributes = getSensorPlantHealthAttribute()
         return sensor_plant_health_attributes
 
 
@@ -161,7 +162,14 @@ class sensor_plant_health_attribute_relationship(Resource):
         if (sensor_id_is_valid(sensor_id) is not True) or (
             plant_health_attribute_id_is_valid(plant_health_attribute_id) is not True
         ):
-            namespaceSensor.abort(404, "Plant id or user_id not found")
+            namespaceSensor.abort(
+                404, "Plant Health Attribute Id or Sensor Id not found"
+            )
+
+        if (sensor_plant_health_attribute_is_valid(sensor_id, plant_health_attribute_id)) is not True:
+            namespaceSensor.abort(
+                400, "Sensor id and Plant Health Attribute id already share a relationship"
+            )
 
         postSensorPlantHelathAttribute(sensor_id, plant_health_attribute_id)
 

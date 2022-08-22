@@ -2,6 +2,7 @@ from blueprints.data_provider.plant_data_provider import *
 from blueprints.data_provider.plant_health_attribute_data_provider import *
 from blueprints.models.plants import *
 from blueprints.models.plant_health_attributes import *
+from blueprints.services.sensor_service import getSensorPlantHealthAttribute, getSensorById
 
 
 def getPlants():
@@ -45,6 +46,13 @@ def getPlantHealthAttributesById(plant_health_attribute_id):
 
     plantHealthAttributeDto = getPlantHealthAttributeDtoById(plant_health_attribute_id)
 
+    sensors_model = []
+
+    sensor_plant_health_attribute_models = getSensorPlantHealthAttribute()
+    for sensor_plant_health_attribute in sensor_plant_health_attribute_models:
+        if sensor_plant_health_attribute.plant_health_attribute_id == plant_health_attribute_id:
+            sensors_model.append(getSensorById(sensor_plant_health_attribute.sensor_id))
+
     return make_plant_health_attribute(
         plantHealthAttributeDto.id,
         plantHealthAttributeDto.upper_required_value,
@@ -52,7 +60,7 @@ def getPlantHealthAttributesById(plant_health_attribute_id):
         plantHealthAttributeDto.unit_measurement_id,
         plantHealthAttributeDto.plant_id,
         plantHealthAttributeDto.health_attribute_id,
-        plantHealthAttributeDto.sensor_b,
+        sensors_model,
     )
 
 

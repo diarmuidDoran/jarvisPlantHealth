@@ -17,6 +17,9 @@ def plant_health_attribute_is_valid(plant_id, health_attribute_id):
 def plant_health_attribute_id_is_valid(plant_health_attribute_id):
 
     plant_dto = getPlantHealthAttributeDtoById(plant_health_attribute_id)
+    if plant_dto is None:
+        return False
+
     if plant_dto.id == plant_health_attribute_id:
         return True
     return False

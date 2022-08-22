@@ -57,8 +57,6 @@ def make_sensor_with_sensor_readings_list(
     return sensor_data
 
 
-def make_sensor_plant_health_attribute_list(
-        id, plant_health_attribute_id, sensor_id
-):
+def make_sensor_plant_health_attribute_list(id, plant_health_attribute_id, sensor_id):
     data = Sensor_Plant_Health_Attribute(id, plant_health_attribute_id, sensor_id)
     return data

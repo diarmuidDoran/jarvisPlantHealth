@@ -18,11 +18,15 @@ class Sensor_Plant_Health_Attribute(Base):
     id = Column("id", Integer, primary_key=True)
     plant_health_attribute_id = Column(
         "plant_health_attribute_id",
-        ForeignKey("plant_health_attribute.id", ondelete="CASCADE", primary_key=True)
+        ForeignKey("plant_health_attribute.id", ondelete="CASCADE", primary_key=True),
     )
-    sensor_id = Column("sensor_id", ForeignKey("sensor.id", ondelete="CASCADE", primary_key=True))
+    sensor_id = Column(
+        "sensor_id", ForeignKey("sensor.id", ondelete="CASCADE", primary_key=True)
+    )
 
-    plant_health_attribute = relationship("Plant_Health_Attribute", back_populates="sensor_b")
+    plant_health_attribute = relationship(
+        "Plant_Health_Attribute", back_populates="sensor_b"
+    )
     sensor = relationship("Sensor", back_populates="plant_health_attribute_d")
 
     def __init__(
@@ -30,7 +34,7 @@ class Sensor_Plant_Health_Attribute(Base):
         plant_health_attribute_id,
         sensor_id,
     ):
-        self.plant_health_attribute_id = plant_health_attribute_id,
+        self.plant_health_attribute_id = (plant_health_attribute_id,)
         self.sensor_id = sensor_id
 
 

@@ -40,7 +40,7 @@ def getSensorReadingsById(id):
     )
 
 
-def getSensorPlantHelathAttribute():
+def getSensorPlantHealthAttribute():
 
     sensor_plant_health_attribute_models = []
     for sensor_plant_health_attribute_dto in getSensorPlantHealthAttributeDto():

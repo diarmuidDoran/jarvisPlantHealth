@@ -49,8 +49,12 @@ def addSensorPlantHealthAttributeDto(sensor_id, plant_health_attribute_id):
     plant_health_attribute = session.query(Plant_Health_Attribute).get(
         plant_health_attribute_id
     )
-    sensor = session.query(Sensor).get(sensor_id)
+    sensor_data = session.query(Sensor).get(sensor_id)
 
-    sensor.plant_health_attribute_id.append(plant_health_attribute)
+    new_relationship = Sensor_Plant_Health_Attribute(
+        plant_health_attribute.id,
+        sensor_data.id,
+    )
+    session.add(new_relationship)
 
     session.commit()

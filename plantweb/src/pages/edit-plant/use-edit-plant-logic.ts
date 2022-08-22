@@ -50,7 +50,7 @@ export const useEditPlantLogic = (id: number) => {
   useEffect(() => {
     setPlantName(plant?.name || "");
     setRoom(String(plant?.room_id) || "");
-    setSensor(sensor?.sensor_name || "");
+    setSensor(sensor?.sensor_name || "")
 
     const newEditPlantHealthAttributesArray =
       plant?.plant_health_attributes?.map((plant_health_attribute) => ({
