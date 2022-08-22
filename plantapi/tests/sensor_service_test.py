@@ -11,9 +11,7 @@ from blueprints.swagger_models.sensors import *
 
 class SensorServiceTest(unittest.TestCase):
     @mock.patch("blueprints.services.sensor_service.getSensorDtos")
-    def test_sensor_service_get_sensors_returns_empty_array(
-        self, get_sensor_dtos_mock
-    ):
+    def test_sensor_service_get_sensors_returns_empty_array(self, get_sensor_dtos_mock):
         expected_result = []
         get_sensor_dtos_mock.return_value = []
 
@@ -23,9 +21,7 @@ class SensorServiceTest(unittest.TestCase):
         get_sensor_dtos_mock.assert_called()
 
     @mock.patch("blueprints.services.sensor_service.getSensorDtos")
-    def test_sensor_service_get_sensors_returns_array(
-            self, get_sensor_dtos_mock
-    ):
+    def test_sensor_service_get_sensors_returns_array(self, get_sensor_dtos_mock):
         expected_result = [
             {
                 "id": 1,
@@ -36,12 +32,16 @@ class SensorServiceTest(unittest.TestCase):
                 "id": 2,
                 "sensor_name": "TestSensor2",
                 "call_frequency": "5*****",
-             },
+            },
         ]
 
         sensor_models = []
         for result in expected_result:
-            sensor_models.append(make_sensor(result["id"], result["sensor_name"], result['call_frequency']))
+            sensor_models.append(
+                make_sensor(
+                    result["id"], result["sensor_name"], result["call_frequency"]
+                )
+            )
 
         get_sensor_dtos_mock.return_value = sensor_models
 
@@ -83,7 +83,9 @@ class SensorServiceTest(unittest.TestCase):
         get_sensor_dto_mock.assert_called()
 
     @mock.patch("blueprints.services.sensor_reading_service.addSensorReadingDto")
-    def test_sensor_reading_service_post_sensor_sensor_reading(self, add_sensor_reading_dtos_mock):
+    def test_sensor_reading_service_post_sensor_sensor_reading(
+        self, add_sensor_reading_dtos_mock
+    ):
         id = 1
 
         expected_result = {12, "2022-07-29 13:32:19"}

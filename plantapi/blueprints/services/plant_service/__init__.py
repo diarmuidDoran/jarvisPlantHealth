@@ -52,6 +52,7 @@ def getPlantHealthAttributesById(plant_health_attribute_id):
         plantHealthAttributeDto.unit_measurement_id,
         plantHealthAttributeDto.plant_id,
         plantHealthAttributeDto.health_attribute_id,
+        plantHealthAttributeDto.sensor_b,
     )
 
 

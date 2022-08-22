@@ -12,7 +12,7 @@ engine = create_engine(
 Base = declarative_base()
 
 from blueprints.data_provider.dtos.plant import Plant
-from blueprints.data_provider.dtos.plant_health_attribute import Plant_Health_Attribute
+from blueprints.data_provider.dtos.plant_health_attribute import Plant_Health_Attribute, Sensor_Plant_Health_Attribute
 from blueprints.data_provider.dtos.health_attribute import Health_Attribute
 from blueprints.data_provider.dtos.room import Room
 from blueprints.data_provider.dtos.unit_measurement import Unit_Measurement

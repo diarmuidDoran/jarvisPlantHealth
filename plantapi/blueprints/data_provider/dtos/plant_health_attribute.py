@@ -2,15 +2,36 @@ from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, Table
 from sqlalchemy.orm import relationship
 from blueprints.data_provider.engine import Base
 
-sensor_plant_health_attribute_table = Table(
-    "sensor_plant_health_attribute",
-    Base.metadata,
-    Column(
+# sensor_plant_health_attribute_table = Table(
+#     "sensor_plant_health_attribute",
+#     Base.metadata,
+#     Column(
+#         "plant_health_attribute_id",
+#         ForeignKey("plant_health_attribute.id", ondelete="CASCADE"),
+#     ),
+#     Column("sensor_id", ForeignKey("sensor.id", ondelete="CASCADE")),
+# )
+
+
+class Sensor_Plant_Health_Attribute(Base):
+    __tablename__ = "sensor_plant_health_attribute"
+    id = Column("id", Integer, primary_key=True)
+    plant_health_attribute_id = Column(
         "plant_health_attribute_id",
-        ForeignKey("plant_health_attribute.id", ondelete="CASCADE"),
-    ),
-    Column("sensor_id", ForeignKey("sensor.id", ondelete="CASCADE")),
-)
+        ForeignKey("plant_health_attribute.id", ondelete="CASCADE", primary_key=True)
+    )
+    sensor_id = Column("sensor_id", ForeignKey("sensor.id", ondelete="CASCADE", primary_key=True))
+
+    plant_health_attribute = relationship("Plant_Health_Attribute", back_populates="sensor_b")
+    sensor = relationship("Sensor", back_populates="plant_health_attribute_d")
+
+    def __init__(
+        self,
+        plant_health_attribute_id,
+        sensor_id,
+    ):
+        self.plant_health_attribute_id = plant_health_attribute_id,
+        self.sensor_id = sensor_id
 
 
 class Plant_Health_Attribute(Base):
@@ -54,11 +75,11 @@ class Plant_Health_Attribute(Base):
         cascade="all, delete",
         passive_deletes=False,
     )
+
     # many to many child relationship
     sensor_b = relationship(
-        "Sensor",
-        secondary=sensor_plant_health_attribute_table,
-        back_populates="plant_health_attributes_d",
+        "Sensor_Plant_Health_Attribute",
+        back_populates="plant_health_attribute",
         passive_deletes=False,
     )
 

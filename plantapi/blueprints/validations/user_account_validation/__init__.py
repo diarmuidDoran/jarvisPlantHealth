@@ -1,7 +1,10 @@
-from blueprints.data_provider.user_account_data_provider import get_user_account_dtos, get_user_account_dto_by_id
+from blueprints.data_provider.user_account_data_provider import (
+    get_user_account_dtos,
+    get_user_account_dto_by_id,
+)
 import re
 
-regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+regex = re.compile(r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+")
 
 
 def user_account_email_is_valid(email):

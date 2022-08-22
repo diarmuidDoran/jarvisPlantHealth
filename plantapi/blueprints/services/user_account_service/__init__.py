@@ -12,7 +12,7 @@ def get_user_accounts():
                 userAccountDto.first_name,
                 userAccountDto.last_name,
                 userAccountDto.email,
-                userAccountDto.password
+                userAccountDto.password,
             )
         )
 

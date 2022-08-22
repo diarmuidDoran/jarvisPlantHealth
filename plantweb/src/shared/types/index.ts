@@ -6,3 +6,5 @@ export * from './health-attribute-types';
 export * from './unit-measurement-types';
 export * from './notification-types';
 export * from './user-account-types';
+export * from './sensor-types';
+export * from './sensor-reading-types';

@@ -12,8 +12,11 @@ from blueprints.swagger_models.sensors import (
     sensor_reading_list_model,
     sensor_reading_model,
     sensor_reading_model_response,
+    sensor_plant_health_attributes_model,
 )
-from blueprints.validations.plant_health_attribute_validation import plant_health_attribute_id_is_valid
+from blueprints.validations.plant_health_attribute_validation import (
+    plant_health_attribute_id_is_valid,
+)
 from blueprints.validations.sensor_reading_validation import (
     sensor_reading_time_is_valid,
 )
@@ -128,19 +131,36 @@ class sensor_readings(Resource):
         return add_sensor_reading, 201
 
 
-@namespaceSensor.route("/<int:sensor_id>/sensor_plant_health_attribute_relationship/<int:plant_health_attribute_id>")
+@namespaceSensor.route("/sensor_plant_health_attribute_relationship")
+class sensor_plant_health_attribute_relationships(Resource):
+    """Read list of sensor plant health relationships"""
+
+    @namespaceSensor.response(500, "Internal Server error")
+    @namespaceSensor.marshal_with(sensor_plant_health_attributes_model)
+    def get(self):
+        """List with all the sensor plant health relationships"""
+        sensor_plant_health_attributes = getSensorPlantHelathAttribute()
+        return sensor_plant_health_attributes
+
+
+@namespaceSensor.route(
+    "/<int:sensor_id>/sensor_plant_health_attribute_relationship/<int:plant_health_attribute_id>"
+)
 class sensor_plant_health_attribute_relationship(Resource):
     """Post sensor to plant_health_attribute relationships"""
 
     @namespaceSensor.response(404, "Sensor id or plant_health_attribute_id not found")
-    @namespaceSensor.response(400, "Sensor id and Plant Health Attribute id already share a relationship")
+    @namespaceSensor.response(
+        400, "Sensor id and Plant Health Attribute id already share a relationship"
+    )
     @namespaceSensor.response(201, "Relationship added")
     @namespaceSensor.response(500, "Internal Server error")
     def post(self, sensor_id, plant_health_attribute_id):
         """Create a new sensor plant health attribute relationship"""
 
-        if (sensor_id_is_valid(sensor_id) is not True) or \
-                (plant_health_attribute_id_is_valid(plant_health_attribute_id) is not True):
+        if (sensor_id_is_valid(sensor_id) is not True) or (
+            plant_health_attribute_id_is_valid(plant_health_attribute_id) is not True
+        ):
             namespaceSensor.abort(404, "Plant id or user_id not found")
 
         postSensorPlantHelathAttribute(sensor_id, plant_health_attribute_id)

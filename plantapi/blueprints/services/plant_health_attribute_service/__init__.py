@@ -13,6 +13,7 @@ def getPlantHealthAttributes():
                 plant_health_attribute_dto.unit_measurement_id,
                 plant_health_attribute_dto.plant_id,
                 plant_health_attribute_dto.health_attribute_id,
+                plant_health_attribute_dto.sensor_b,
             )
         )
     return health_attribute_models

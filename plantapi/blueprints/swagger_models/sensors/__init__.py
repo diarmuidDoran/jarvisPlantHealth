@@ -65,3 +65,16 @@ sensor_reading_list_model = namespaceSensor.model(
         ),
     },
 )
+
+sensor_plant_health_attributes_model = namespaceSensor.model(
+    "SensorPlantHealthAttributeList",
+    {
+        "id": fields.Integer(readonly=True, description="Sensor identifier"),
+        "plant_health_attribute_id": fields.Integer(
+            description="Plant health attribute identifier",
+        ),
+        "sensor_id": fields.Integer(
+            description="Sensor ID",
+        ),
+    },
+)

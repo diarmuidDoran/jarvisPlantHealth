@@ -24,7 +24,9 @@ class user_accounts(Resource):
 
         return user_accounts
 
-    @namespaceUser.response(400, "Email address not valid, valid email example, string.string@string.com")
+    @namespaceUser.response(
+        400, "Email address not valid, valid email example, string.string@string.com"
+    )
     @namespaceUser.response(400, "User account with the given email already exists")
     @namespaceUser.response(400, "User account with the given name already exists")
     @namespaceUser.response(500, "Internal Server error")
@@ -41,18 +43,15 @@ class user_accounts(Resource):
 
         if user_account_email_is_valid(email) is not True:
             namespaceUser.abort(
-                400, "Email address not valid, valid email example, string.string@string.com"
+                400,
+                "Email address not valid, valid email example, string.string@string.com",
             )
 
         if user_account_is_valid_email_available(email) is not True:
-            namespaceUser.abort(
-                400, "User with the given email already exists"
-            )
+            namespaceUser.abort(400, "User with the given email already exists")
 
         if user_account_is_valid_available(user_name, email) is not True:
-            namespaceUser.abort(
-                400, "User with the given user_name already exists"
-            )
+            namespaceUser.abort(400, "User with the given user_name already exists")
 
         add_user_account = post_user_account(
             user_name, first_name, last_name, email, password
@@ -96,13 +95,22 @@ class user(Resource):
         new_email = data.get("email")
         new_password = data.get("password")
 
-        if user_account_update_is_valid(user_account_id, new_user_name, new_email) is not True:
+        if (
+            user_account_update_is_valid(user_account_id, new_user_name, new_email)
+            is not True
+        ):
             namespaceUser.abort(
                 400, "User with the given user_name or email already exists"
             )
 
-        update_user_account = update_user_account_by_id(user_account_id, new_user_name, new_first_name, new_last_name,
-                                                        new_email, new_password)
+        update_user_account = update_user_account_by_id(
+            user_account_id,
+            new_user_name,
+            new_first_name,
+            new_last_name,
+            new_email,
+            new_password,
+        )
 
         return update_user_account, 201
 

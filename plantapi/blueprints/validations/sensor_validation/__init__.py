@@ -1,4 +1,7 @@
-from blueprints.data_provider.sensor_data_provider import getSensorDtos, getSensorDtoById
+from blueprints.data_provider.sensor_data_provider import (
+    getSensorDtos,
+    getSensorDtoById,
+)
 
 
 def sensor_is_valid(sensor_name):

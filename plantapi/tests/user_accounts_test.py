@@ -4,8 +4,6 @@ from unittest import mock
 
 from flask_restx import marshal
 
-from blueprints.data_provider.plant_data_provider import getPlantDtos
-from blueprints.models.plants import make_plant
 from blueprints.services.user_account_service import *
 from blueprints.swagger_models.user_accounts import *
 
@@ -114,7 +112,9 @@ class UserAccountServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_user_account_result)
         get_user_account_dto_mock.assert_called()
 
-    @mock.patch("blueprints.services.user_account_service.update_user_account_dto_by_id")
+    @mock.patch(
+        "blueprints.services.user_account_service.update_user_account_dto_by_id"
+    )
     def test_user_account_service_update_user_account_by_id(
         self, update_user_by_id_mock
     ):
@@ -136,20 +136,22 @@ class UserAccountServiceTest(unittest.TestCase):
             "password": "update1test1",
         }
 
-        result = update_user_account_by_id(1, "update1", "update", "1", "update1@gmail.com", "update1test1")
+        result = update_user_account_by_id(
+            1, "update1", "update", "1", "update1@gmail.com", "update1test1"
+        )
 
         self.assertEqual(result, expected_result)
         update_user_by_id_mock.assert_called()
 
     # double check!!!!!!
     def user_account_by_id_with_plant_results(
-            self,
-            id,
-            expected_user_account_result,
-            expected_plant_results,
-            expected_result,
-            get_user_account_dto_mock,
-            get_user_account_dto_by_id_mock,
+        self,
+        id,
+        expected_user_account_result,
+        expected_plant_results,
+        expected_result,
+        get_user_account_dto_mock,
+        get_user_account_dto_by_id_mock,
     ):
         get_user_account_dto_mock.return_value = make_user_account(
             expected_user_account_result["id"],
@@ -159,19 +161,11 @@ class UserAccountServiceTest(unittest.TestCase):
             expected_user_account_result["email"],
             expected_user_account_result["password"],
         )
-        get_user_account_dto_by_id_mock.return_value = (
-            {
-                "id": 1,
-                "user_name": expected_user_account_result["user_name"],
-                "plants_b": [
-                    {
-                        "id": 1,
-                        "name": "string",
-                        "room_id": 1
-                    }
-                ]
-            }
-        )
+        get_user_account_dto_by_id_mock.return_value = {
+            "id": 1,
+            "user_name": expected_user_account_result["user_name"],
+            "plants_b": [{"id": 1, "name": "string", "room_id": 1}],
+        }
 
         result = get_user_account_plants_by_id(id)
         new_result = json.loads(json.dumps(marshal(result, user_plant_list_model)))
@@ -182,7 +176,9 @@ class UserAccountServiceTest(unittest.TestCase):
     @mock.patch("blueprints.services.user_account_service.get_user_account_dtos")
     @mock.patch("blueprints.services.user_account_service.get_user_account_dto_by_id")
     def test_user_account_service_get_user_by_id_returns_user_account_with_no_plants(
-            self, get_user_account_dto_by_id_mock, get_user_account_dto_mock,
+        self,
+        get_user_account_dto_by_id_mock,
+        get_user_account_dto_mock,
     ):
         # test for no matching plants
         id = 1

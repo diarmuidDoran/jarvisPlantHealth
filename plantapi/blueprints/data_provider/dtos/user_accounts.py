@@ -5,8 +5,18 @@ from blueprints.data_provider.engine import Base
 plant_user_table = Table(
     "plant_user",
     Base.metadata,
-    Column("plant_id", Integer, ForeignKey("plant.id", ondelete="CASCADE"), primary_key=True),
-    Column("user_id", Integer, ForeignKey("user_account.id", ondelete="CASCADE"), primary_key=True)
+    Column(
+        "plant_id",
+        Integer,
+        ForeignKey("plant.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    Column(
+        "user_id",
+        Integer,
+        ForeignKey("user_account.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
 )
 
 

@@ -73,8 +73,8 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
           <div>Current Sensor Reading</div>
           <div>Connected Sensors</div>
           <div>
-            <Button id="Sesnsor Name" variant="text" onClick={() => onPlantSensorClick(String())}>
-              Sensor Name
+            <Button id="Sesnsor Name" variant="text" onClick={() => onPlantSensorClick(String(sensor?.id))}>
+              {sensor?.sensor_name}
             </Button>
             <Fab size="small" color="secondary" aria-label="edit" onClick={() => onEditSensorClick(String(sensor?.id))}>
               <EditIcon />

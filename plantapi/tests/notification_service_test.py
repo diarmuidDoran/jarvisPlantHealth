@@ -30,19 +30,26 @@ class NotificationServiceTest(unittest.TestCase):
                 "id": 1,
                 "notification_details": "string",
                 "time_stamp": "2022-07-29T10:24:04.339000+00:00",
-                "plant_health_attribute_id": 1
+                "plant_health_attribute_id": 1,
             },
-            {"id": 2,
+            {
+                "id": 2,
                 "notification_details": "string",
                 "time_stamp": "2022-07-29T10:24:04.339000+00:00",
-                "plant_health_attribute_id": 2
-             },
+                "plant_health_attribute_id": 2,
+            },
         ]
 
         notification_models = []
         for result in expected_result:
-            notification_models.append(make_notification(result["id"], result["notification_details"],
-                                                         result['time_stamp'], result['plant_health_attribute_id']))
+            notification_models.append(
+                make_notification(
+                    result["id"],
+                    result["notification_details"],
+                    result["time_stamp"],
+                    result["plant_health_attribute_id"],
+                )
+            )
 
         get_notification_dtos_mock.return_value = notification_models
 
@@ -55,7 +62,12 @@ class NotificationServiceTest(unittest.TestCase):
     @mock.patch("blueprints.services.notification_service.addNotificationDto")
     def test_notification_service_post_notification(self, add_notification_dtos_mock):
         expected_result = {"string", "2022-07-29 10:24:04", 1}
-        add_notification_dtos_mock.return_value = {1, "string", "2022-07-29 10:24:04", 1}
+        add_notification_dtos_mock.return_value = {
+            1,
+            "string",
+            "2022-07-29 10:24:04",
+            1,
+        }
 
         result = postNotification("string", "2022-07-29 10:24:04", 1)
 
@@ -64,21 +76,21 @@ class NotificationServiceTest(unittest.TestCase):
 
     @mock.patch("blueprints.services.notification_service.getNotificationDtoById")
     def test_notification_service_get_notification_by_id_returns_notification(
-            self, get_notification_dto_mock
+        self, get_notification_dto_mock
     ):
         id = 1
         expected_result = {
             "id": 1,
             "notification_details": "string",
             "time_stamp": "2022-07-29T10:24:04.339000+00:00",
-            "plant_health_attribute_id": 1
+            "plant_health_attribute_id": 1,
         }
 
         get_notification_dto_mock.return_value = make_notification(
             expected_result["id"],
             expected_result["notification_details"],
             expected_result["time_stamp"],
-            expected_result["plant_health_attribute_id"]
+            expected_result["plant_health_attribute_id"],
         )
 
         result = getNotificationById(id)

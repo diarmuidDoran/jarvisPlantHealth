@@ -2,9 +2,9 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from blueprints.data_provider.engine import Base
 
-from blueprints.data_provider.dtos.plant_health_attribute import (
-    sensor_plant_health_attribute_table,
-)
+# from blueprints.data_provider.dtos.plant_health_attribute import (
+#     sensor_plant_health_attribute_table,
+# )
 
 
 class Sensor(Base):
@@ -21,10 +21,9 @@ class Sensor(Base):
         passive_deletes=False,
     )
 
-    plant_health_attributes_d = relationship(
-        "Plant_Health_Attribute",
-        secondary=sensor_plant_health_attribute_table,
-        back_populates="sensor_b",
+    plant_health_attribute_d = relationship(
+        "Sensor_Plant_Health_Attribute",
+        back_populates="sensor",
         cascade="all, delete",
     )
 

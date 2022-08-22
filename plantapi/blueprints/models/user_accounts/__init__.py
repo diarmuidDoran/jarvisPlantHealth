@@ -67,8 +67,3 @@ def make_new_user_account(user_name, first_name, last_name, email, password):
         password=password,
     )
     return user_account
-
-
-def make_plant_user(id, name, room_id):
-    plant = Plant(id, name, room_id)
-    return plant

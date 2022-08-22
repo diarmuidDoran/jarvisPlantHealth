@@ -21,7 +21,9 @@ def encrypt(plain_text_password):
 
 def add_user_account_dto(user_name, first_name, last_name, email, password):
 
-    new_user_account = User_Account(user_name, first_name, last_name, email, encrypt(password))
+    new_user_account = User_Account(
+        user_name, first_name, last_name, email, encrypt(password)
+    )
 
     session.add(new_user_account)
     session.commit()
