@@ -81,7 +81,9 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
   useEffect(() => {
     onGetSensorData(Number(id));
     onGetSensorReadingsData(Number(id));
-  }, [id]);
+  }, 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [id]);
 
   return (
     <div>

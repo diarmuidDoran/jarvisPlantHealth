@@ -28,15 +28,18 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
     onGetSensorData,
   } = usePlantLogic();
 
-  useEffect(() => {
-    onGetPlantData(Number(id));
-    onGetPlantPlantHealthAttributesData(Number(id))
-    onGetRoomsData();
-    onGetUnitMeasurementsData();
-    onGetHealthAttributesData();
-    onGetSensorsData();
-    onGetSensorData(Number(id));
-  }, [id]);
+  useEffect(
+    () => {
+      onGetPlantData(Number(id));
+      onGetPlantPlantHealthAttributesData(Number(id));
+      onGetRoomsData();
+      onGetUnitMeasurementsData();
+      onGetHealthAttributesData();
+      onGetSensorsData();
+      onGetSensorData(Number(id));
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [id]
+  );
 
   return (
     <div>
@@ -73,10 +76,19 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
           <div>Current Sensor Reading</div>
           <div>Connected Sensors</div>
           <div>
-            <Button id="Sesnsor Name" variant="text" onClick={() => onPlantSensorClick(String(sensor?.id))}>
+            <Button
+              id="Sesnsor Name"
+              variant="text"
+              onClick={() => onPlantSensorClick(String(sensor?.id))}
+            >
               {sensor?.sensor_name}
             </Button>
-            <Fab size="small" color="secondary" aria-label="edit" onClick={() => onEditSensorClick(String(sensor?.id))}>
+            <Fab
+              size="small"
+              color="secondary"
+              aria-label="edit"
+              onClick={() => onEditSensorClick(String(sensor?.id))}
+            >
               <EditIcon />
             </Fab>
             <Fab size="small" color="secondary" aria-label="edit">

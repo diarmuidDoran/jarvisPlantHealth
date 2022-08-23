@@ -1,6 +1,5 @@
-import {PlantHelathAttribute, } from 'shared/types'
+import {PlantHelathAttribute, Sensor } from 'shared/types'
 
 export type EditPlantHealthAttibute = PlantHelathAttribute & {
-    sensorName: string;
-    sensorId: number;
+    sensor?: Sensor;
 }

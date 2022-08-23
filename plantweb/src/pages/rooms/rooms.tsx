@@ -6,9 +6,13 @@ import AddIcon from "@mui/icons-material/Add";
 export const Rooms = memo(() => {
   const { rooms, onGetRoomData, onRoomClick, onAddRoomClick } = useRoomsLogic();
 
-  useEffect(() => {
-    onGetRoomData();
-  }, []);
+  useEffect(
+    () => {
+      onGetRoomData();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <div>

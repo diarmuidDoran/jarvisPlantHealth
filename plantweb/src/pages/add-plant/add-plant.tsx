@@ -40,13 +40,16 @@ export const AddPlant = memo(() => {
     onGetHealthAttributeData,
   } = useAddPlantLogic();
 
-
-  useEffect(() => {
-    onGetRoomData();
-    onGetSensorData();
-    onGetUnitMeasurementData();
-    onGetHealthAttributeData();
-  }, []);
+  useEffect(
+    () => {
+      onGetRoomData();
+      onGetSensorData();
+      onGetUnitMeasurementData();
+      onGetHealthAttributeData();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <div>

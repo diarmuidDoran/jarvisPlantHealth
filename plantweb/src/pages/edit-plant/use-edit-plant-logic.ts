@@ -1,5 +1,5 @@
 import { SelectChangeEvent } from "@mui/material";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { produce } from "immer";
 
@@ -9,12 +9,14 @@ import { useUnitMeasurements } from "shared/hooks/use-unit-measurements";
 import { useHealthAttributes } from "shared/hooks/use-health-attributes";
 import { useSensors } from "shared/hooks/use-sensors";
 import { PATHS } from "shared/constants";
+import { Sensor } from "shared/types";
 
 import { EditPlantHealthAttibute } from "./edit-plant-types";
 
 export const useEditPlantLogic = (id: number) => {
   const {
     editPlant,
+    editPlantPlantHealthAttribute,
     getPlantPlantHealthAttributes,
     plant_health_attributes: plant,
   } = usePlants();
@@ -27,44 +29,40 @@ export const useEditPlantLogic = (id: number) => {
   const [plantName, setPlantName] = useState("");
   const [room, setRoom] = useState("");
 
-  const [upperRequiredValue, setUpperRequiredValue] = useState("");
-  const [lowerRequiredValue, setLowerRequiredValue] = useState("");
-  const [plantHealthAttribute, setPlantHealthAttribute] = useState("");
-  const [unitMeasurement, setUnitMeasurement] = useState("");
-  const [sensorID, setSensor] = useState("");
-
-  const defaultPlantHealthAttribute = {
-    id: 0,
-    upper_required_value: 0,
-    lower_required_value: 0,
-    unit_measurement_id: 0,
-    plant_id: 0,
-    health_attribute_id: 0,
-    sensorName: "",
-    sensorId: 0,
-  };
+  const defaultPlantHealthAttribute = useMemo(() => {
+    return {
+      id: 0,
+      upper_required_value: 0,
+      lower_required_value: 0,
+      unit_measurement_id: 0,
+      plant_id: 0,
+      health_attribute_id: 0,
+      sensor: {} as Sensor,
+    };
+  }, []);
 
   const [editPlantHealthAttributesArray, setEditPlantHealthAttributesArray] =
     useState<EditPlantHealthAttibute[]>([]);
 
   useEffect(() => {
+    const newEditPlantHealthAttributesArray =
+      plant?.plant_health_attributes?.map((plant_health_attribute_element) => ({
+        id: plant_health_attribute_element.id,
+        upper_required_value:
+          plant_health_attribute_element.upper_required_value,
+        lower_required_value:
+          plant_health_attribute_element.lower_required_value,
+        unit_measurement_id: plant_health_attribute_element.unit_measurement_id,
+        plant_id: plant_health_attribute_element.plant_id,
+        health_attribute_id: plant_health_attribute_element.health_attribute_id,
+        sensor: plant_health_attribute_element?.sensor,
+      })) || [];
+    // console.log(JSON.stringify(newEditPlantHealthAttributesArray))
+
     setPlantName(plant?.name || "");
     setRoom(String(plant?.room_id) || "");
-    setSensor(sensor?.sensor_name || "")
-
-    const newEditPlantHealthAttributesArray =
-      plant?.plant_health_attributes?.map((plant_health_attribute) => ({
-        id: plant_health_attribute.id,
-        upper_required_value: plant_health_attribute.upper_required_value,
-        lower_required_value: plant_health_attribute.lower_required_value,
-        unit_measurement_id: plant_health_attribute.unit_measurement_id,
-        plant_id: plant_health_attribute.plant_id,
-        health_attribute_id: plant_health_attribute.health_attribute_id,
-        sensorName: "",
-        sensorId: 0,
-      })) || [];
     setEditPlantHealthAttributesArray(newEditPlantHealthAttributesArray);
-  }, [plant]);
+  }, [plant, setEditPlantHealthAttributesArray, setPlantName, setRoom]);
 
   const onPlantNameChange = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -136,12 +134,20 @@ export const useEditPlantLogic = (id: number) => {
     [editPlantHealthAttributesArray, setEditPlantHealthAttributesArray]
   );
 
-  const handleSensorChange = useCallback(
-    ({ target: { value } }: SelectChangeEvent) => {
-      setSensor(value as string);
-    },
-    [setSensor]
-  );
+  // const handleSensorChange = useCallback(
+  //   (index: number, value: string | number) => {
+  //     const newSensor = sensors.find((sensor) => sensor.id === value);
+  //     const newHealthAttribute = produce(
+  //       editPlantHealthAttributesArray,
+  //       (draft) => {
+  //         draft[index].sensor = newSensor;
+  //       }
+  //     );
+
+  //     setEditPlantHealthAttributesArray(newHealthAttribute);
+  //   },
+  //   [sensors, editPlantHealthAttributesArray, setEditPlantHealthAttributesArray]
+  // );
 
   const onGetPlantData = useCallback(() => {
     getPlantPlantHealthAttributes(id);
@@ -164,29 +170,56 @@ export const useEditPlantLogic = (id: number) => {
   }, [getSensors]);
 
   const onSubmit = useCallback(async () => {
+    const updatePlantHealthAttribute = [] as any[];
+
+    for (const editPlantHealthAttributeElement of editPlantHealthAttributesArray) {
+      const response = editPlantPlantHealthAttribute(
+        id,
+        editPlantHealthAttributeElement.id,
+        editPlantHealthAttributeElement.upper_required_value,
+        editPlantHealthAttributeElement.lower_required_value,
+        editPlantHealthAttributeElement.unit_measurement_id,
+        editPlantHealthAttributeElement.plant_id,
+        editPlantHealthAttributeElement.health_attribute_id
+      );
+      updatePlantHealthAttribute.push(response);
+    }
+
+    const editPlantHealthAttributes = await Promise.all(
+      updatePlantHealthAttribute
+    );
+
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    
+    await sleep(500);
+
     const updatePlant = await editPlant(id, plantName, Number(room));
-    if (updatePlant) {
+
+    if (
+      updatePlant &&
+      updatePlantHealthAttribute.length ===
+        editPlantHealthAttributes.length
+    ) {
       history.push(`${PATHS.plants}/${updatePlant.id}`);
     }
-  }, [editPlant, history, id, plantName, room]);
+  }, [editPlant, history, id, plantName, room, editPlantHealthAttributesArray]);
 
   const onAddPlantHealthAttibute = useCallback(() => {
     setEditPlantHealthAttributesArray([
       ...editPlantHealthAttributesArray,
       defaultPlantHealthAttribute,
     ]);
-  }, [editPlantHealthAttributesArray, setEditPlantHealthAttributesArray]);
+  }, [
+    setEditPlantHealthAttributesArray,
+    editPlantHealthAttributesArray,
+    defaultPlantHealthAttribute,
+  ]);
 
   return {
     plant,
     plantName,
     room,
-    upperRequiredValue,
-    lowerRequiredValue,
-    plantHealthAttribute,
-    unitMeasurement,
     sensor,
-    sensorID,
     rooms,
     units,
     health_attributes,
@@ -196,7 +229,7 @@ export const useEditPlantLogic = (id: number) => {
     handleRoomChange,
     handleHealthAttributeChange,
     handleUnitChange,
-    handleSensorChange,
+    // handleSensorChange,
     onSubmit,
     onGetPlantData,
     onGetRoomData,

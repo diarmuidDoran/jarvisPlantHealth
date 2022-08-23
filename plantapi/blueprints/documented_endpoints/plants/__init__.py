@@ -8,14 +8,14 @@ from blueprints.services.plant_health_attribute_service import *
 from blueprints.validations.plant_health_attribute_validation import (
     plant_health_attribute_is_valid,
 )
-from blueprints.validations.plant_validation import plant_is_valid, plant_id_is_valid
+from blueprints.validations.plant_validation import plant_is_valid, plant_id_is_valid, plant_new_name_is_valid
 from blueprints.swagger_models.plants import (
     namespacePlant,
     plant_plant_health_attribute_list_model,
     plant_model,
     plant_health_attribute_model,
     plant_list_model,
-    plant_health_attribute_sensor_model,
+    plant_health_attribute_sensor_model, plant_plant_health_attribute_sensor_list_model,
 )
 from blueprints.validations.user_account_validation import user_id_is_valid
 
@@ -85,10 +85,11 @@ class plant(Resource):
 
         """Update specific plant information"""
         data = request.get_json()
+        id = data.get("id")
         new_name = data.get("name")
         new_room_id = data.get("room_id")
 
-        if plant_is_valid(new_name) is not True:
+        if plant_new_name_is_valid(id, new_name) is not True:
             namespacePlant.abort(400, "Plant with the given name already exists")
 
         updated_plant = updatePlantById(plant_id, new_name, new_room_id)
@@ -136,7 +137,7 @@ class plant_health_attributes(Resource):
 
     @namespacePlant.response(404, "Plant not found")
     @namespacePlant.response(500, "Internal Server error")
-    @namespacePlant.marshal_with(plant_plant_health_attribute_list_model)
+    @namespacePlant.marshal_with(plant_plant_health_attribute_sensor_list_model)
     def get(self, plant_id):
 
         if getPlantById(plant_id) is None:

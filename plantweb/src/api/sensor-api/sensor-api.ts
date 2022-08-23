@@ -2,6 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import { get, post, deleteCall } from "api/api";
 import {
   SensorResponse,
+  SensorPlantHealthAttributeResponse,
   SensorRequest,
   SensorSensorReadingsResponse,
   SensorReadingRequest,
@@ -9,6 +10,10 @@ import {
 
 export const getSensors = (config?: AxiosRequestConfig) => {
   return get<SensorResponse[]>("/sensors", config);
+};
+
+export const getSensorPlantHealthAttributes = (config?: AxiosRequestConfig) => {
+  return get<SensorPlantHealthAttributeResponse[]>("/sensors/sensor_plant_health_attribute_relationship", config);
 };
 
 export const getSensor = (sensor: number, config?: AxiosRequestConfig) => {
@@ -29,4 +34,8 @@ export const getSensorSensorReadings = (sensor: number, config?: AxiosRequestCon
 
 export const addSensorReading = (sensor: number, data: SensorReadingRequest, config?: AxiosRequestConfig) => {
   return post<SensorResponse>(`/sensors/${sensor}/readings`, data, config);
+};
+
+export const addSensorPlantHealthAttributeRelationship = (sensor: number, plant_health_attribute: number, config?: AxiosRequestConfig) => {
+  return post<SensorResponse>(`/sensors/${sensor}/sensor_plant_health_attribute_relationship/${plant_health_attribute}`, config);
 };

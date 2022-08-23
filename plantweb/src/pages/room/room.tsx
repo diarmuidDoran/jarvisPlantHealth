@@ -26,7 +26,9 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
 
   useEffect(() => {
     onGetRoomData(Number(id));
-  }, [id]);
+  }, 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [id]);
 
   return (
     <div>

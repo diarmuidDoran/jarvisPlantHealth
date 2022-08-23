@@ -1,3 +1,4 @@
+import { Sensor } from "shared/types";
 export type PlantHelathAttribute = {
     id: number
     upper_required_value: number;
@@ -5,4 +6,5 @@ export type PlantHelathAttribute = {
     unit_measurement_id: number;
     plant_id: number;
     health_attribute_id: number;
-}
+    sensor?: Sensor;
+} 

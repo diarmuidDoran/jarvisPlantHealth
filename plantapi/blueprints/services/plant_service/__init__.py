@@ -37,21 +37,32 @@ def updatePlantById(plant_id, new_name, new_room_id):
 def getPlantHealthAttributesByPlantId(plant_id):
     plantDto = getPlantDtoById(plant_id)
 
-    return make_plant_with_plant_health_attribute_list(
-        plantDto.id, plantDto.name, plantDto.room_id, plantDto.plant_health_attributes
-    )
+    plant_health_attribute_model = make_plant_with_plant_health_attribute_list(
+        plantDto.id, plantDto.name, plantDto.room_id, plantDto.plant_health_attributes)
+
+    sensor_plant_health_attributes = getSensorPlantHealthAttribute()
+
+    sensor = {}
+    for plant_health_attribute in plant_health_attribute_model.plant_health_attributes:
+        for sensor_plant_health_attribute in sensor_plant_health_attributes:
+            if sensor_plant_health_attribute.plant_health_attribute_id == plant_health_attribute.id:
+                sensor = (getSensorById(sensor_plant_health_attribute.sensor_id))
+
+        plant_health_attribute.sensor = sensor
+
+    return plant_health_attribute_model
 
 
 def getPlantHealthAttributesById(plant_health_attribute_id):
 
     plantHealthAttributeDto = getPlantHealthAttributeDtoById(plant_health_attribute_id)
 
-    sensors_model = []
+    sensor = {}
 
-    sensor_plant_health_attribute_models = getSensorPlantHealthAttribute()
-    for sensor_plant_health_attribute in sensor_plant_health_attribute_models:
+    sensor_plant_health_attributes = getSensorPlantHealthAttribute()
+    for sensor_plant_health_attribute in sensor_plant_health_attributes:
         if sensor_plant_health_attribute.plant_health_attribute_id == plant_health_attribute_id:
-            sensors_model.append(getSensorById(sensor_plant_health_attribute.sensor_id))
+            sensor = (getSensorById(sensor_plant_health_attribute.sensor_id))
 
     return make_plant_health_attribute(
         plantHealthAttributeDto.id,
@@ -60,7 +71,7 @@ def getPlantHealthAttributesById(plant_health_attribute_id):
         plantHealthAttributeDto.unit_measurement_id,
         plantHealthAttributeDto.plant_id,
         plantHealthAttributeDto.health_attribute_id,
-        sensors_model,
+        sensor,
     )
 
 

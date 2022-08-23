@@ -5,7 +5,7 @@ import {
 } from "shared/types";
 import {
   usePlantApi,
-  PlantHealthAttributeResponse,
+  PlantHealthAttributeSensorResponse,
   PlantPlantHealthAttributeResponse,
 } from "api/plant-api";
 
@@ -35,7 +35,7 @@ export const usePlants = () => {
   const [plant_health_attributes, setPlantHealthAttributes] =
     useState<PlantPlantHealthAttributeResponse>();
   const [plant_health_attribute, setPlantHealthAttribute] =
-    useState<PlantHealthAttributeResponse>();
+    useState<PlantHealthAttributeSensorResponse>();
 
   const [errorMessage, setErrorMessage] = useState("");
 

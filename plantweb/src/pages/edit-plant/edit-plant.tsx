@@ -22,12 +22,6 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
     plant,
     plantName,
     room,
-    upperRequiredValue,
-    lowerRequiredValue,
-    plantHealthAttribute,
-    unitMeasurement,
-    sensor,
-    sensorID,
     rooms,
     units,
     health_attributes,
@@ -37,7 +31,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
     handleRoomChange,
     handleHealthAttributeChange,
     handleUnitChange,
-    handleSensorChange,
+    // handleSensorChange,
     onSubmit,
     onGetPlantData,
     onGetRoomData,
@@ -49,13 +43,17 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
     onAddPlantHealthAttibute,
   } = useEditPlantLogic(Number(id));
 
-  useEffect(() => {
-    onGetPlantData();
-    onGetRoomData();
-    onGetSensorData();
-    onGetUnitMeasurementData();
-    onGetHealthAttributeData();
-  }, []);
+  useEffect(
+    () => {
+      onGetPlantData();
+      onGetRoomData();
+      onGetSensorData();
+      onGetUnitMeasurementData();
+      onGetHealthAttributeData();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <div>
@@ -96,7 +94,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
         </Box>
       </div>
       <div>
-        <p>Edit plant health attributes to be monitored</p>
+        <p>Edit plant health attributes to be monitored. Sensors can only be deleted on the plant page and are only shown here for your convience.  All other fields are editable.</p>
       </div>
       {editPlantHealthAttributesArray.map(
         (editPlantHealthAttributeElement, index) => (
@@ -189,9 +187,13 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={sensorID}
+                    value={editPlantHealthAttributeElement.sensor?.id}
                     label="Sensor"
-                    onChange={handleSensorChange}
+                    // onChange={({
+                    //   target: { value },
+                    // }: SelectChangeEvent<number>) => {
+                    //   handleSensorChange(index, value);
+                    // }}
                   >
                     {sensors.map((sensor: any) => (
                       <MenuItem key={sensor.id} value={sensor.id}>

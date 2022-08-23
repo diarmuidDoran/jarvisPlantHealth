@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useNetworkStatus } from "./use-network-status";
 import {
   SensorResponse,
+  SensorPlantHealthAttributeResponse,
   SensorSensorReadingsResponse,
   useSensorApi,
 } from "api/sensor-api";
@@ -14,9 +15,10 @@ export const useSensors = () => {
     setError: setNetworkStatusError,
   } = useNetworkStatus();
 
-  const { getSensors, getSensor, addSensor, deleteSensor, getSensorSensorReadings, addSensorReading } = useSensorApi();
+  const { getSensors, getSensor, addSensor, deleteSensor, getSensorSensorReadings, addSensorReading, getSensorPlantHealthAttributes, addSensorPlantHealthAttributeRelationship } = useSensorApi();
 
   const [sensors, setSensors] = useState<SensorResponse[]>([]);
+  const [sensorPlantHealthAttributes, setSensorPlantHealthAttributes] = useState<SensorPlantHealthAttributeResponse[]>([])
   const [sensor, setSensor] = useState<SensorResponse>();
   const [sensorReadings, setSensorReadings] = useState<SensorSensorReadingsResponse>();
 
@@ -32,6 +34,24 @@ export const useSensors = () => {
 
       setSuccess();
       setSensors(response.data);
+    } catch (e: any) {
+      setNetworkStatusError();
+      setErrorMessage(e);
+
+      return;
+    }
+  }, []);
+
+  const getAllSensorPlantHealthAttributes = useCallback(async () => {
+    setErrorMessage("");
+
+    setInFlight();
+
+    try {
+      const response = await getSensorPlantHealthAttributes();
+
+      setSuccess();
+      setSensorPlantHealthAttributes(response.data);
     } catch (e: any) {
       setNetworkStatusError();
       setErrorMessage(e);
@@ -147,17 +167,40 @@ export const useSensors = () => {
     [addSensor, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
   );
 
+  const addSensorPlantHealthAttributeCallback = useCallback(
+    async (id: number, plant_health_attribute_id: number) => {
+      setErrorMessage("");
+      setInFlight();
+
+      try {
+        const response = await addSensorPlantHealthAttributeRelationship(id , plant_health_attribute_id);
+
+        setSuccess();
+
+        return response.data;
+      } catch (e: any) {
+        setNetworkStatusError();
+        setErrorMessage(e);
+
+        return;
+      }
+    },
+    [addSensorPlantHealthAttributeRelationship, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
+  );
 
   return {
     sensors,
+    sensorPlantHealthAttributes,
     sensor,
     sensorReadings,
     getSensors: getAllSensors,
+    getSensorPlantHealthAttributes: getAllSensorPlantHealthAttributes,
     getSensor: getSensorByID,
     postSensor: addSensorCallback,
     deleteSensor: deleteSensorByID,
     getSensorReadings: getSensorReadingsBySensorID,
     postSensorReading: addSensorReadingCallback,
+    postSensorPlantHealthAttributes: addSensorPlantHealthAttributeCallback,
     networkStatus,
     errorMessage,
   } as const;

@@ -5,7 +5,7 @@ class Plant_Health_Attribute(object):
     unit_measurement_id = 0
     plant_id = 0
     health_attribute_id = 0
-    sensors = []
+    sensor = {}
 
     # The class "constructor" - an initializer
     def __init__(
@@ -16,7 +16,7 @@ class Plant_Health_Attribute(object):
         unit_measurement_id,
         plant_id,
         health_attribute_id,
-        sensors,
+        sensor,
     ):
         self.id = id
         self.upper_required_value = upper_required_value
@@ -24,7 +24,7 @@ class Plant_Health_Attribute(object):
         self.unit_measurement_id = unit_measurement_id
         self.plant_id = plant_id
         self.health_attribute_id = health_attribute_id
-        self.sensors = sensors
+        self.sensor = sensor
 
 
 def make_plant_health_attribute(
@@ -34,7 +34,7 @@ def make_plant_health_attribute(
     unit_measurement_id,
     plant_id,
     health_attribute_id,
-    sensors,
+    sensor,
 ):
 
     plant_health_attribute = Plant_Health_Attribute(
@@ -44,7 +44,7 @@ def make_plant_health_attribute(
         unit_measurement_id,
         plant_id,
         health_attribute_id,
-        sensors,
+        sensor,
     )
 
     return plant_health_attribute

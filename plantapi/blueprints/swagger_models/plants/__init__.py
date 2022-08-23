@@ -59,8 +59,8 @@ plant_health_attribute_sensor_model = namespacePlant.model(
         "health_attribute_id": fields.Integer(
             required=True, description="Health Attribute ID"
         ),
-        "sensors": fields.Nested(
-            sensor_model, description="List of sensors", as_list=True
+        "sensor": fields.Nested(
+            sensor_model, description="Associated sensor",
         ),
     },
 )
@@ -79,19 +79,20 @@ plant_plant_health_attribute_list_model = namespacePlant.model(
     },
 )
 
-plant_plant_health_attribute_list_model = namespacePlant.model(
+plant_plant_health_attribute_sensor_list_model = namespacePlant.model(
     "PlantHealthAttributeList",
     {
         "id": fields.Integer(readonly=True, description="Plant identifier"),
         "name": fields.String(required=True, description="Plant name"),
         "room_id": fields.Integer(required=True, description="Room identifier"),
         "plant_health_attributes": fields.Nested(
-            plant_health_attribute_model,
+            plant_health_attribute_sensor_model,
             description="List of plants health attributes",
             as_list=True,
         ),
     },
 )
+
 
 plant_list_model = namespacePlant.model(
     "PlantList",

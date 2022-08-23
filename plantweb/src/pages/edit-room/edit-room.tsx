@@ -12,7 +12,9 @@ export const EditRoomByID = memo(({ id }: RoomByIDProps) => {
 
   useEffect(() => {
     onGetRoomData();
-  }, [onGetRoomData]);
+  }, 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  []);
 
   return (
     <div>

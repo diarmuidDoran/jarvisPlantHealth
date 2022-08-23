@@ -21,3 +21,9 @@ export type SensorReadingRequest = {
     sensor_reading: number;
     time_stamp: string;
 }
+
+export type SensorPlantHealthAttributeResponse = {
+    id: number;
+    plant_health_attribute_id: number;
+    sensor_id: number;
+}
