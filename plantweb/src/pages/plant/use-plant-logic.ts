@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo, useState, MouseEvent } from "react";
 import { useHistory } from "react-router-dom";
 import { PATHS } from "shared/constants";
 import { usePlants } from "shared/hooks/use-plants";
@@ -6,16 +6,46 @@ import { useRooms } from "shared/hooks/use-rooms";
 import { useUnitMeasurements } from "shared/hooks/use-unit-measurements";
 import { useHealthAttributes } from "shared/hooks/use-health-attributes";
 import { useSensors } from "shared/hooks/use-sensors";
+import { Sensor } from "shared/types";
+import { EditPlantHealthAttibute } from "pages/edit-plant/edit-plant-types";
 
 
 export const usePlantLogic = () => {
-  const { plant, getPlant, deletePlant, getPlantPlantHealthAttributes, } = usePlants();
+  const { plant_health_attributes: plant, getPlant, deletePlant, getPlantPlantHealthAttributes, } = usePlants();
   const { rooms, getRooms } = useRooms();
   const { units, getUnitMeasurements } = useUnitMeasurements();
   const { health_attributes, getHealthAttributes } = useHealthAttributes();
   const { sensors, sensor, getSensors, getSensor } = useSensors();
 
+  const [popoverAnchorEl, setPopoverAnchorEl] = useState<HTMLButtonElement | null>(null);
+
   const history = useHistory();
+
+  const [plantHealthAttributesArray, setPlantHealthAttributesArray] =
+    useState<EditPlantHealthAttibute[]>([]);
+
+  useEffect(() => {
+    const readPlantHealthAttributesArray =
+      plant?.plant_health_attributes?.map((plant_health_attribute_element) => ({
+        id: plant_health_attribute_element.id,
+        upper_required_value:
+          plant_health_attribute_element.upper_required_value,
+        lower_required_value:
+          plant_health_attribute_element.lower_required_value,
+        unit_measurement_id: plant_health_attribute_element.unit_measurement_id,
+        plant_id: plant_health_attribute_element.plant_id,
+        health_attribute_id: plant_health_attribute_element.health_attribute_id,
+        sensor: plant_health_attribute_element?.sensor,
+      })) || [];
+    // console.log(JSON.stringify(newPlantHealthAttributesArray))
+
+    setPlantHealthAttributesArray(readPlantHealthAttributesArray);
+  }, [plant, setPlantHealthAttributesArray,]);
+
+
+  const handleDeletePopperClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setPopoverAnchorEl(popoverAnchorEl ? null : event.currentTarget);
+  };
 
   const onPlantsClick = useCallback(() => {
     history.push(`${PATHS.plants}`);
@@ -34,7 +64,6 @@ export const usePlantLogic = () => {
     },
     [history]
   );
-
 
   const onDeletePlantClick = useCallback(
     (id: number) => {
@@ -94,6 +123,8 @@ export const usePlantLogic = () => {
     sensors,
     units,
     health_attributes,
+    plantHealthAttributesArray,
+    popoverAnchorEl,
     onGetPlantData,
     onGetPlantPlantHealthAttributesData,
     onPlantsClick,
@@ -106,5 +137,6 @@ export const usePlantLogic = () => {
     onGetHealthAttributesData,
     onGetSensorData,
     onGetSensorsData,
+    handleDeletePopperClick,
   };
 };

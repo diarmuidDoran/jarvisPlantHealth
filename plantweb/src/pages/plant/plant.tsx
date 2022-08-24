@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from "react";
-import { Button, Fab } from "@mui/material";
+import { Box, Button, Fab, Popper } from "@mui/material";
 import { usePlantLogic } from "./use-plant-logic";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,6 +14,9 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
     sensors,
     sensor,
     rooms,
+    health_attributes,
+    plantHealthAttributesArray,
+    popoverAnchorEl,
     onGetPlantData,
     onGetPlantPlantHealthAttributesData,
     onPlantsClick,
@@ -26,7 +29,11 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
     onGetHealthAttributesData,
     onGetSensorsData,
     onGetSensorData,
+    handleDeletePopperClick,
   } = usePlantLogic();
+
+  const open = Boolean(popoverAnchorEl);
+  const popOverID = open ? "simple-popper" : undefined;
 
   useEffect(
     () => {
@@ -61,46 +68,72 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
             <Fab
               size="small"
               color="secondary"
-              aria-label="edit"
-              onClick={() => {
+              aria-label={popOverID}
+              onClick={handleDeletePopperClick}
+            >
+              <DeleteIcon />
+            </Fab>
+            <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl}>
+              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                <p>Are you sure you want to delete this Plant?</p>
+                <button id="Sesnsor Name" 
+                onClick={() => {
                 onDeletePlantClick(plant.id);
                 onPlantsClick();
-              }}
-            >
-              <DeleteIcon />
-            </Fab>
+              }}>
+                  Delete
+                </button>
+              </Box>
+            </Popper>
           </div>
           <div>
-            Room: {plant.room_id} this needs updated to displey the rooms name
+            {/* this needs updated to display the rooms name */}
+            {/* {plant.room_id} */}
+            Room: {rooms.find((room) => room.id === plant.room_id)?.name}
           </div>
           <div>Current Sensor Reading</div>
-          <div>Connected Sensors</div>
+          <div>Connected Sensors used to monitor plant health attributes </div>
           <div>
-            <Button
-              id="Sesnsor Name"
-              variant="text"
-              onClick={() => onPlantSensorClick(String(sensor?.id))}
-            >
-              {sensor?.sensor_name}
-            </Button>
-            <Fab
-              size="small"
-              color="secondary"
-              aria-label="edit"
-              onClick={() => onEditSensorClick(String(sensor?.id))}
-            >
-              <EditIcon />
-            </Fab>
-            <Fab size="small" color="secondary" aria-label="edit">
-              <DeleteIcon />
-            </Fab>
+            {plant.plant_health_attributes.length > 0 ? (
+              <>
+                {plantHealthAttributesArray.map(
+                  (plantHealthAttributeElement) => (
+                    <div>
+                      <Button
+                        id="Sesnsor Name"
+                        variant="text"
+                        onClick={() =>
+                          onPlantSensorClick(
+                            String(plantHealthAttributeElement.sensor?.id)
+                          )
+                        }
+                      >
+                        <div>
+                          {plantHealthAttributeElement.sensor?.sensor_name}{" "}
+                          monitoring{" "}
+                          {
+                            health_attributes.find(
+                              (health_attribute) =>
+                                health_attribute.id ===
+                                plantHealthAttributeElement.health_attribute_id
+                            )?.name
+                          }
+                        </div>
+                      </Button>
+                    </div>
+                  )
+                )}
+              </>
+            ) : (
+              <p>
+                {" "}
+                No sensors currently monitoring any of your plants health
+                attributes
+              </p>
+            )}
           </div>
-          <div>
-            Add another plant health attribute to be monitored
-            <Fab size="small" color="primary" aria-label="add">
-              <AddIcon />
-            </Fab>
-          </div>
+          <div></div>
+          <div></div>
         </>
       )}
     </div>

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState, MouseEvent } from "react";
 import { useHistory } from "react-router-dom";
 import { PATHS } from "shared/constants";
 
@@ -6,8 +6,14 @@ import { useRooms } from "shared/hooks/use-rooms";
 
 export const useRoomLogic = () => {
   const { room, getRoom, deleteRoom } = useRooms();
+  const [popoverAnchorEl, setPopoverAnchorEl] =
+    useState<HTMLButtonElement | null>(null);
 
   const history = useHistory();
+
+  const handleDeletePopperClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setPopoverAnchorEl(popoverAnchorEl ? null : event.currentTarget);
+  };
 
   const onRoomsClick = useCallback(() => {
     history.push(`${PATHS.rooms}`);
@@ -43,10 +49,12 @@ export const useRoomLogic = () => {
 
   return {
     room,
+    popoverAnchorEl,
     onGetRoomData,
     onDeleteRoomClick,
     onRoomPlantClick,
     onRoomsClick,
     onEditRoomClick,
+    handleDeletePopperClick,
   };
 };

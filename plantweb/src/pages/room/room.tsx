@@ -1,11 +1,13 @@
 import React, { memo, useEffect } from "react";
 import {
+  Box,
   Divider,
   Fab,
   Link,
   List,
   ListItem,
   ListItemText,
+  Popper,
 } from "@mui/material";
 import { useRoomLogic } from "./use-room-logic";
 import EditIcon from "@mui/icons-material/Edit";
@@ -17,18 +19,25 @@ export type RoomByIDProps = {
 export const RoomByID = memo(({ id }: RoomByIDProps) => {
   const {
     room,
+    popoverAnchorEl,
     onGetRoomData,
     onRoomsClick,
     onRoomPlantClick,
     onEditRoomClick,
     onDeleteRoomClick,
+    handleDeletePopperClick,
   } = useRoomLogic();
 
-  useEffect(() => {
-    onGetRoomData(Number(id));
-  }, 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [id]);
+  const open = Boolean(popoverAnchorEl);
+  const popOverID = open ? "simple-popper" : undefined;
+
+  useEffect(
+    () => {
+      onGetRoomData(Number(id));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [id]
+  );
 
   return (
     <div>
@@ -50,14 +59,25 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
             <Fab
               size="small"
               color="secondary"
-              aria-label="edit"
-              onClick={() => {
-                onDeleteRoomClick(room.id);
-                onRoomsClick();
-              }}
+              aria-label={popOverID}
+              onClick={handleDeletePopperClick}
             >
               <DeleteIcon />
             </Fab>
+            <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl}>
+              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                <p>Are you sure you want to delete this Room?</p>
+                <button
+                  id="Sesnsor Name"
+                  onClick={() => {
+                    onDeleteRoomClick(room.id);
+                    onRoomsClick();
+                  }}
+                >
+                  Delete
+                </button>
+              </Box>
+            </Popper>
           </div>
           <div>
             <div>Plants Located in {room.name}</div>

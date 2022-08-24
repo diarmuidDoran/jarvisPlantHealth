@@ -7,63 +7,71 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import {
-  Fab,
-} from "@mui/material";
+import { Box, Fab, Popper } from "@mui/material";
 import { useSensorLogic } from "./use-sensor-logic";
 import DeleteIcon from "@mui/icons-material/Delete";
 export type SensorByIDProps = { id: string };
 
-interface Column {
-  id: "sensor_reading" | "unit_measurement" | "time_stamp" ;
-  label: string;
-  minWidth?: number;
-  align?: "right";
-  format?: (value: number) => string;
-}
-
-const columns: readonly Column[] = [
-  {
-    id: "sensor_reading",
-    label: "Sensor\u00a0Reading\u00a0Value",
-    minWidth: 100,
-    align: "right",
-    format: (value: number) => value.toLocaleString("en-US"),
-  },
-  { id: "unit_measurement", label: "Unit\u00a0Measurement", minWidth: 100 },
-  {
-    id: "time_stamp",
-    label: "Date-Time",
-    minWidth: 100,
-  },
-];
-
-interface Data {
-  sensorReading: number;
-  unit_measurement:string;
-  time_stamp: string;
-}
-
-function createData(
-  sensorReading: number,
-  unit_measurement: string,
-  time_stamp: string,
-): Data {
-  return { sensorReading, unit_measurement, time_stamp };
-}
-
-
 export const SensorByID = memo(({ id }: SensorByIDProps) => {
-  const { sensor, sensorReadings, onGetSensorData, onSensorsClick, onDeleteSensorClick, onGetSensorReadingsData,} =
-    useSensorLogic();
+  const {
+    sensor,
+    sensorReadings,
+    popoverAnchorEl,
+    onGetSensorData,
+    onSensorsClick,
+    onDeleteSensorClick,
+    onGetSensorReadingsData,
+    handleDeletePopperClick,
+  } = useSensorLogic();
 
-    const rows = [
-      sensorReadings?.sensor_readings.map((sensor_reading: any, index: number) => 
-        createData(sensor_reading.sensor_reading, "" , sensor_reading.time_stamp),
-      )
-    ];
+  const open = Boolean(popoverAnchorEl);
+  const popOverID = open ? "simple-popper" : undefined;
 
   //Table functions
+  interface Column {
+    id: "sensor_reading" | "unit_measurement" | "time_stamp";
+    label: string;
+    minWidth?: number;
+    align?: "right";
+    format?: (value: number) => string;
+  }
+
+  const columns: readonly Column[] = [
+    {
+      id: "sensor_reading",
+      label: "Sensor\u00a0Reading\u00a0Value",
+      minWidth: 100,
+      align: "right",
+      format: (value: number) => value.toLocaleString("en-US"),
+    },
+    { id: "unit_measurement", label: "Unit\u00a0Measurement", minWidth: 100 },
+    {
+      id: "time_stamp",
+      label: "Date-Time",
+      minWidth: 100,
+    },
+  ];
+
+  interface Data {
+    sensorReading: number;
+    unit_measurement: string;
+    time_stamp: string;
+  }
+
+  function createData(
+    sensorReading: number,
+    unit_measurement: string,
+    time_stamp: string
+  ): Data {
+    return { sensorReading, unit_measurement, time_stamp };
+  }
+
+  const rows = [
+    sensorReadings?.sensor_readings.map((sensor_reading: any, index: number) =>
+      createData(sensor_reading.sensor_reading, "", sensor_reading.time_stamp)
+    ),
+  ];
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -78,12 +86,14 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
     setPage(0);
   };
 
-  useEffect(() => {
-    onGetSensorData(Number(id));
-    onGetSensorReadingsData(Number(id));
-  }, 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [id]);
+  useEffect(
+    () => {
+      onGetSensorData(Number(id));
+      onGetSensorReadingsData(Number(id));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [id]
+  );
 
   return (
     <div>
@@ -92,16 +102,30 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
         <>
           <div>{sensor.sensor_name}</div>
           <div>
-            <Fab size="small" color="secondary" aria-label="edit" onClick={() => {
-                onDeleteSensorClick(sensor.id);
-                onSensorsClick();
-              }}>
+            <Fab
+              size="small"
+              color="secondary"
+              aria-label={popOverID}
+              onClick={handleDeletePopperClick}
+            >
               <DeleteIcon />
             </Fab>
+            <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl}>
+              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                <p>Are you sure you want to delete this Room?</p>
+                <button
+                  id="Sesnsor Name"
+                  onClick={() => {
+                    onDeleteSensorClick(sensor.id);
+                    onSensorsClick();
+                  }}
+                >
+                  Delete
+                </button>
+              </Box>
+            </Popper>
           </div>
-          <div>
-            Call Frequency: {sensor.call_frequency}
-          </div>
+          <div>Call Frequency: {sensor.call_frequency}</div>
           {/* Table */}
           <div>
             <Paper sx={{ width: "80%", overflow: "hidden" }}>
