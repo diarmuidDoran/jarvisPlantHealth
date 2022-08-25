@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useEditPlantLogic } from "./use-edit-plant-logic";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 export type PlantByIDProps = {
   id: string;
 };
@@ -31,7 +32,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
     handleRoomChange,
     handleHealthAttributeChange,
     handleUnitChange,
-    // handleSensorChange,
+    handleSensorChange,
     onSubmit,
     onGetPlantData,
     onGetRoomData,
@@ -41,6 +42,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
     onEditPlantHealthUpperLimitChange,
     onEditPlantHealthLowerLimitChange,
     onAddPlantHealthAttibute,
+    onDeletePlantHealthAttributeClick,
   } = useEditPlantLogic(Number(id));
 
   useEffect(
@@ -76,10 +78,10 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
       <div>
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Room</InputLabel>
+            <InputLabel id="room-select-label">Room</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="room-select-label"
+              id="room-select"
               value={room}
               label="Room"
               onChange={handleRoomChange}
@@ -94,7 +96,11 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
         </Box>
       </div>
       <div>
-        <p>Edit plant health attributes to be monitored. Sensors can only be deleted on the plant page and are only shown here for your convience.  All other fields are editable.</p>
+        <p>
+          Edit plant health attributes to be monitored. Sensors can only be
+          deleted on the plant page and are only shown here for your convience.
+          All other fields are editable.
+        </p>
       </div>
       {editPlantHealthAttributesArray.map(
         (editPlantHealthAttributeElement, index) => (
@@ -128,12 +134,12 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
             <div>
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
+                  <InputLabel id="plant-health-attribute-select-label">
                     Plant Health Attribute
                   </InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="plant-health-attribute-select-label"
+                    id="plant-health-attribute-select"
                     value={editPlantHealthAttributeElement.health_attribute_id}
                     label="Plant Health Attribute"
                     onChange={({
@@ -157,12 +163,12 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
             <div>
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
+                  <InputLabel id="unit-select-label">
                     Unit Measurement
                   </InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="unit-select-label"
+                    id="unit-select"
                     value={editPlantHealthAttributeElement.unit_measurement_id}
                     label="Unit Measurement"
                     onChange={({
@@ -183,17 +189,17 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
             <div>
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Sensor</InputLabel>
+                  <InputLabel id="sensor-select-label">Sensor</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="sensor-select-label"
+                    id="sensor-select"
                     value={editPlantHealthAttributeElement.sensor?.id}
                     label="Sensor"
-                    // onChange={({
-                    //   target: { value },
-                    // }: SelectChangeEvent<number>) => {
-                    //   handleSensorChange(index, value);
-                    // }}
+                    onChange={({
+                      target: { value },
+                    }: SelectChangeEvent<number>) => {
+                      handleSensorChange(index, value);
+                    }}
                   >
                     {sensors.map((sensor: any) => (
                       <MenuItem key={sensor.id} value={sensor.id}>
@@ -203,6 +209,20 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                   </Select>
                 </FormControl>
               </Box>
+            </div>
+            <div>
+              <Fab
+                size="small"
+                color="secondary"
+                aria-label="edit"
+                onClick={() => {
+                  onDeletePlantHealthAttributeClick(
+                    editPlantHealthAttributeElement.id
+                  );
+                }}
+              >
+                <DeleteIcon />
+              </Fab>
             </div>
           </>
         )

@@ -202,7 +202,7 @@ export const usePlants = () => {
       upper_required_value: number,
       lower_required_value: number,
       unit_measurement_id: number,
-      plant_id = id,
+      plant_id: number,
       health_attribute_id: number
     ) => {
       setErrorMessage("");

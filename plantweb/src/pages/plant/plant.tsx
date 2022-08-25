@@ -1,7 +1,6 @@
 import React, { memo, useEffect } from "react";
 import { Box, Button, Fab, Popper } from "@mui/material";
 import { usePlantLogic } from "./use-plant-logic";
-import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 export type PlantByIDProps = {
@@ -11,8 +10,6 @@ export type PlantByIDProps = {
 export const PlantByID = memo(({ id }: PlantByIDProps) => {
   const {
     plant,
-    sensors,
-    sensor,
     rooms,
     health_attributes,
     plantHealthAttributesArray,
@@ -21,7 +18,6 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
     onGetPlantPlantHealthAttributesData,
     onPlantsClick,
     onEditPlantClick,
-    onEditSensorClick,
     onDeletePlantClick,
     onPlantSensorClick,
     onGetRoomsData,
@@ -110,7 +106,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
                       >
                         <div>
                           {plantHealthAttributeElement.sensor?.sensor_name}{" "}
-                          monitoring{" "}
+                          -{" "}
                           {
                             health_attributes.find(
                               (health_attribute) =>

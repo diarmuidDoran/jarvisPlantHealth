@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, MouseEvent } from "react";
+import { useCallback, useEffect, useState, MouseEvent } from "react";
 import { useHistory } from "react-router-dom";
 import { PATHS } from "shared/constants";
 import { usePlants } from "shared/hooks/use-plants";
@@ -6,7 +6,6 @@ import { useRooms } from "shared/hooks/use-rooms";
 import { useUnitMeasurements } from "shared/hooks/use-unit-measurements";
 import { useHealthAttributes } from "shared/hooks/use-health-attributes";
 import { useSensors } from "shared/hooks/use-sensors";
-import { Sensor } from "shared/types";
 import { EditPlantHealthAttibute } from "pages/edit-plant/edit-plant-types";
 
 
