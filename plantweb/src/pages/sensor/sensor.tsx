@@ -110,8 +110,8 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
             >
               <DeleteIcon />
             </Fab>
-            <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl}>
-              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+            <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl} >
+              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper", position: "relative"}}>
                 <p>Are you sure you want to delete this Room?</p>
                 <button
                   id="Sesnsor Name"

@@ -40,6 +40,7 @@ export const useSensors = () => {
 
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getAllSensorPlantHealthAttributes = useCallback(async () => {
@@ -58,6 +59,7 @@ export const useSensors = () => {
 
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getSensorByID = useCallback(async (id: number) => {
@@ -76,6 +78,7 @@ export const useSensors = () => {
 
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addSensorCallback = useCallback(
@@ -143,6 +146,7 @@ export const useSensors = () => {
 
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -164,6 +168,7 @@ export const useSensors = () => {
         return;
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [addSensor, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
   );
 

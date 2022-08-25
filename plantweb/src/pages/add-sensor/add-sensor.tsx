@@ -1,14 +1,8 @@
 /* istanbul ignore file */
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import {
   Button,
-  Box,
-  Fab,
-  FormControl,
-  InputLabel,
-  MenuItem,
   TextField,
-  Select,
   Stack,
 } from "@mui/material";
 import { useAddSensorLogic } from "./use-add-sensor-logic";

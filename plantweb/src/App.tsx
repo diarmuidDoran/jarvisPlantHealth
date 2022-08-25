@@ -7,28 +7,27 @@ import { PATHS } from 'shared/constants';
 
 import { Routes } from 'components/routes';
 
-import { AppHeaderProps, NavTab } from './modules/header';
-import {Box, Tab, Tabs} from '@mui/material';
+import { NavTab } from './modules/header';
+import {Box, Tabs} from '@mui/material';
 
 
-const headerProps: AppHeaderProps = {
-  title: 'J.A.R.V.I.S Plant Health Monitoring System',
-  description: 'Log, track and care for your plants helath',
-  links: [
-    {label: 'Plants',
-    route: '/plants',},
-    {label: 'Rooms',
-    route: '/rooms',},
-    {label: 'Sensors',
-    route: '/sensors',},
-  ],
-};
+// const headerProps: AppHeaderProps = {
+//   title: 'J.A.R.V.I.S Plant Health Monitoring System',
+//   description: 'Log, track and care for your plants helath',
+//   links: [
+//     {label: 'Plants',
+//     route: '/plants',},
+//     {label: 'Rooms',
+//     route: '/rooms',},
+//     {label: 'Sensors',
+//     route: '/sensors',},
+//   ],
+// };
 
 function App() {
 
   const {
     value,
-    AppHeader,
     LinkTab,
     
   } = NavTab();
@@ -36,6 +35,8 @@ function App() {
   return (
     <BrowserRouter basename={PATHS.root}>
       <div className="App">
+      J.A.R.V.I.S Plant Health Monitoring System
+      <p> Log, track and care for your plants helath</p>
       <div>
       <Box sx={{ width: '100%' }}>
        <Tabs value={value} aria-label="nav tabs example">
