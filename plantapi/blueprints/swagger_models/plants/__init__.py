@@ -60,7 +60,8 @@ plant_health_attribute_sensor_model = namespacePlant.model(
             required=True, description="Health Attribute ID"
         ),
         "sensor": fields.Nested(
-            sensor_model, description="Associated sensor",
+            sensor_model,
+            description="Associated sensor",
         ),
     },
 )

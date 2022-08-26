@@ -40,8 +40,12 @@ def deleteSensorDtoById(sensor_id):
 
 
 def getSensorPlantHealthAttributeDto():
-    sensor_plant_health_attribute_stmt = select(Sensor_Plant_Health_Attribute)
-    return session.scalars(sensor_plant_health_attribute_stmt)
+    return session.query(Sensor_Plant_Health_Attribute).filter(
+        Sensor_Plant_Health_Attribute.plant_health_attribute_id.isnot(None)
+    )
+
+    # sensor_plant_health_attribute_stmt = select(Sensor_Plant_Health_Attribute)
+    # return session.scalars(sensor_plant_health_attribute_stmt)
 
 
 def addSensorPlantHealthAttributeDto(sensor_id, plant_health_attribute_id):

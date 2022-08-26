@@ -1,13 +1,17 @@
 import React, { memo, useEffect } from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import { Box, Fab, Popper } from "@mui/material";
+import {
+  Box,
+  Fab,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Paper,
+  Popper,
+} from "@mui/material";
 import { useSensorLogic } from "./use-sensor-logic";
 import DeleteIcon from "@mui/icons-material/Delete";
 export type SensorByIDProps = { id: string };
@@ -29,7 +33,7 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
 
   //Table functions
   interface Column {
-    id: "sensor_reading" | "unit_measurement" | "time_stamp";
+    id: "sensor_reading" | "unit" | "time_stamp";
     label: string;
     minWidth?: number;
     align?: "right";
@@ -44,7 +48,7 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
       align: "right",
       format: (value: number) => value.toLocaleString("en-US"),
     },
-    { id: "unit_measurement", label: "Unit\u00a0Measurement", minWidth: 100 },
+    { id: "unit", label: "Unit\u00a0Measurement", minWidth: 100 },
     {
       id: "time_stamp",
       label: "Date-Time",
@@ -54,16 +58,16 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
 
   interface Data {
     sensorReading: number;
-    unit_measurement: string;
+    unit: string;
     time_stamp: string;
   }
 
   function createData(
     sensorReading: number,
-    unit_measurement: string,
+    unit: string,
     time_stamp: string
   ): Data {
-    return { sensorReading, unit_measurement, time_stamp };
+    return { sensorReading, unit, time_stamp };
   }
 
   const rows = [
@@ -110,8 +114,15 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
             >
               <DeleteIcon />
             </Fab>
-            <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl} >
-              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper", position: "relative"}}>
+            <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl}>
+              <Box
+                sx={{
+                  border: 1,
+                  p: 1,
+                  bgcolor: "background.paper",
+                  position: "relative",
+                }}
+              >
                 <p>Are you sure you want to delete this Room?</p>
                 <button
                   id="Sesnsor Name"

@@ -19,6 +19,7 @@ def plant_new_name_is_valid(id, new_plant_name):
         else:
             return True
 
+
 def plant_id_is_valid(plant_id):
 
     plant_dto = getPlantDtoById(plant_id)

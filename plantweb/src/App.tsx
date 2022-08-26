@@ -29,7 +29,6 @@ function App() {
   const {
     value,
     LinkTab,
-    
   } = NavTab();
 
   return (

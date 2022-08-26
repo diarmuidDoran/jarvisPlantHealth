@@ -139,7 +139,8 @@ export const useSensors = () => {
       const response = await getSensorSensorReadings(id);
 
       setSuccess();
-      setSensorReadings(response.data);
+      // setSensorReadings(response.data);
+      return response.data;
     } catch (e: any) {
       setNetworkStatusError();
       setErrorMessage(e);
@@ -197,7 +198,6 @@ export const useSensors = () => {
     sensors,
     sensorPlantHealthAttributes,
     sensor,
-    sensorReadings,
     getSensors: getAllSensors,
     getSensorPlantHealthAttributes: getAllSensorPlantHealthAttributes,
     getSensor: getSensorByID,

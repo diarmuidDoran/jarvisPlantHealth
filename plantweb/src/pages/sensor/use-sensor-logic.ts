@@ -1,3 +1,4 @@
+import { SensorSensorReadingsResponse } from "api/sensor-api";
 import {
   useCallback,
   useState,
@@ -9,10 +10,12 @@ import { PATHS } from "shared/constants";
 import { useSensors } from "shared/hooks/use-sensors";
 
 export const useSensorLogic = () => {
-  const { sensor, sensorReadings, getSensor, deleteSensor, getSensorReadings } =
+  const { sensor, getSensor, deleteSensor, getSensorReadings } =
     useSensors();
   const [popoverAnchorEl, setPopoverAnchorEl] =
     useState<HTMLButtonElement | null>(null);
+    const [sensorReadings, setSensorReadings] =
+    useState<SensorSensorReadingsResponse | undefined>();
 
   const history = useHistory();
 
@@ -49,11 +52,12 @@ export const useSensorLogic = () => {
   );
 
   const onGetSensorReadingsData = useCallback(
-    (id: number) => {
-      getSensorReadings(id);
+    async (id: number) => {
+      const sensorReadingsResponse = await getSensorReadings(id);
+      setSensorReadings(sensorReadingsResponse)
     },
     //eslint-disable-next-line react-hooks/exhaustive-deps
-    [getSensor]
+    [getSensorReadings, setSensorReadings]
   );
 
   return {

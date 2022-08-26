@@ -38,7 +38,8 @@ def getPlantHealthAttributeDtoById(plant_health_attribute_id):
     return session.query(Plant_Health_Attribute).get(plant_health_attribute_id)
 
 
-def deletePlantHealthAttributeDtoById(plant_id, plant_health_attribute_id):
+def deletePlantHealthAttributeDtoById(plant_health_attribute_id):
+
     plant_health_attribute = getPlantHealthAttributeDtoById(plant_health_attribute_id)
 
     session.delete(plant_health_attribute)

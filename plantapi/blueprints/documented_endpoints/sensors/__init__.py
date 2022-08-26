@@ -20,8 +20,11 @@ from blueprints.validations.plant_health_attribute_validation import (
 from blueprints.validations.sensor_reading_validation import (
     sensor_reading_time_is_valid,
 )
-from blueprints.validations.sensor_validation import (sensor_is_valid, sensor_id_is_valid,
-    sensor_plant_health_attribute_is_valid)
+from blueprints.validations.sensor_validation import (
+    sensor_is_valid,
+    sensor_id_is_valid,
+    sensor_plant_health_attribute_is_valid,
+)
 
 sensor_example = {
     "sensor_id": 1,
@@ -166,9 +169,12 @@ class sensor_plant_health_attribute_relationship(Resource):
                 404, "Plant Health Attribute Id or Sensor Id not found"
             )
 
-        if (sensor_plant_health_attribute_is_valid(sensor_id, plant_health_attribute_id)) is not True:
+        if (
+            sensor_plant_health_attribute_is_valid(sensor_id, plant_health_attribute_id)
+        ) is not True:
             namespaceSensor.abort(
-                400, "Sensor id and Plant Health Attribute id already share a relationship"
+                400,
+                "Sensor id and Plant Health Attribute id already share a relationship",
             )
 
         postSensorPlantHelathAttribute(sensor_id, plant_health_attribute_id)

@@ -8,14 +8,19 @@ from blueprints.services.plant_health_attribute_service import *
 from blueprints.validations.plant_health_attribute_validation import (
     plant_health_attribute_is_valid,
 )
-from blueprints.validations.plant_validation import plant_is_valid, plant_id_is_valid, plant_new_name_is_valid
+from blueprints.validations.plant_validation import (
+    plant_is_valid,
+    plant_id_is_valid,
+    plant_new_name_is_valid,
+)
 from blueprints.swagger_models.plants import (
     namespacePlant,
     plant_plant_health_attribute_list_model,
     plant_model,
     plant_health_attribute_model,
     plant_list_model,
-    plant_health_attribute_sensor_model, plant_plant_health_attribute_sensor_list_model,
+    plant_health_attribute_sensor_model,
+    plant_plant_health_attribute_sensor_list_model,
 )
 from blueprints.validations.user_account_validation import user_id_is_valid
 
@@ -246,13 +251,17 @@ class plant_health_attribute(Resource):
     def delete(self, plant_id, plant_health_attribute_id):
         """Delete a specific plant entity"""
 
+        if getPlantById(plant_id) is None:
+            namespacePlant.abort(404, "Plant not found")
+
+        if getPlantHealthAttributesById(plant_health_attribute_id) is None:
+            namespacePlant.abort(404, "Plant Health attribute not found")
+
         delete_plant_health_attribute = deletePlantHealthAttributeById(
-            plant_id, plant_health_attribute_id
+            plant_health_attribute_id
         )
-        if delete_plant_health_attribute:
-            return "delete_plant_health_attribute", 204
-        else:
-            namespacePlant.response(404, "Entity not found")
+
+        return delete_plant_health_attribute, 204
 
 
 # @namespacePlant.route(
