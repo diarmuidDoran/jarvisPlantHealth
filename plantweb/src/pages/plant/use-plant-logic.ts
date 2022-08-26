@@ -6,22 +6,37 @@ import { useRooms } from "shared/hooks/use-rooms";
 import { useUnitMeasurements } from "shared/hooks/use-unit-measurements";
 import { useHealthAttributes } from "shared/hooks/use-health-attributes";
 import { useSensors } from "shared/hooks/use-sensors";
-import { EditPlantHealthAttibute } from "pages/edit-plant/edit-plant-types";
+import {
+  EditPlantHealthAttibute,
+  SensorReading,
+} from "pages/edit-plant/edit-plant-types";
+import { SensorResponse } from "api/sensor-api";
+import { PlantHelathAttribute } from "shared/types";
 
+type SensorReadingsData = { [sensorId: number]: SensorReading[] };
 
 export const usePlantLogic = () => {
-  const { plant_health_attributes: plant, getPlant, deletePlant, getPlantPlantHealthAttributes, } = usePlants();
+  const {
+    plant_health_attributes: plant,
+    getPlant,
+    deletePlant,
+    getPlantPlantHealthAttributes,
+  } = usePlants();
   const { rooms, getRooms } = useRooms();
   const { units, getUnitMeasurements } = useUnitMeasurements();
   const { health_attributes, getHealthAttributes } = useHealthAttributes();
-  const { sensors, sensor, getSensors, getSensor } = useSensors();
+  const { sensors, sensor, getSensors, getSensor, getSensorReadings } =
+    useSensors();
 
-  const [popoverAnchorEl, setPopoverAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [popoverAnchorEl, setPopoverAnchorEl] =
+    useState<HTMLButtonElement | null>(null);
+  const [sensorReadings, setSensorReadings] = useState<SensorReadingsData>();
 
   const history = useHistory();
 
-  const [plantHealthAttributesArray, setPlantHealthAttributesArray] =
-    useState<EditPlantHealthAttibute[]>([]);
+  const [plantHealthAttributesArray, setPlantHealthAttributesArray] = useState<
+    EditPlantHealthAttibute[]
+  >([]);
 
   useEffect(() => {
     const readPlantHealthAttributesArray =
@@ -39,8 +54,7 @@ export const usePlantLogic = () => {
     // console.log(JSON.stringify(newPlantHealthAttributesArray))
 
     setPlantHealthAttributesArray(readPlantHealthAttributesArray);
-  }, [plant, setPlantHealthAttributesArray,]);
-
+  }, [plant, setPlantHealthAttributesArray]);
 
   const handleDeletePopperClick = (event: MouseEvent<HTMLButtonElement>) => {
     setPopoverAnchorEl(popoverAnchorEl ? null : event.currentTarget);
@@ -114,12 +128,47 @@ export const usePlantLogic = () => {
     },
     [getSensor]
   );
+  const getSensorReadingsForSensors = useCallback(
+    async (plantHealthAttributes: EditPlantHealthAttibute[]) => {
+      const sensorReadings: SensorReadingsData = {};
+      if (plant && plant?.plant_health_attributes?.length > 0) {
+        plantHealthAttributes.forEach(async (plantHealthAttribute) => {
+          const readings = await getSensorReadings(plantHealthAttribute.sensor?.id || 1);
+          // sensorReadings[sensor.id] =
+          //   readings?.sensor_readings.map((reading) => {
+          //     return {
+          //       sensorName: sensor.sensor_name,
+          //       sensorId: sensor.id,
+          //       id: reading.id,
+          //       timeStamp: new Date(reading.time_stamp),
+          //       sensorReading: reading.sensor_reading,
+          //     };
+          //   }) || [];
+            setSensorReadings((currentState) => ({
+              ...currentState,
+              [plantHealthAttribute.sensor?.id || 1]: readings?.sensor_readings.map((reading) => {
+                console.log(JSON.stringify(currentState))
+                return {
+                  sensorName: plantHealthAttribute.sensor?.sensor_name || '',
+                  sensorId: plantHealthAttribute.sensor?.id || 1,
+                  id: reading.id,
+                  timeStamp: new Date(reading.time_stamp),
+                  sensorReading: reading.sensor_reading,
+                };
+              }) || []
+            }));
+        });
+      }
+    },
+    [plant, getSensorReadings, setSensorReadings]
+  );
 
   return {
     plant,
     rooms,
     sensor,
     sensors,
+    sensorReadings,
     units,
     health_attributes,
     plantHealthAttributesArray,
@@ -136,6 +185,7 @@ export const usePlantLogic = () => {
     onGetHealthAttributesData,
     onGetSensorData,
     onGetSensorsData,
+    getSensorReadingsForSensors,
     handleDeletePopperClick,
   };
 };

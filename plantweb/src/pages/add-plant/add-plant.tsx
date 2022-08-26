@@ -96,9 +96,11 @@ export const AddPlant = memo(() => {
             <>
               <div>
                 <TextField
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   id="plant-plant-health-attribute-upper-limit"
                   label="Plant Health Attribute Upper Limit (00.00)"
                   variant="outlined"
+                  type="number"
                   value={addPlantHealthAttributeElement.upper_required_value}
                   onChange={({
                     target: { value },
@@ -109,9 +111,11 @@ export const AddPlant = memo(() => {
               </div>
               <div>
                 <TextField
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   id="plant-plant-health-attribute-lower-limit"
                   label="Plant Health Attribute Lower Limit (00.00)"
                   variant="outlined"
+                  type="number"
                   value={addPlantHealthAttributeElement.lower_required_value}
                   onChange={({
                     target: { value },
