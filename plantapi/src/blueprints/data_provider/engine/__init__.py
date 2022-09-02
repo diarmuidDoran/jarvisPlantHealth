@@ -1,12 +1,12 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 from blueprints import config
 
-engine = create_engine(
-    "postgresql://postgres:unopassword@localhost:5432/jarvis_db", echo=True, future=True
-)
+print(os.environ.get("DATABASE_CONNECTION"))
+engine = create_engine(os.environ.get("DATABASE_CONNECTION"), echo=True, future=True)
 
 # declarative base class
 Base = declarative_base()

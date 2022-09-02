@@ -1,4 +1,5 @@
 # blueprints/documented_endpoints/rooms/__init__.py
+import os
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource

@@ -3,6 +3,7 @@ import {
   Box,
   Divider,
   Fab,
+  Grid,
   Link,
   List,
   ListItem,
@@ -12,6 +13,7 @@ import {
 import { useRoomLogic } from "./use-room-logic";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useAppStyles } from "use-app-styles";
 export type RoomByIDProps = {
   id: string;
 };
@@ -39,46 +41,86 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
     [id]
   );
 
+  const { classes } = useAppStyles();
+
   return (
-    <div>
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      xs={12}
+    >
       {room === undefined && <>No room for this id, go back. </>}
       {room && (
         <>
-          <div>{room.name}</div>
-          <div>
-            <Fab
-              size="small"
-              color="secondary"
-              aria-label="edit"
-              onClick={() => onEditRoomClick(String(room.id))}
+          <Grid
+            container
+            xs={12}
+            wrap="nowrap"
+            spacing={1}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid
+              container
+              xs={6}
+              wrap="nowrap"
+              marginRight={1}
+              direction="row"
+              justifyContent="flex-end"
+              alignItems="center"
             >
-              <EditIcon />
-            </Fab>
-          </div>
-          <div>
-            <Fab
-              size="small"
-              color="secondary"
-              aria-label={popOverID}
-              onClick={handleDeletePopperClick}
+              <Grid item xs spacing={2}>
+                <h3 className={classes.page_title_with_delete}>{room.name}</h3>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              xs={6}
+              rowSpacing={1}
+              row-gap= {100}
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
             >
-              <DeleteIcon />
-            </Fab>
-            <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl}>
-              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
-                <p>Are you sure you want to delete this Room?</p>
-                <button
-                  id="Sesnsor Name"
-                  onClick={() => {
-                    onDeleteRoomClick(room.id);
-                    onRoomsClick();
-                  }}
+              <Grid xs={3} sm={2} md={1}>
+                <Fab
+                  size="small"
+                  color="secondary"
+                  aria-label="edit"
+                  onClick={() => onEditRoomClick(String(room.id))}
                 >
-                  Delete
-                </button>
-              </Box>
-            </Popper>
-          </div>
+                  <EditIcon />
+                </Fab>
+              </Grid>
+              <Grid xs={3} sm={2} md={1}>
+                <Fab
+                  size="small"
+                  color="secondary"
+                  aria-label={popOverID}
+                  onClick={handleDeletePopperClick}
+                >
+                  <DeleteIcon />
+                </Fab>
+                <Popper id={popOverID} open={open} anchorEl={popoverAnchorEl}>
+                  <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                    <p>Are you sure you want to delete this Room?</p>
+                    <button
+                      id="Sesnsor Name"
+                      onClick={() => {
+                        onDeleteRoomClick(room.id);
+                        onRoomsClick();
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </Box>
+                </Popper>
+              </Grid>
+            </Grid>
+          </Grid>
           <div>
             <div>Plants Located in {room.name}</div>
             <div>
@@ -119,6 +161,6 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
           </div>
         </>
       )}
-    </div>
+    </Grid>
   );
 });

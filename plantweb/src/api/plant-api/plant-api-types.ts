@@ -1,4 +1,4 @@
-import { Plant, PlantHelathAttribute, Sensor } from "shared/types";
+import { Plant, PlantHealthAttribute, Sensor } from "shared/types";
 
 export type PlantResponse = Plant;
 
@@ -11,12 +11,12 @@ export type PlantPlantHealthAttributeResponse = {
   id: number;
   name: string;
   room_id: number;
-  plant_health_attributes: PlantHelathAttribute[];
+  plant_health_attributes: PlantHealthAttribute[];
 };
 
-export type PlantHealthAttributeResponse = PlantHelathAttribute;
+export type PlantHealthAttributeResponse = PlantHealthAttribute;
 
-export type PlantHealthAttributeSensorResponse = PlantHelathAttribute & {
+export type PlantHealthAttributeSensorResponse = PlantHealthAttribute & {
   sensor: Sensor;
 };
 

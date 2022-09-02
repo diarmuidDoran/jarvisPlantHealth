@@ -1,6 +1,5 @@
 FROM python:3.9
-WORKDIR /plantapi
-COPY . /plantapi
-RUN pip3 --no-cache-dir install -r plantapi/requirements.txt
-EXPOSE 5000
-CMD ["python3", "plantapi/main.py"]
+WORKDIR /src
+COPY ./src .
+RUN pip install -r /src/requirements.txt
+CMD FLASK_APP=main.py flask run --host=0.0.0.0

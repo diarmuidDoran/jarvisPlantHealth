@@ -1,64 +1,49 @@
-import React, { } from 'react';
+import React from "react";
 
-import './App.css';
-import { BrowserRouter } from 'react-router-dom';
+import "./App.css";
+import { BrowserRouter } from "react-router-dom";
 
-import { PATHS } from 'shared/constants';
+import { PATHS } from "shared/constants";
 
-import { Routes } from 'components/routes';
+import { Routes } from "components/routes";
 
-import { NavTab } from './modules/header';
-import {Box, Tabs} from '@mui/material';
-
-
-// const headerProps: AppHeaderProps = {
-//   title: 'J.A.R.V.I.S Plant Health Monitoring System',
-//   description: 'Log, track and care for your plants helath',
-//   links: [
-//     {label: 'Plants',
-//     route: '/plants',},
-//     {label: 'Rooms',
-//     route: '/rooms',},
-//     {label: 'Sensors',
-//     route: '/sensors',},
-//   ],
-// };
+import { NavTab } from "./modules/header";
+import { Box, Grid, Tabs } from "@mui/material";
+import { useAppStyles } from "./use-app-styles";
 
 function App() {
+  const { value, LinkTab } = NavTab();
 
-  const {
-    value,
-    LinkTab,
-  } = NavTab();
+  const { classes } = useAppStyles();
 
   return (
     <BrowserRouter basename={PATHS.root}>
       <div className="App">
-      J.A.R.V.I.S Plant Health Monitoring System
-      <p> Log, track and care for your plants helath</p>
-      <div>
-      <Box sx={{ width: '100%' }}>
-       <Tabs value={value} aria-label="nav tabs example">
-         <LinkTab label="Plant Page" href={PATHS.plants} />
-         <LinkTab label="Rooms Page" href={PATHS.rooms} />
-         <LinkTab label="Sensor Page" href={PATHS.sensors} />
-       </Tabs>
-     </Box>
-    </div>
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+        <Grid container xs={12} className={classes.header}>
+          <Grid xs={12}>
+            <h3><u>J.A.R.V.I.S Plant Health Monitoring System</u></h3>
+            <Grid xs={12}>
+              <p> Log, track and care for your plants health</p>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Box>
+          <Tabs
+            value={value}
+            aria-label="nav tabs"
+            textColor="primary"
+            indicatorColor="primary"
+            variant="fullWidth"
           >
-            Learn React
-          </a>
-        </header> */}
+            <LinkTab label="Plants Page" href={PATHS.plants} />
+
+            <LinkTab label="Rooms Page" href={PATHS.rooms} />
+
+            <LinkTab label="Sensors Page" href={PATHS.sensors} />
+          </Tabs>
+        </Box>
+
         <Routes />
       </div>
     </BrowserRouter>

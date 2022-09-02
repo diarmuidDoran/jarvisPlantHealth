@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, Table
+from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, Boolean, Table
 from sqlalchemy.orm import relationship
 from blueprints.data_provider.engine import Base
 
@@ -18,11 +18,10 @@ class Sensor_Plant_Health_Attribute(Base):
     id = Column("id", Integer, primary_key=True)
     plant_health_attribute_id = Column(
         "plant_health_attribute_id",
-        ForeignKey("plant_health_attribute.id", ondelete="CASCADE", primary_key=True),
+        ForeignKey("plant_health_attribute.id", primary_key=True),
     )
-    sensor_id = Column(
-        "sensor_id", ForeignKey("sensor.id", ondelete="CASCADE", primary_key=True)
-    )
+    sensor_id = Column("sensor_id", ForeignKey("sensor.id", primary_key=True))
+
 
     plant_health_attribute = relationship(
         "Plant_Health_Attribute", back_populates="sensor_b"
@@ -33,9 +32,11 @@ class Sensor_Plant_Health_Attribute(Base):
         self,
         plant_health_attribute_id,
         sensor_id,
+
     ):
         self.plant_health_attribute_id = (plant_health_attribute_id,)
         self.sensor_id = sensor_id
+
 
 
 class Plant_Health_Attribute(Base):
@@ -62,6 +63,10 @@ class Plant_Health_Attribute(Base):
         ForeignKey("health_attribute.id", ondelete="CASCADE"),
         nullable=False,
     )
+    is_deleted = Column(
+        "is_deleted",
+        Boolean,
+    )
 
     # child relationship connections
     plants_c = relationship("Plant", back_populates="plant_health_attributes")
@@ -84,7 +89,6 @@ class Plant_Health_Attribute(Base):
     sensor_b = relationship(
         "Sensor_Plant_Health_Attribute",
         back_populates="plant_health_attribute",
-        passive_deletes=False,
     )
 
     def __init__(
@@ -94,12 +98,14 @@ class Plant_Health_Attribute(Base):
         unit_measurement_id,
         plant_id,
         health_attribute_id,
+        is_deleted,
     ):
         self.upper_required_value = upper_required_value
         self.lower_required_value = lower_required_value
         self.unit_measurement_id = unit_measurement_id
         self.plant_id = plant_id
         self.health_attribute_id = health_attribute_id
+        self.is_deleted = is_deleted
 
     def __repr__(self):
         return (
@@ -107,4 +113,5 @@ class Plant_Health_Attribute(Base):
             f"lower_required_value={self.lower_required_value!r}, "
             f"unit_measurement_id={self.unit_measurement_id!r}, plant_id={self.plant_id!r},"
             f"health_attribute_id={self.health_attribute_id!r})"
+            f"health_attribute_id={self.is_deleted!r})"
         )

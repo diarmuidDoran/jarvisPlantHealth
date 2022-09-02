@@ -142,7 +142,6 @@ export const useAddPlantLogic = () => {
 
   const onSubmit = useCallback(async () => {
     const newPlant = await postPlant(plantName, Number(room));
-    debugger;
     const addPlantHealthAttribute = [] as any[];
     const addSensorPlantHealthAttributeRelationship = [] as any[];
 
@@ -189,6 +188,15 @@ export const useAddPlantLogic = () => {
     defaultPlantHealthAttribute,
   ]);
 
+  const onDeletePlantHealthAttributeClick = useCallback(
+    (id: number) => {
+      setAddPlantHealthAttributesArray(
+        addPlantHealthAttributesArray.filter((element) => element.id !== id)
+      );
+    },
+    [setAddPlantHealthAttributesArray, addPlantHealthAttributesArray]
+  );
+
   return {
     addPlantHealthAttributesArray,
     plantName,
@@ -210,5 +218,6 @@ export const useAddPlantLogic = () => {
     onGetUnitMeasurementData,
     onGetHealthAttributeData,
     onGetSensorData,
+    onDeletePlantHealthAttributeClick,
   };
 };

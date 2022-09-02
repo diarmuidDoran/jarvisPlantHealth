@@ -1,6 +1,6 @@
-import {PlantHelathAttribute, Sensor } from 'shared/types'
+import {PlantHealthAttribute, Sensor } from 'shared/types'
 
-export type EditPlantHealthAttibute = PlantHelathAttribute & {
+export type EditPlantHealthAttibute = PlantHealthAttribute & {
     sensor?: Sensor;
 }
 

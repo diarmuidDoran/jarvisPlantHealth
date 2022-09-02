@@ -1,4 +1,4 @@
-export const mockPlantHelathAttributeData = [
+export const mockPlantHealthAttributeData = [
     {
         id: 1,
         upper_required_value: 1,

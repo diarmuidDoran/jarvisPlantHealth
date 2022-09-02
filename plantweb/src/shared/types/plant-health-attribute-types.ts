@@ -1,5 +1,5 @@
 import { Sensor } from "shared/types";
-export type PlantHelathAttribute = {
+export type PlantHealthAttribute = {
     id: number
     upper_required_value: number;
     lower_required_value: number;

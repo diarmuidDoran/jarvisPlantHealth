@@ -11,6 +11,17 @@ plant_model = namespacePlant.model(
         "id": fields.Integer(readonly=True, description="Plant identifier"),
         "name": fields.String(required=True, description="Plant name"),
         "room_id": fields.Integer(required=True, description="Room identifier"),
+        "is_deleted": fields.Boolean(required=True, description="is deleted"),
+    },
+)
+
+plant_model_request = namespacePlant.model(
+    "Plant request",
+    {
+        "id": fields.Integer(readonly=True, description="Plant identifier"),
+        "name": fields.String(required=True, description="Plant name"),
+        "room_id": fields.Integer(required=True, description="Room identifier"),
+
     },
 )
 
@@ -18,6 +29,25 @@ plant_ids_model = namespacePlant.model(
     "Plant ID list",
     {
         "id": fields.Integer(required=True, description="Plant identifier"),
+    },
+)
+
+plant_health_attribute_request_model = namespacePlant.model(
+    "Plant Health Attributes Request",
+    {
+        "id": fields.Integer(readonly=True, description="Plant health identifier"),
+        "upper_required_value": fields.Float(
+            required=True, description="Upper Required Value"
+        ),
+        "lower_required_value": fields.Float(
+            required=True, description="Lower Required identifier"
+        ),
+        "unit_measurement_id": fields.Integer(
+            required=True, description="Unit Measurement ID"
+        ),
+        "health_attribute_id": fields.Integer(
+            required=True, description="Health Attribute ID"
+        ),
     },
 )
 
@@ -38,6 +68,7 @@ plant_health_attribute_model = namespacePlant.model(
         "health_attribute_id": fields.Integer(
             required=True, description="Health Attribute ID"
         ),
+        "is_deleted": fields.Boolean(required=True, description="is deleted"),
     },
 )
 
@@ -59,6 +90,7 @@ plant_health_attribute_sensor_model = namespacePlant.model(
         "health_attribute_id": fields.Integer(
             required=True, description="Health Attribute ID"
         ),
+        "is_deleted": fields.Boolean(required=True, description="is deleted"),
         "sensor": fields.Nested(
             sensor_model,
             description="Associated sensor",
@@ -72,6 +104,7 @@ plant_plant_health_attribute_list_model = namespacePlant.model(
         "id": fields.Integer(readonly=True, description="Plant identifier"),
         "name": fields.String(required=True, description="Plant name"),
         "room_id": fields.Integer(required=True, description="Room identifier"),
+        "is_deleted": fields.Boolean(required=True, description="is deleted"),
         "plant_health_attributes": fields.Nested(
             plant_health_attribute_model,
             description="List of plants health attributes",
@@ -86,6 +119,7 @@ plant_plant_health_attribute_sensor_list_model = namespacePlant.model(
         "id": fields.Integer(readonly=True, description="Plant identifier"),
         "name": fields.String(required=True, description="Plant name"),
         "room_id": fields.Integer(required=True, description="Room identifier"),
+        "is_deleted": fields.Boolean(required=True, description="is deleted"),
         "plant_health_attributes": fields.Nested(
             plant_health_attribute_sensor_model,
             description="List of plants health attributes",

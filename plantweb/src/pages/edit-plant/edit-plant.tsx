@@ -10,6 +10,7 @@ import {
   Select,
   Stack,
   SelectChangeEvent,
+  Grid,
 } from "@mui/material";
 import { useEditPlantLogic } from "./use-edit-plant-logic";
 import AddIcon from "@mui/icons-material/Add";
@@ -58,26 +59,42 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
   );
 
   return (
-    <div>
-      <div>Edit {plant?.name}</div>
-      <div>
+    <Grid
+    container
+    direction="row"
+    justifyContent="center"
+    alignItems="center"
+    xs={12}
+  >
+    <Grid xs={12}>
+      <h3 className="page_title">Edit {plant?.name}</h3>
+      </Grid>
+      <Grid xs={12}>
         <p>
           Complete the below fields to edit {plant?.name}, avoid using existing
           plant names.
         </p>
-      </div>
-      <div>
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        xs={12}
+      >
+      <Grid xs={12} sm={11} md ={10}>
         <TextField
           id="plant-by-id-name"
           label="Plant Name"
           variant="outlined"
           value={plantName}
+          style={{ width: "75%", marginBottom: 10, textAlign: "right"}}
           onChange={onPlantNameChange}
         />
-      </div>
-      <div>
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
+      </Grid>
+      <Grid xs={12} sm={11} md ={10}>
+        <Box>
+          <FormControl style={{ width: "75%", marginBottom: 10 }}>
             <InputLabel id="room-select-label">Room</InputLabel>
             <Select
               labelId="room-select-label"
@@ -94,18 +111,34 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
             </Select>
           </FormControl>
         </Box>
-      </div>
-      <div>
+      </Grid>
+      </Grid>
+      <Grid xs={9}>
         <p>
           Edit plant health attributes to be monitored. Sensors can only be
           deleted on the plant page and are only shown here for your convience.
           All other fields are editable.
         </p>
-      </div>
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="stretch"
+        xs={12}
+      >
       {editPlantHealthAttributesArray.map(
         (editPlantHealthAttributeElement, index) => (
           <>
-            <div>
+           <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="stretch"
+                xs={10}
+                marginBottom={10}
+              >
+            <Grid xs={12}>
               <TextField
                 inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                 id="plant-plant-health-attribute-upper-limit"
@@ -113,14 +146,15 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                 variant="outlined"
                 type="number"
                 value={editPlantHealthAttributeElement.upper_required_value}
+                style={{ width: "75%", marginBottom: 10 }}
                 onChange={({
                   target: { value },
                 }: ChangeEvent<HTMLInputElement>) => {
                   onEditPlantHealthUpperLimitChange(index, value);
                 }}
               />
-            </div>
-            <div>
+            </Grid>
+            <Grid xs={12}>
               <TextField
                 inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                 id="plant-plant-health-attribute-lower-limit"
@@ -128,16 +162,17 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                 variant="outlined"
                 type="number"
                 value={editPlantHealthAttributeElement.lower_required_value}
+                style={{ width: "75%", marginBottom: 10 }}
                 onChange={({
                   target: { value },
                 }: ChangeEvent<HTMLInputElement>) => {
                   onEditPlantHealthLowerLimitChange(index, value);
                 }}
               />
-            </div>
-            <div>
+            </Grid>
+            <Grid xs={12}>
               <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
+                <FormControl style={{ width: "75%", marginBottom: 10 }}>
                   <InputLabel id="plant-health-attribute-select-label">
                     Plant Health Attribute
                   </InputLabel>
@@ -145,6 +180,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                     labelId="plant-health-attribute-select-label"
                     id="plant-health-attribute-select"
                     value={editPlantHealthAttributeElement.health_attribute_id}
+                    
                     label="Plant Health Attribute"
                     onChange={({
                       target: { value },
@@ -163,10 +199,10 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                   </Select>
                 </FormControl>
               </Box>
-            </div>
-            <div>
+            </Grid>
+            <Grid xs={12}>
               <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
+                <FormControl style={{ width: "75%", marginBottom: 10 }}>
                   <InputLabel id="unit-select-label">
                     Unit Measurement
                   </InputLabel>
@@ -174,6 +210,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                     labelId="unit-select-label"
                     id="unit-select"
                     value={editPlantHealthAttributeElement.unit_measurement_id}
+                    
                     label="Unit Measurement"
                     onChange={({
                       target: { value },
@@ -189,15 +226,16 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                   </Select>
                 </FormControl>
               </Box>
-            </div>
-            <div>
+            </Grid>
+            <Grid xs={12}>
               <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
+                <FormControl style={{ width: "75%", marginBottom: 10 }}>
                   <InputLabel id="sensor-select-label">Sensor</InputLabel>
                   <Select
                     labelId="sensor-select-label"
                     id="sensor-select"
                     value={editPlantHealthAttributeElement.sensor?.id}
+                    
                     label="Sensor"
                     onChange={({
                       target: { value },
@@ -213,8 +251,16 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                   </Select>
                 </FormControl>
               </Box>
-            </div>
-            <div>
+            </Grid>
+            </Grid>
+            <Grid
+          container
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+          xs={2}
+        >
+             <Grid xs={12}>
               <Fab
                 size="small"
                 color="secondary"
@@ -227,10 +273,10 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
               >
                 <DeleteIcon />
               </Fab>
-            </div>
+            </Grid></Grid>
           </>
         )
-      )}
+      )}</Grid>
       <div>
         <Fab
           size="small"
@@ -248,6 +294,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
           </Button>
         </Stack>
       </div>
-    </div>
+   
+    </Grid>
   );
 });

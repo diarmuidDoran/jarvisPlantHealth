@@ -13,9 +13,9 @@ def getPlantDtos():
     return session.scalars(stmt)
 
 
-def addPlantDto(name, room_id):
+def addPlantDto(name, room_id, is_delete):
 
-    new_plant = Plant(name, room_id)
+    new_plant = Plant(name, room_id, is_delete)
 
     session.add(new_plant)
     session.commit()
@@ -33,7 +33,7 @@ def deletePlantDtoById(plant_id):
 
     plant = getPlantDtoById(plant_id)
 
-    session.delete(plant)
+    plant.is_deleted = True
     session.commit()
 
     return {"Plant " + plant.name + " deleted"}

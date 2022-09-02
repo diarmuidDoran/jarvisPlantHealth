@@ -1,21 +1,22 @@
 from blueprints.data_provider.plant_health_attribute_data_provider import *
 from blueprints.models.plant_health_attributes import *
 
-
 def getPlantHealthAttributes():
     health_attribute_models = []
     for plant_health_attribute_dto in getPlantHelathAttributeDtos():
-        health_attribute_models.append(
-            make_plant_health_attribute(
-                plant_health_attribute_dto.id,
-                plant_health_attribute_dto.upper_required_value,
-                plant_health_attribute_dto.lower_required_value,
-                plant_health_attribute_dto.unit_measurement_id,
-                plant_health_attribute_dto.plant_id,
-                plant_health_attribute_dto.health_attribute_id,
-                plant_health_attribute_dto.sensor_b,
+        if plant_health_attribute_dto.is_deleted == False:
+            health_attribute_models.append(
+                make_plant_health_attribute(
+                    plant_health_attribute_dto.id,
+                    plant_health_attribute_dto.upper_required_value,
+                    plant_health_attribute_dto.lower_required_value,
+                    plant_health_attribute_dto.unit_measurement_id,
+                    plant_health_attribute_dto.plant_id,
+                    plant_health_attribute_dto.health_attribute_id,
+                    plant_health_attribute_dto.is_deleted,
+                    plant_health_attribute_dto.sensor_b,
+                )
             )
-        )
     return health_attribute_models
 
 
@@ -45,6 +46,7 @@ def getPlantHealthAttributeById(plant_health_attribute_id, plant_id):
         plantHealthAttributeDto.unit_measurement_id,
         plantHealthAttributeDto.plant_id,
         plantHealthAttributeDto.health_attribute_id,
+        plantHealthAttributeDto.sensor_b,
     )
 
 

@@ -21,19 +21,10 @@ from blueprints.swagger_models.plants import (
     plant_list_model,
     plant_health_attribute_sensor_model,
     plant_plant_health_attribute_sensor_list_model,
+    plant_health_attribute_request_model,
+    plant_model_request,
 )
 from blueprints.validations.user_account_validation import user_id_is_valid
-
-plant_example = {"id": 1, "name": "Plant name", "room_id": 1}
-
-plant_health_attribute_example = {
-    "plant_health_attribute_id": 1,
-    "upper_required_value": 1.00,
-    "lower_required_value": 0.50,
-    "unit_measurement_id": 1,
-    "plant_id": 1,
-    "health_attribute_id": 1,
-}
 
 
 @namespacePlant.route("")
@@ -48,18 +39,19 @@ class plants(Resource):
 
     @namespacePlant.response(400, "Plant with the given name already exists")
     @namespacePlant.response(500, "Internal Server error")
-    @namespacePlant.expect(plant_model)
+    @namespacePlant.expect(plant_model_request)
     @namespacePlant.marshal_with(plant_model, code=HTTPStatus.CREATED)
     def post(self):
         """Create a new plant"""
         data = request.get_json()
         name = data.get("name")
         room_id = data.get("room_id")
+        is_delete = False
 
         if plant_is_valid(name) is not True:
             namespacePlant.abort(400, "Plant with the given name already exists")
 
-        add_plant = postPlant(name, room_id)
+        add_plant = postPlant(name, room_id, is_delete)
 
         return add_plant, 201
 
@@ -81,7 +73,7 @@ class plant(Resource):
     @namespacePlant.response(400, "Plant with the given name already exists")
     @namespacePlant.response(404, "Plant not found")
     @namespacePlant.response(500, "Internal Server error")
-    @namespacePlant.expect(plant_model, validate=True)
+    @namespacePlant.expect(plant_model_request, validate=True)
     @namespacePlant.marshal_with(plant_model)
     def put(self, plant_id):
 
@@ -149,14 +141,15 @@ class plant_health_attributes(Resource):
             namespacePlant.abort(404, "Plant not found")
 
         """List with all a specific plants health attributes"""
-        plants_plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id)
+        plant_health_attributes_list = getPlantHealthAttributes()
+        plants_plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id, plant_health_attributes_list)
 
         return plants_plant_health_attribute_list
 
     @namespacePlant.response(404, "Plant not found")
-    @namespacePlant.response(400, "Plant with the given name already exists")
+    @namespacePlant.response(400, "Plant health attribute already exists")
     @namespacePlant.response(500, "Internal Server error")
-    @namespacePlant.expect(plant_health_attribute_model)
+    @namespacePlant.expect(plant_health_attribute_request_model)
     @namespacePlant.marshal_with(plant_health_attribute_model, code=HTTPStatus.CREATED)
     def post(self, plant_id):
 
@@ -220,7 +213,7 @@ class plant_health_attribute(Resource):
 
     @namespacePlant.response(404, "Plant health attribute not found")
     @namespacePlant.response(500, "Internal Server error")
-    @namespacePlant.expect(plant_health_attribute_model, validate=True)
+    @namespacePlant.expect(plant_health_attribute_request_model, validate=True)
     @namespacePlant.marshal_with(plant_health_attribute_model)
     def put(self, plant_id, plant_health_attribute_id):
         """Update specific plant health attribute information"""

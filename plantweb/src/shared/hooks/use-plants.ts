@@ -171,7 +171,7 @@ export const usePlants = () => {
     }
   }, []);
 
-  const getPlantPlantHelathAttributeByID = useCallback(
+  const getPlantPlantHealthAttributeByID = useCallback(
     async (id: number, plant_health_attribute: number) => {
       setErrorMessage("");
 
@@ -323,7 +323,7 @@ export const usePlants = () => {
     editPlant: editPlantCallback,
     deletePlant: deletePlantByID,
     getPlantPlantHealthAttributes: getAllPlantsPlantHealthAttributes,
-    getPlantHealthAttribute: getPlantPlantHelathAttributeByID,
+    getPlantHealthAttribute: getPlantPlantHealthAttributeByID,
     postPlantHealthAttribute: addPlantHealthAtteributeCallback,
     editPlantPlantHealthAttribute: editPlantHealthAtteributeCallback,
     deletePlantPlantHealthAttribute: deletePlantPlantHealthAttributeByID,

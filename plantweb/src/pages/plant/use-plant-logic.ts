@@ -11,7 +11,7 @@ import {
   SensorReading,
 } from "pages/edit-plant/edit-plant-types";
 import { SensorResponse } from "api/sensor-api";
-import { PlantHelathAttribute } from "shared/types";
+import { PlantHealthAttribute } from "shared/types";
 
 type SensorReadingsData = { [sensorId: number]: SensorReading[] };
 

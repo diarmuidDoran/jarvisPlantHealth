@@ -189,22 +189,26 @@ export const useEditPlantLogic = (id: number) => {
   const onSubmit = useCallback(async () => {
     const updatePlantHealthAttribute = [] as any[];
     const addSensorPlantHealthAttributeRelationship = [] as any[];
-
+    debugger;
     const updatePlant = await editPlant(id, plantName, Number(room));
-
+    
     //https://stackoverflow.com/questions/1187518/how-to-get-the-difference-between-two-arrays-in-javascript/4026828#4026828
     const onlyInOriginal = originalPlantHealthAttributesArray.filter(
-      (element) => !editPlantHealthAttributesArray.includes(element)
+      (element) => !editPlantHealthAttributesArray.map(x=>x.id).includes(element.id)
     );
 
     const onlyInEdited = editPlantHealthAttributesArray.filter(
-      (element) => !originalPlantHealthAttributesArray.includes(element)
+      (element) => !originalPlantHealthAttributesArray.map(x=>x.id).includes(element.id)
     );
 
     const inBoth = editPlantHealthAttributesArray.filter((element) =>
-      originalPlantHealthAttributesArray.includes(element)
+      originalPlantHealthAttributesArray.map(x=>x.id).includes(element.id)
     );
-
+  
+  //  for (const plantHealthAttribute of editPlantHealthAttributesArray) {
+  //   if(plantHealthAttribute.id === )
+  //  }
+  
     for (const editPlantHealthAttributeElement of onlyInOriginal) {
       const deleteResponse = await deletePlantPlantHealthAttribute(
         editPlantHealthAttributeElement.plant_id,

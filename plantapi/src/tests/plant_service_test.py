@@ -111,6 +111,7 @@ class PlantServiceTest(unittest.TestCase):
             "unit_measurement_id": 1,
             "plant_id": 1,
             "health_attribute_id": 1,
+            "sensor_b": []
         }
 
         get_plant_health_attribute_dto_mock.return_value = make_plant_health_attribute(
@@ -120,6 +121,7 @@ class PlantServiceTest(unittest.TestCase):
             expected_plant_health_attribute_result["unit_measurement_id"],
             expected_plant_health_attribute_result["plant_id"],
             expected_plant_health_attribute_result["health_attribute_id"],
+            expected_plant_health_attribute_result["sensor_b"]
         )
 
         result = getPlantHealthAttributeById(plant_health_attribute_id, plant_id)

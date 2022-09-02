@@ -24,7 +24,6 @@ class Sensor(Base):
     plant_health_attribute_d = relationship(
         "Sensor_Plant_Health_Attribute",
         back_populates="sensor",
-        cascade="all, delete",
     )
 
     def __init__(self, sensor_name, call_frequency):

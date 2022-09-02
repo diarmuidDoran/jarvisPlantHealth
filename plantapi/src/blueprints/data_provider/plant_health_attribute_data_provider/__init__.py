@@ -26,6 +26,7 @@ def addPlantHealthAttributeDto(
         unit_measurement_id,
         plant_id,
         health_attribute_id,
+        is_deleted=False,
     )
 
     session.add(new_plant_health_attribute)
@@ -42,9 +43,9 @@ def deletePlantHealthAttributeDtoById(plant_health_attribute_id):
 
     plant_health_attribute = getPlantHealthAttributeDtoById(plant_health_attribute_id)
 
-    session.delete(plant_health_attribute)
+    plant_health_attribute.is_deleted = True
     session.commit()
-    return {"Plant Health Attribute deleted"}
+    return "Plant Health Attribute deleted"
 
 
 def updatePlantHealthAttributeDtoById(

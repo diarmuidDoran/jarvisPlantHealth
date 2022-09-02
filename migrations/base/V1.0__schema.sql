@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS plant(
    id serial PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
    room_id INT NOT NULL,
+   is_deleted BOOL NOT NULL DEFAULT false,
    CONSTRAINT fk_room_room_id
         FOREIGN KEY(room_id)
         REFERENCES room(id)
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS plant_health_attribute
     unit_measurement_id INT NOT NULL,
     plant_id INT NOT NULL,
     health_attribute_id INT NOT NULL,
+    is_deleted BOOL NOT NULL DEFAULT false,
     CONSTRAINT fk_unit_measurement_unit_measurement_id
         FOREIGN KEY(unit_measurement_id)
         REFERENCES unit_measurement(id),
@@ -67,6 +69,7 @@ CREATE TABLE IF NOT EXISTS sensor_plant_health_attribute
     id serial PRIMARY KEY,
     plant_health_attribute_id INT NOT NULL,
     sensor_id INT NOT NULL,
+    is_deleted BOOL NOT NULL DEFAULT false,
     CONSTRAINT fk_plant_health_attribute_plant_health_attribute_id
         FOREIGN KEY(plant_health_attribute_id)
         REFERENCES plant_health_attribute(id),

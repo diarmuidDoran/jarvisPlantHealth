@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
 from blueprints.data_provider.dtos.user_accounts import plant_user_table
@@ -11,6 +11,10 @@ class Plant(Base):
     name = Column("name", String(255))
     room_id = Column(
         "room_id", Integer, ForeignKey("room.id", ondelete="CASCADE"), nullable=False
+    )
+    is_deleted = Column(
+        "is_deleted",
+        Boolean,
     )
 
     room = relationship("Room", back_populates="plants")
@@ -29,11 +33,10 @@ class Plant(Base):
         passive_deletes=False,
     )
 
-    def __init__(self, name, room_id):
+    def __init__(self, name, room_id, is_deleted):
         self.name = name
         self.room_id = room_id
+        self.is_deleted = is_deleted
 
     def __repr__(self):
-        return (
-            f"Plant(plant_id={self.id!r}, name={self.name!r}, room_id={self.room_id!r})"
-        )
+        return f"Plant(plant_id={self.id!r}, name={self.name!r}, room_id={self.room_id!r}, is_deleted={self.is_deleted!r})"

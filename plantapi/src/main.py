@@ -1,4 +1,5 @@
 # main.py
+import os
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Api
@@ -16,9 +17,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 jarvis_db = SQLAlchemy(app)
 jarvis_db.init_app(app)
 
-
 # migrate = Migrate(app.py, jarvis_db)
 app.register_blueprint(documented_endpoint)
 
 if __name__ == "__main__":
-    app.run(debug=True)  # remove before hand in
+    print(os.environ["DATABASE_CONNECTION"])
+    app.run(debug=True)  # TODO remove before hand in
