@@ -21,7 +21,6 @@ plant_model_request = namespacePlant.model(
         "id": fields.Integer(readonly=True, description="Plant identifier"),
         "name": fields.String(required=True, description="Plant name"),
         "room_id": fields.Integer(required=True, description="Room identifier"),
-
     },
 )
 

@@ -16,7 +16,7 @@ def getPlants():
                 make_plant(
                     plantDto.id, plantDto.name, plantDto.room_id, plantDto.is_deleted
                 )
-        )
+            )
     return plantModels
 
 
@@ -52,7 +52,8 @@ def getPlantHealthAttributesByPlantId(plant_id, plant_health_attributes_list):
 
     for plant_health_attribute_dto in plantDto.plant_health_attributes:
         if plant_health_attribute_dto.is_deleted == False:
-            plant_health_attributes_models.append(make_plant_health_attribute(
+            plant_health_attributes_models.append(
+                make_plant_health_attribute(
                     plant_health_attribute_dto.id,
                     plant_health_attribute_dto.upper_required_value,
                     plant_health_attribute_dto.lower_required_value,
@@ -61,7 +62,8 @@ def getPlantHealthAttributesByPlantId(plant_id, plant_health_attributes_list):
                     plant_health_attribute_dto.health_attribute_id,
                     plant_health_attribute_dto.is_deleted,
                     plant_health_attribute_dto.sensor_b,
-                ))
+                )
+            )
 
     plant_health_attribute_model = make_plant_with_plant_health_attribute_list(
         plantDto.id,

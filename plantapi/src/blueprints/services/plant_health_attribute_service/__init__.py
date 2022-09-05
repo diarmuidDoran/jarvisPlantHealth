@@ -1,6 +1,7 @@
 from blueprints.data_provider.plant_health_attribute_data_provider import *
 from blueprints.models.plant_health_attributes import *
 
+
 def getPlantHealthAttributes():
     health_attribute_models = []
     for plant_health_attribute_dto in getPlantHelathAttributeDtos():

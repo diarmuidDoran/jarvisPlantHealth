@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import relationship
 from blueprints.data_provider.engine import Base
 
@@ -13,6 +13,10 @@ class Sensor(Base):
     id = Column("id", Integer, primary_key=True, autoincrement=True)
     sensor_name = Column("sensor_name", String(255))
     call_frequency = Column("call_frequency", String(255))
+    is_deleted = Column(
+        "is_deleted",
+        Boolean,
+    )
 
     sensor_readings = relationship(
         "Sensor_Reading",
@@ -26,9 +30,11 @@ class Sensor(Base):
         back_populates="sensor",
     )
 
-    def __init__(self, sensor_name, call_frequency):
+    def __init__(self, sensor_name, call_frequency, is_deleted):
         self.sensor_name = sensor_name
         self.call_frequency = call_frequency
+        self.is_deleted = is_deleted
 
     def __repr__(self):
-        return f"Sensor(id={self.id!r}, sensor_name={self.sensor_name!r}, call_frequency={self.call_frequency!r})"
+        return f"Sensor(id={self.id!r}, sensor_name={self.sensor_name!r}, call_frequency={self.call_frequency!r}," \
+               f"is_deleted={self.is_deleted!r})"

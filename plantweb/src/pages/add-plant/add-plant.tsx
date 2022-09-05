@@ -251,28 +251,6 @@ export const AddPlant = memo(() => {
                   </Box>
                 </Grid>
               </Grid>
-              {/* <Grid
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="stretch"
-                xs={2}
-              >
-                <Grid xs={12}>
-                  <Fab
-                    size="small"
-                    color="secondary"
-                    aria-label="edit"
-                    onClick={() => {
-                      onDeletePlantHealthAttributeClick(
-                        addPlantHealthAttributeElement.id
-                      );
-                    }}
-                  >
-                    <DeleteIcon />
-                  </Fab>
-                </Grid> 
-              </Grid>*/}
             </>
           )
         )}

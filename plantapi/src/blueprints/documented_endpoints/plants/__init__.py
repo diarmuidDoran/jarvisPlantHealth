@@ -142,7 +142,9 @@ class plant_health_attributes(Resource):
 
         """List with all a specific plants health attributes"""
         plant_health_attributes_list = getPlantHealthAttributes()
-        plants_plant_health_attribute_list = getPlantHealthAttributesByPlantId(plant_id, plant_health_attributes_list)
+        plants_plant_health_attribute_list = getPlantHealthAttributesByPlantId(
+            plant_id, plant_health_attributes_list
+        )
 
         return plants_plant_health_attribute_list
 

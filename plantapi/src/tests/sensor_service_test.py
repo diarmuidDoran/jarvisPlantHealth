@@ -6,7 +6,7 @@ from flask_restx import marshal
 
 from blueprints.services.sensor_reading_service import postSensorReading
 from blueprints.services.sensor_service import *
-from blueprints.swagger_models.sensors import *
+from src.blueprints.swagger_models.sensors import *
 
 
 class SensorServiceTest(unittest.TestCase):

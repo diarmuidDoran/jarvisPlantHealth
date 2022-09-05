@@ -22,14 +22,14 @@ class PlantServiceTest(unittest.TestCase):
     @mock.patch("blueprints.services.plant_service.getPlantDtos")
     def test_plant_service_get_plants_returns_array(self, get_plant_dtos_mock):
         expected_result = [
-            {"id": 1, "name": "TPlant1", "room_id": 1},
-            {"id": 2, "name": "TPlant2", "room_id": 2},
+            {"id": 1, "name": "TPlant1", "room_id": 1, "is_deleted": false},
+            {"id": 2, "name": "TPlant2", "room_id": 2, "is_deleted": false},
         ]
 
         plant_models = []
         for result in expected_result:
             plant_models.append(
-                make_plant(result["id"], result["name"], result["room_id"])
+                make_plant(result["id"], result["name"], result["room_id"], result["is_deleted"])
             )
 
         get_plant_dtos_mock.return_value = plant_models
@@ -111,7 +111,7 @@ class PlantServiceTest(unittest.TestCase):
             "unit_measurement_id": 1,
             "plant_id": 1,
             "health_attribute_id": 1,
-            "sensor_b": []
+            "sensor_b": [],
         }
 
         get_plant_health_attribute_dto_mock.return_value = make_plant_health_attribute(
@@ -121,7 +121,7 @@ class PlantServiceTest(unittest.TestCase):
             expected_plant_health_attribute_result["unit_measurement_id"],
             expected_plant_health_attribute_result["plant_id"],
             expected_plant_health_attribute_result["health_attribute_id"],
-            expected_plant_health_attribute_result["sensor_b"]
+            expected_plant_health_attribute_result["sensor_b"],
         )
 
         result = getPlantHealthAttributeById(plant_health_attribute_id, plant_id)

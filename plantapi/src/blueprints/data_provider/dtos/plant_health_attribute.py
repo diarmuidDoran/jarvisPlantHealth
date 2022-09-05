@@ -21,7 +21,10 @@ class Sensor_Plant_Health_Attribute(Base):
         ForeignKey("plant_health_attribute.id", primary_key=True),
     )
     sensor_id = Column("sensor_id", ForeignKey("sensor.id", primary_key=True))
-
+    is_deleted = Column(
+        "is_deleted",
+        Boolean,
+    )
 
     plant_health_attribute = relationship(
         "Plant_Health_Attribute", back_populates="sensor_b"
@@ -32,11 +35,11 @@ class Sensor_Plant_Health_Attribute(Base):
         self,
         plant_health_attribute_id,
         sensor_id,
-
+        is_deleted,
     ):
-        self.plant_health_attribute_id = (plant_health_attribute_id,)
+        self.plant_health_attribute_id = plant_health_attribute_id
         self.sensor_id = sensor_id
-
+        self.is_deleted = is_deleted
 
 
 class Plant_Health_Attribute(Base):

@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS room(
     id serial PRIMARY KEY,
-    name VARCHAR (255) NOT NULL
+    name VARCHAR (255) NOT NULL,
+    is_deleted BOOL NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS plant(
@@ -17,7 +18,8 @@ CREATE TABLE IF NOT EXISTS sensor
 (
     id serial PRIMARY KEY,
     sensor_name VARCHAR(255) NOT NULL,
-    call_frequency VARCHAR(255) NOT NULL
+    call_frequency VARCHAR(255) NOT NULL,
+    is_deleted BOOL NOT NULL DEFAULT false
 );
 
 
@@ -85,7 +87,8 @@ CREATE TABLE IF NOT EXISTS user_account
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    is_deleted BOOL NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS plant_user
@@ -93,6 +96,7 @@ CREATE TABLE IF NOT EXISTS plant_user
     id serial PRIMARY KEY,
     plant_id INT NOT NULL,
     user_id INT NOT NULL,
+    is_deleted BOOL NOT NULL DEFAULT false,
     CONSTRAINT fk_plant_plant_id_b
         FOREIGN KEY(plant_id)
         REFERENCES plant(id),

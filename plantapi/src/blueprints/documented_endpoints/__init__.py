@@ -1,9 +1,8 @@
-# blueprints/documented_endpoints/__init__.py
+# blueprints.documented_endpoints/__init__.py
 from flask import Blueprint
 from flask_restx import Api
 from blueprints.documented_endpoints.plants import namespacePlant as plants_ns
-from blueprints.documented_endpoints.health_attributes import (
-    namespaceHealthAttribute as health_attributes_ns,
+from blueprints.documented_endpoints.health_attributes import (namespaceHealthAttribute as health_attributes_ns,
 )
 from blueprints.documented_endpoints.rooms import namespaceRoom as rooms_ns
 from blueprints.documented_endpoints.user_accounts import namespaceUser as users_ns

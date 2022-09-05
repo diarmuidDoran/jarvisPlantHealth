@@ -28,9 +28,10 @@ class rooms(Resource):
     def post(self):
         """Create a new room"""
         name = request.json["name"]
+        is_deleted = False
         if room_is_valid(name) is not True:
             namespaceRoom.abort(400, "Room with the given name already exists")
-        add_room = post_room(name)
+        add_room = post_room(name, is_deleted)
         return add_room, 201
 
 

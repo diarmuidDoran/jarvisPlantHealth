@@ -12,9 +12,9 @@ def getRoomDtos():
     return session.scalars(stmt)
 
 
-def addRoomDto(name):
+def addRoomDto(name, is_deleted):
 
-    new_room = Room(name)
+    new_room = Room(name, is_deleted)
 
     session.add(new_room)
     session.commit()
@@ -30,7 +30,7 @@ def getRoomDtoById(room_id):
 
 def deleteRoomDtoById(room_id):
     room = getRoomDtoById(room_id)
-    session.delete(room)
+    room.is_deleted = True
     session.commit()
 
     return {"Room " + room.name + " deleted"}
