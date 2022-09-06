@@ -1,9 +1,9 @@
-# blueprints/documented_endpoints/health_attributes/__init__.py
+# src.blueprints.documented_endpoints/health_attributes/__init__.py
 from http import HTTPStatus
 from flask_restx import Resource
 from markupsafe import escape
-from blueprints.services.health_attribute_service import get_health_attributes
-from blueprints.swagger_models.health_attributes import (
+from src.blueprints.services.health_attribute_service import get_health_attributes
+from src.blueprints.swagger_models.health_attributes import (
     namespaceHealthAttribute,
     health_attribute_model,
 )

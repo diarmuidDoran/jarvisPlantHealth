@@ -1,4 +1,4 @@
-from blueprints.data_provider.notification_data_provider import getNotificationDtos
+from src.blueprints.data_provider.notification_data_provider import getNotificationDtos
 
 
 def notification_is_valid(notification_details, notification_time_stamp):

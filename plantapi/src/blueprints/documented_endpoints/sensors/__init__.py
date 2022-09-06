@@ -1,12 +1,12 @@
-# blueprints/documented_endpoints/sensors/__init__.py
+# src.blueprints.documented_endpoints/sensors/__init__.py
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-# from blueprints.swagger_models.sensor_readings import namespaceSensorReading
-from blueprints.services.sensor_reading_service import postSensorReading
-from blueprints.services.sensor_service import *
-from blueprints.swagger_models.sensors import (
+# from src.blueprints.swagger_models.sensor_readings import namespaceSensorReading
+from src.blueprints.services.sensor_reading_service import postSensorReading
+from src.blueprints.services.sensor_service import *
+from src.blueprints.swagger_models.sensors import (
     namespaceSensor,
     sensor_model,
     sensor_reading_list_model,
@@ -14,30 +14,17 @@ from blueprints.swagger_models.sensors import (
     sensor_reading_model_response,
     sensor_plant_health_attributes_model,
 )
-from blueprints.validations.plant_health_attribute_validation import (
+from src.blueprints.validations.plant_health_attribute_validation import (
     plant_health_attribute_id_is_valid,
 )
-from blueprints.validations.sensor_reading_validation import (
+from src.blueprints.validations.sensor_reading_validation import (
     sensor_reading_time_is_valid,
 )
-from blueprints.validations.sensor_validation import (
+from src.blueprints.validations.sensor_validation import (
     sensor_is_valid,
     sensor_id_is_valid,
     sensor_plant_health_attribute_is_valid,
 )
-
-sensor_example = {
-    "sensor_id": 1,
-    "sensor_name": "Sensor name",
-    "call_frequency": "5 * * * *",
-}
-
-sensor_reading_example = {
-    "sensor_reading_id": 1,
-    "sensor_reading": 1.00,
-    "timestamp": ("08/07/22 09:00", "%d/%m/%y %H:%M"),
-    "sensor_id": 1,
-}
 
 
 @namespaceSensor.route("")
@@ -60,11 +47,12 @@ class sensors(Resource):
         data = request.get_json()
         sensor_name = data.get("sensor_name")
         call_frequency = data.get("call_frequency")
+        connection_pin = data.get("connection_pin")
 
         if sensor_is_valid(sensor_name) is not True:
             namespaceSensor.abort(400, "Sensor with the given name already exists")
 
-        add_sensor = postSensor(sensor_name, call_frequency)
+        add_sensor = postSensor(sensor_name, call_frequency, connection_pin)
 
         return add_sensor, 201
 
@@ -91,6 +79,14 @@ class sensor(Resource):
         if getSensorById(sensor_id) is None:
             namespaceSensor.abort(404, "Sensor not found")
         delete_sensor = deleteSensorById(sensor_id)
+
+        # delete relationships to existing plant health attributes
+        sensor_plant_health_attributes = getSensorPlantHealthAttribute()
+        for sensor_plant_health_attribute in sensor_plant_health_attributes:
+            if (sensor_plant_health_attribute.sensor_id == sensor_id) and (
+                    sensor_plant_health_attribute.is_deleted == False
+            ):
+                deleteSensorpostSensorPlantHealthAttributeRelationship(sensor_plant_health_attribute.id)
 
         return delete_sensor, 204
 
@@ -177,6 +173,6 @@ class sensor_plant_health_attribute_relationship(Resource):
                 "Sensor id and Plant Health Attribute id already share a relationship",
             )
 
-        postSensorPlantHelathAttribute(sensor_id, plant_health_attribute_id)
+        postSensorPlantHealthAttribute(sensor_id, plant_health_attribute_id)
 
         return 201

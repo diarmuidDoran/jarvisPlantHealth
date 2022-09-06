@@ -12,6 +12,8 @@ export const AddSensor = memo(() => {
   const {
     sensorName,
     sensorCallFrequency,
+    sensorConnectionPin,
+    handleSensorConnectionPinChange,
     handleSensorNameChange,
     handleSensorCallFrequencyChange,
     onSubmit,
@@ -50,6 +52,17 @@ export const AddSensor = memo(() => {
           variant="outlined"
           value={sensorCallFrequency}
           onChange = {handleSensorCallFrequencyChange}
+        />
+      </div>
+      <div>
+        <TextField
+          id="sensor-connection-pin"
+          label="Sensor Connection Pin"
+          variant="outlined"
+          inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+          type="number"
+          value={sensorConnectionPin}
+          onChange = {handleSensorConnectionPinChange}
         />
       </div>
       {/* <div>

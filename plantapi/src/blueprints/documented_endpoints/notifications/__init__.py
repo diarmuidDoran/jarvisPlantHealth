@@ -1,15 +1,18 @@
-# blueprints/documented_endpoints/user_accounts/__init__.py
+# src.blueprints.documented_endpoints/user_accounts/__init__.py
 from flask import request
 from flask_restx import Resource
 from http import HTTPStatus
 
-from blueprints.services.notification_service import (
+from src.blueprints.services.notification_service import (
     getNotifications,
     getNotificationById,
     postNotification,
 )
-from blueprints.swagger_models.notifications import namespaceNotify, notification_model
-from blueprints.validations.notification_validation import notification_is_valid
+from src.blueprints.swagger_models.notifications import (
+    namespaceNotify,
+    notification_model,
+)
+from src.blueprints.validations.notification_validation import notification_is_valid
 
 notification_example = {
     "id": 1,

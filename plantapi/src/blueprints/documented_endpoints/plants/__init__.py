@@ -1,19 +1,22 @@
-# blueprints/documented_endpoints/plants/__init__.py
+# src.blueprints.documented_endpoints/plants/__init__.py
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-from blueprints.services.plant_service import *
-from blueprints.services.plant_health_attribute_service import *
-from blueprints.validations.plant_health_attribute_validation import (
+from src.blueprints.services.plant_service import *
+from src.blueprints.services.plant_health_attribute_service import *
+from src.blueprints.services.sensor_service import (
+    getSensorPlantHealthAttribute,
+)
+from src.blueprints.validations.plant_health_attribute_validation import (
     plant_health_attribute_is_valid,
 )
-from blueprints.validations.plant_validation import (
+from src.blueprints.validations.plant_validation import (
     plant_is_valid,
     plant_id_is_valid,
     plant_new_name_is_valid,
 )
-from blueprints.swagger_models.plants import (
+from src.blueprints.swagger_models.plants import (
     namespacePlant,
     plant_plant_health_attribute_list_model,
     plant_model,
@@ -24,7 +27,7 @@ from blueprints.swagger_models.plants import (
     plant_health_attribute_request_model,
     plant_model_request,
 )
-from blueprints.validations.user_account_validation import user_id_is_valid
+from src.blueprints.validations.user_account_validation import user_id_is_valid
 
 
 @namespacePlant.route("")
@@ -103,6 +106,26 @@ class plant(Resource):
 
         """Delete a specific plant entity"""
         delete_plant = deletePlantById(plant_id)
+        # if the plant is deleted, delete all associated plant health attributes
+        if getPlantById(plant_id) is None:
+            plant_health_attributes_list = getPlantHealthAttributes()
+            sensor_plant_health_attribute_relationships = (
+                getSensorPlantHealthAttribute()
+            )
+            for plant_health_attribute in plants_health_attributes_list:
+                if (plant_health_attribute.plant_id == room_plant.id) and (
+                    plant_health_attribute.is_deleted == False
+                ):
+                    deletePlantHealthAttributeById(plant_health_attribute.id)
+                # if the plant health attributes is deleted, delete all associated sensor relationships
+                for (
+                    sensor_plant_health_attribute
+                ) in sensor_plant_health_attribute_relationships:
+                    if (
+                        sensor_plant_health_attribute.plant_health_attribute_id
+                        == plant_health_attribute.id
+                    ) and (sensor_plant_health_attribute.is_deleted == False):
+                        deleteSensorpostSensorPlantHealthAttributeRelationship(sensor_plant_health_attribute.id)
 
         return delete_plant, 204
 
@@ -255,37 +278,15 @@ class plant_health_attribute(Resource):
         delete_plant_health_attribute = deletePlantHealthAttributeById(
             plant_health_attribute_id
         )
+        # if the plant health attributes is deleted, delete all associated sensor relationships
+        sensor_plant_health_attribute_relationships = getSensorPlantHealthAttribute()
+        for (
+            sensor_plant_health_attribute
+        ) in sensor_plant_health_attribute_relationships:
+            if (
+                sensor_plant_health_attribute.plant_health_attribute_id
+                == plant_health_attribute_id
+            ) and (sensor_plant_health_attribute.is_deleted == False):
+                deleteSensorpostSensorPlantHealthAttributeRelationship(sensor_plant_health_attribute.id)
 
         return delete_plant_health_attribute, 204
-
-
-# @namespacePlant.route(
-#     "/<int:plant_id>/plant_health_attributes/<int:plant_health_attribute_id>/sensors"
-# )
-# class plant_health_attribute(Resource):
-#
-#     """Read plants specific plant health attribute and sensor information"""
-#
-#     @namespacePlant.response(404, "This specific plant health attribute is not associated to this plant "
-#                                   "or does not yet exist")
-#     @namespacePlant.response(500, "Internal Server error")
-#     @namespacePlant.marshal_with(plant_health_attribute_sensor_model)
-#     def get(self, plant_id, plant_health_attribute_id):
-#         """Get specific plant health attribute information"""
-#         plant_health_attribute = {}
-#         for plantHealthAttribute in getPlantHealthAttributes():
-#             if (plantHealthAttribute.plant_id == plant_id) and (
-#                 plantHealthAttribute.id == plant_health_attribute_id
-#             ):
-#                 plant_health_attribute = getPlantHealthAttributesById(
-#                     plant_health_attribute_id
-#                 )
-#
-#         if plant_health_attribute:
-#             return plant_health_attribute, 201
-#         else:
-#             namespacePlant.abort(
-#                 404,
-#                 "This specific plant health attribute is not associated to this plant "
-#                 "or does not yet exist"
-#             )

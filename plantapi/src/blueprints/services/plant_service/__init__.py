@@ -1,8 +1,8 @@
-from blueprints.data_provider.plant_data_provider import *
-from blueprints.data_provider.plant_health_attribute_data_provider import *
-from blueprints.models.plants import *
-from blueprints.models.plant_health_attributes import *
-from blueprints.services.sensor_service import (
+from src.blueprints.data_provider.plant_data_provider import *
+from src.blueprints.data_provider.plant_health_attribute_data_provider import *
+from src.blueprints.models.plants import *
+from src.blueprints.models.plant_health_attributes import *
+from src.blueprints.services.sensor_service import (
     getSensorPlantHealthAttribute,
     getSensorById,
 )

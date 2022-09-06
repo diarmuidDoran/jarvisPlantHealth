@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
-from blueprints.data_provider.dtos.user_accounts import plant_user_table
-from blueprints.data_provider.engine import Base
+from src.blueprints.data_provider.dtos.user_accounts import plant_user_table
+from src.blueprints.data_provider.engine import Base
 
 
 class Plant(Base):

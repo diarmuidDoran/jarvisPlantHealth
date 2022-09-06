@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import relationship
-from blueprints.data_provider.engine import Base
+from src.blueprints.data_provider.engine import Base
 
 
 class Room(Base):
@@ -24,4 +24,6 @@ class Room(Base):
         self.is_deleted = is_deleted
 
     def __repr__(self):
-        return f"Room(id={self.id!r}, name={self.name!r}, is_deleted={self.is_deleted!r})"
+        return (
+            f"Room(id={self.id!r}, name={self.name!r}, is_deleted={self.is_deleted!r})"
+        )

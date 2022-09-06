@@ -1,7 +1,7 @@
-# blueprints/swagger_models/plants/__init__.py
+# src.blueprints.swagger_models/plants/__init__.py
 from flask_restx import Namespace, fields
 
-from blueprints.swagger_models.sensors import sensor_model
+from src.blueprints.swagger_models.sensors import sensor_model
 
 namespacePlant = Namespace("plants", "plant endpoints")
 
@@ -11,7 +11,7 @@ plant_model = namespacePlant.model(
         "id": fields.Integer(readonly=True, description="Plant identifier"),
         "name": fields.String(required=True, description="Plant name"),
         "room_id": fields.Integer(required=True, description="Room identifier"),
-        "is_deleted": fields.Boolean(required=True, description="is deleted"),
+        # "is_deleted": fields.Boolean(required=True, description="is deleted"),
     },
 )
 
@@ -67,7 +67,7 @@ plant_health_attribute_model = namespacePlant.model(
         "health_attribute_id": fields.Integer(
             required=True, description="Health Attribute ID"
         ),
-        "is_deleted": fields.Boolean(required=True, description="is deleted"),
+        # "is_deleted": fields.Boolean(required=True, description="is deleted"),
     },
 )
 
@@ -89,7 +89,7 @@ plant_health_attribute_sensor_model = namespacePlant.model(
         "health_attribute_id": fields.Integer(
             required=True, description="Health Attribute ID"
         ),
-        "is_deleted": fields.Boolean(required=True, description="is deleted"),
+        # "is_deleted": fields.Boolean(required=True, description="is deleted"),
         "sensor": fields.Nested(
             sensor_model,
             description="Associated sensor",
@@ -103,7 +103,7 @@ plant_plant_health_attribute_list_model = namespacePlant.model(
         "id": fields.Integer(readonly=True, description="Plant identifier"),
         "name": fields.String(required=True, description="Plant name"),
         "room_id": fields.Integer(required=True, description="Room identifier"),
-        "is_deleted": fields.Boolean(required=True, description="is deleted"),
+        # "is_deleted": fields.Boolean(required=True, description="is deleted"),
         "plant_health_attributes": fields.Nested(
             plant_health_attribute_model,
             description="List of plants health attributes",
@@ -118,7 +118,7 @@ plant_plant_health_attribute_sensor_list_model = namespacePlant.model(
         "id": fields.Integer(readonly=True, description="Plant identifier"),
         "name": fields.String(required=True, description="Plant name"),
         "room_id": fields.Integer(required=True, description="Room identifier"),
-        "is_deleted": fields.Boolean(required=True, description="is deleted"),
+        # "is_deleted": fields.Boolean(required=True, description="is deleted"),
         "plant_health_attributes": fields.Nested(
             plant_health_attribute_sensor_model,
             description="List of plants health attributes",

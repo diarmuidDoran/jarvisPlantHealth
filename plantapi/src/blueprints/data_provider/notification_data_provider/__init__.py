@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from blueprints.data_provider.engine import engine
-from blueprints.data_provider.dtos.notification import Notification
+from src.blueprints.data_provider.engine import engine
+from src.blueprints.data_provider.dtos.notification import Notification
 
 session = Session(engine)
 

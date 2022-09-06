@@ -1,4 +1,4 @@
-# blueprints/swagger_models/unit_measurements/__init__.py
+# src.blueprints.swagger_models/unit_measurements/__init__.py
 from flask_restx import Namespace, fields
 
 namespaceUnitMeasurement = Namespace("unit_measurement", "unit measurement endpoints")

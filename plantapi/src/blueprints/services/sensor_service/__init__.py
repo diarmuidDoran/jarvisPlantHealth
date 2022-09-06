@@ -1,18 +1,25 @@
-from blueprints.data_provider.sensor_data_provider import *
-from blueprints.models.sensors import *
+from src.blueprints.data_provider.sensor_data_provider import *
+from src.blueprints.models.sensors import *
 
 
 def getSensors():
     sensorModels = []
     for sensorDto in getSensorDtos():
-        sensorModels.append(
-            make_sensor(sensorDto.id, sensorDto.sensor_name, sensorDto.call_frequency)
-        )
+        if sensorDto.is_deleted == False:
+            sensorModels.append(
+                make_sensor(
+                    sensorDto.id,
+                    sensorDto.sensor_name,
+                    sensorDto.call_frequency,
+                    sensorDto.connection_pin,
+                    sensorDto.is_deleted,
+                )
+            )
     return sensorModels
 
 
-def postSensor(sensor_name, call_frequency):
-    new_sensor = addSensorDto(sensor_name, call_frequency)
+def postSensor(sensor_name, call_frequency, connection_pin):
+    new_sensor = addSensorDto(sensor_name, call_frequency, connection_pin)
     return new_sensor
 
 
@@ -20,7 +27,11 @@ def getSensorById(id):
     sensorDto = getSensorDtoById(id)
     try:
         return make_sensor(
-            sensorDto.id, sensorDto.sensor_name, sensorDto.call_frequency
+            sensorDto.id,
+            sensorDto.sensor_name,
+            sensorDto.call_frequency,
+            sensorDto.connection_pin,
+            sensorDto.is_deleted,
         )
     except AttributeError:
         return None
@@ -36,6 +47,8 @@ def getSensorReadingsById(id):
         sensorDto.id,
         sensorDto.sensor_name,
         sensorDto.call_frequency,
+        sensorDto.connection_pin,
+        sensorDto.is_deleted,
         sensorDto.sensor_readings,
     )
 
@@ -49,10 +62,14 @@ def getSensorPlantHealthAttribute():
                 sensor_plant_health_attribute_dto.id,
                 sensor_plant_health_attribute_dto.plant_health_attribute_id,
                 sensor_plant_health_attribute_dto.sensor_id,
+                sensor_plant_health_attribute_dto.is_deleted,
             )
         )
     return sensor_plant_health_attribute_models
 
 
-def postSensorPlantHelathAttribute(sensor_id, plant_health_attribute_id):
+def postSensorPlantHealthAttribute(sensor_id, plant_health_attribute_id):
     addSensorPlantHealthAttributeDto(sensor_id, plant_health_attribute_id)
+
+def deleteSensorpostSensorPlantHealthAttributeRelationship(sensor_plant_health_attribute_id, ):
+    deleteSensorpostSensorPlantHealthAttributeRelationshipDto(sensor_plant_health_attribute_id)

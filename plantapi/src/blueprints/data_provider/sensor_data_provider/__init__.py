@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from blueprints.data_provider.engine import engine
-from blueprints.data_provider.dtos.sensor import Sensor
-from blueprints.data_provider.dtos.plant_health_attribute import (
+from src.blueprints.data_provider.engine import engine
+from src.blueprints.data_provider.dtos.sensor import Sensor
+from src.blueprints.data_provider.dtos.plant_health_attribute import (
     Plant_Health_Attribute,
     Sensor_Plant_Health_Attribute,
     # sensor_plant_health_attribute_table,
@@ -17,9 +17,9 @@ def getSensorDtos():
     return session.scalars(stmt)
 
 
-def addSensorDto(sensor_name, call_frequency):
+def addSensorDto(sensor_name, call_frequency, connection_pin):
 
-    new_sensor = Sensor(sensor_name, call_frequency)
+    new_sensor = Sensor(sensor_name, call_frequency, connection_pin, is_deleted=False)
 
     session.add(new_sensor)
     session.commit()
@@ -33,7 +33,7 @@ def getSensorDtoById(sensor_id):
 
 def deleteSensorDtoById(sensor_id):
     sensor = getSensorDtoById(sensor_id)
-    session.delete(sensor)
+    sensor.is_deleted = True
     session.commit()
 
     return {"Sensor " + sensor.sensor_name + " deleted"}
@@ -58,7 +58,14 @@ def addSensorPlantHealthAttributeDto(sensor_id, plant_health_attribute_id):
     new_relationship = Sensor_Plant_Health_Attribute(
         plant_health_attribute.id,
         sensor_data.id,
+        is_deleted=False,
     )
     session.add(new_relationship)
+
+    session.commit()
+
+def deleteSensorpostSensorPlantHealthAttributeRelationshipDto(sensor_plant_health_attributes_id):
+    sensor_plant_health_attribute=session.query(Sensor_Plant_Health_Attribute).get(sensor_plant_health_attributes_id)
+    sensor_plant_health_attribute.is_deleted = True
 
     session.commit()

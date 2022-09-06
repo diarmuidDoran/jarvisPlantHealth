@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
-from blueprints.data_provider.engine import Base
+from src.blueprints.data_provider.engine import Base
 
 plant_user_table = Table(
     "plant_user",
@@ -8,13 +8,17 @@ plant_user_table = Table(
     Column(
         "plant_id",
         Integer,
-        ForeignKey("plant.id",),
+        ForeignKey(
+            "plant.id",
+        ),
         primary_key=True,
     ),
     Column(
         "user_id",
         Integer,
-        ForeignKey("user_account.id",),
+        ForeignKey(
+            "user_account.id",
+        ),
         primary_key=True,
     ),
 )

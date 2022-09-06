@@ -82,12 +82,12 @@ export const useSensors = () => {
   }, []);
 
   const addSensorCallback = useCallback(
-    async (sensor_name: string, call_frequency: string) => {
+    async (sensor_name: string, call_frequency: string, connection_pin: number) => {
       setErrorMessage("");
       setInFlight();
 
       try {
-        const response = await addSensor({ sensor_name, call_frequency });
+        const response = await addSensor({ sensor_name, call_frequency, connection_pin });
 
         setSuccess();
 

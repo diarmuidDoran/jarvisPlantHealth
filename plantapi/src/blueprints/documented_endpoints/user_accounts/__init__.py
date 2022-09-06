@@ -1,15 +1,15 @@
-# blueprints/documented_endpoints/user_accounts/__init__.py
+# src.blueprints.documented_endpoints/user_accounts/__init__.py
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-from blueprints.services.user_account_service import *
-from blueprints.swagger_models.user_accounts import (
+from src.blueprints.services.user_account_service import *
+from src.blueprints.swagger_models.user_accounts import (
     namespaceUser,
     user_model,
     user_plant_list_model,
 )
-from blueprints.validations.user_account_validation import *
+from src.blueprints.validations.user_account_validation import *
 
 
 @namespaceUser.route("")

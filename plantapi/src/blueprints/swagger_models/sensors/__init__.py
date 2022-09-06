@@ -1,4 +1,4 @@
-# blueprints/swagger_models/sensors/__init__.py
+# src.blueprints.swagger_models/sensors/__init__.py
 from flask_restx import Namespace, fields
 
 namespaceSensor = Namespace("sensors", "sensor endpoints")
@@ -9,6 +9,7 @@ sensor_model = namespaceSensor.model(
         "id": fields.Integer(readonly=True, description="Sensor identifier"),
         "sensor_name": fields.String(required=True, description="Sensor name"),
         "call_frequency": fields.String(required=True, description="Room identifier"),
+        "connection_pin": fields.Integer(required=True, description="Sensor connection to RPi")
     },
 )
 
@@ -60,6 +61,7 @@ sensor_reading_list_model = namespaceSensor.model(
         "call_frequency": fields.String(
             required=True, description="Time interval between sensor calls"
         ),
+        "connection_pin": fields.Integer(required=True, description="Sensor connection to RPi"),
         "sensor_readings": fields.Nested(
             sensor_reading_model, description="List of sensor readings", as_list=True
         ),

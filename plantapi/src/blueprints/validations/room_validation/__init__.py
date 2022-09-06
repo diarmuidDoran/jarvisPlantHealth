@@ -1,4 +1,4 @@
-from blueprints.data_provider.room_data_provider import getRoomDtos
+from src.blueprints.data_provider.room_data_provider import getRoomDtos
 
 
 def room_is_valid(room_name):

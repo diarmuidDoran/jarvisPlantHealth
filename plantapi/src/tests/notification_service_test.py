@@ -4,12 +4,12 @@ from unittest import mock
 
 from flask_restx import marshal
 
-from blueprints.services.notification_service import *
-from blueprints.swagger_models.notifications import *
+from src.blueprints.services.notification_service import *
+from src.blueprints.swagger_models.notifications import *
 
 
 class NotificationServiceTest(unittest.TestCase):
-    @mock.patch("blueprints.services.notification_service.getNotificationDtos")
+    @mock.patch("src.blueprints.services.notification_service.getNotificationDtos")
     def test_notification_service_get_notifications_returns_empty_array(
         self, get_notification_dtos_mock
     ):
@@ -21,7 +21,7 @@ class NotificationServiceTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
         get_notification_dtos_mock.assert_called()
 
-    @mock.patch("blueprints.services.notification_service.getNotificationDtos")
+    @mock.patch("src.blueprints.services.notification_service.getNotificationDtos")
     def test_notification_service_get_notifications_returns_array(
         self, get_notification_dtos_mock
     ):
@@ -59,7 +59,7 @@ class NotificationServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_result)
         get_notification_dtos_mock.assert_called()
 
-    @mock.patch("blueprints.services.notification_service.addNotificationDto")
+    @mock.patch("src.blueprints.services.notification_service.addNotificationDto")
     def test_notification_service_post_notification(self, add_notification_dtos_mock):
         expected_result = {"string", "2022-07-29 10:24:04", 1}
         add_notification_dtos_mock.return_value = {
@@ -74,7 +74,7 @@ class NotificationServiceTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
         add_notification_dtos_mock.assert_called()
 
-    @mock.patch("blueprints.services.notification_service.getNotificationDtoById")
+    @mock.patch("src.blueprints.services.notification_service.getNotificationDtoById")
     def test_notification_service_get_notification_by_id_returns_notification(
         self, get_notification_dto_mock
     ):

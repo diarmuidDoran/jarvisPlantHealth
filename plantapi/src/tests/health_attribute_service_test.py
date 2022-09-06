@@ -4,13 +4,13 @@ from unittest import mock
 
 from flask_restx import marshal
 
-from blueprints.services.health_attribute_service import *
-from blueprints.swagger_models.health_attributes import *
+from src.blueprints.services.health_attribute_service import *
+from src.blueprints.swagger_models.health_attributes import *
 
 
 class HealthAttributeServiceTest(unittest.TestCase):
     @mock.patch(
-        "blueprints.services.health_attribute_service.get_health_attribute_dtos"
+        "src.blueprints.services.health_attribute_service.get_health_attribute_dtos"
     )
     def test_health_attribute_get_health_attribute_returns_empty_array(
         self, get_health_attributes_dtos_mock
@@ -24,7 +24,7 @@ class HealthAttributeServiceTest(unittest.TestCase):
         get_health_attributes_dtos_mock.assert_called()
 
     @mock.patch(
-        "blueprints.services.health_attribute_service.get_health_attribute_dtos"
+        "src.blueprints.services.health_attribute_service.get_health_attribute_dtos"
     )
     def test_room_service_get_rooms_returns_array(
         self, get_health_attributes_dtos_mock

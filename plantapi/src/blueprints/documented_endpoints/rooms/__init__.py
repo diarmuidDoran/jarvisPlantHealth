@@ -1,12 +1,20 @@
-# blueprints/documented_endpoints/rooms/__init__.py
+# src.blueprints.documented_endpoints/rooms/__init__.py
 import os
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
-from blueprints.services.room_service import *
-from blueprints.validations.room_validation import room_is_valid
-from blueprints.swagger_models.rooms import room_list_model, namespaceRoom, room_model
-
+from src.blueprints.services.room_service import *
+from src.blueprints.services.plant_service import *
+from src.blueprints.services.plant_health_attribute_service import *
+from src.blueprints.services.sensor_service import (
+    getSensorPlantHealthAttribute, deleteSensorpostSensorPlantHealthAttributeRelationship,
+)
+from src.blueprints.validations.room_validation import room_is_valid
+from src.blueprints.swagger_models.rooms import (
+    room_list_model,
+    namespaceRoom,
+    room_model,
+)
 
 room_example = {"id": 1, "name": "Room name"}
 
@@ -76,5 +84,36 @@ class room(Resource):
             namespaceRoom.abort(404, "Room not found")
         """Delete a specific room entity"""
         delete_room = delete_room_by_id(room_id)
+
+        room_plant_models = []
+        for roomPlantDto in getPlants():
+            if (roomPlantDto.room_id == room_id) and (roomPlantDto.is_deleted == False):
+                room_plant_models.append(
+                    make_plant(
+                        roomPlantDto.id,
+                        roomPlantDto.name,
+                        roomPlantDto.room_id,
+                        roomPlantDto.is_deleted,
+                    )
+                )
+        plant_health_attributes_list = getPlantHealthAttributes()
+        sensor_plant_health_attribute_relationships = getSensorPlantHealthAttribute()
+
+        for room_plant in room_plant_models:
+            deletePlantById(room_plant.id)
+            for plant_health_attribute in plant_health_attributes_list:
+                if (plant_health_attribute.plant_id == room_plant.id) and (
+                    plant_health_attribute.is_deleted == False
+                ):
+                    deletePlantHealthAttributeById(plant_health_attribute.id)
+                # if the plant health attributes is deleted, delete all associated sensor relationships
+                for (
+                    sensor_plant_health_attribute
+                ) in sensor_plant_health_attribute_relationships:
+                    if (
+                        sensor_plant_health_attribute.plant_health_attribute_id
+                        == plant_health_attribute.id
+                    ) and (sensor_plant_health_attribute.is_deleted == False):
+                        deleteSensorpostSensorPlantHealthAttributeRelationship(sensor_plant_health_attribute.id)
 
         return delete_room, 204

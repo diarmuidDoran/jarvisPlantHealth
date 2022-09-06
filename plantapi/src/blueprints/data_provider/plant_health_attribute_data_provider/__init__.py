@@ -1,7 +1,9 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from blueprints.data_provider.engine import engine
-from blueprints.data_provider.dtos.plant_health_attribute import Plant_Health_Attribute
+from src.blueprints.data_provider.engine import engine
+from src.blueprints.data_provider.dtos.plant_health_attribute import (
+    Plant_Health_Attribute,
+)
 
 session = Session(engine)
 

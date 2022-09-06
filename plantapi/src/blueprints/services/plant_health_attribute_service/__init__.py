@@ -1,5 +1,5 @@
-from blueprints.data_provider.plant_health_attribute_data_provider import *
-from blueprints.models.plant_health_attributes import *
+from src.blueprints.data_provider.plant_health_attribute_data_provider import *
+from src.blueprints.models.plant_health_attributes import *
 
 
 def getPlantHealthAttributes():
@@ -47,7 +47,8 @@ def getPlantHealthAttributeById(plant_health_attribute_id, plant_id):
         plantHealthAttributeDto.unit_measurement_id,
         plantHealthAttributeDto.plant_id,
         plantHealthAttributeDto.health_attribute_id,
-        plantHealthAttributeDto.sensor_b,
+        plantHealthAttributeDto.is_deleted,
+        plantHealthAttributeDto.sensor,
     )
 
 

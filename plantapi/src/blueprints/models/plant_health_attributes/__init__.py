@@ -18,7 +18,7 @@ class Plant_Health_Attribute(object):
         plant_id,
         health_attribute_id,
         is_deleted,
-        sensor,
+        sensor_b,
     ):
         self.id = id
         self.upper_required_value = upper_required_value
@@ -27,7 +27,7 @@ class Plant_Health_Attribute(object):
         self.plant_id = plant_id
         self.health_attribute_id = health_attribute_id
         self.is_deleted = is_deleted
-        self.sensor = sensor
+        self.sensor = sensor_b
 
 
 def make_plant_health_attribute(

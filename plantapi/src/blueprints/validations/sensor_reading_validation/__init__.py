@@ -1,4 +1,6 @@
-from blueprints.data_provider.sensor_reading_data_provider import getSensorReadingDtos
+from src.blueprints.data_provider.sensor_reading_data_provider import (
+    getSensorReadingDtos,
+)
 
 
 def sensor_reading_time_is_valid(time_stamp):

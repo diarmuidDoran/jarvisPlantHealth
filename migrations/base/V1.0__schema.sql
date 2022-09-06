@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS sensor
     id serial PRIMARY KEY,
     sensor_name VARCHAR(255) NOT NULL,
     call_frequency VARCHAR(255) NOT NULL,
+    connection_pin INT NOT NULL,
     is_deleted BOOL NOT NULL DEFAULT false
 );
 

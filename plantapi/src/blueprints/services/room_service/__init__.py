@@ -1,7 +1,7 @@
-from blueprints.data_provider.room_data_provider import *
-from blueprints.models.plants import make_plant
-from blueprints.models.rooms import *
-from blueprints.services.plant_service import getPlants
+from src.blueprints.data_provider.room_data_provider import *
+from src.blueprints.models.plants import make_plant
+from src.blueprints.models.rooms import *
+from src.blueprints.services.plant_service import getPlants
 
 
 def get_rooms():
@@ -23,12 +23,21 @@ def get_room_by_id(id):
     try:
         room_plant_models = []
         for roomPlantDto in getPlants():
-            if (roomPlantDto.room_id == room_dto.id) and (roomPlantDto.is_deleted == False):
+            if (roomPlantDto.room_id == room_dto.id) and (
+                roomPlantDto.is_deleted == False
+            ):
                 room_plant_models.append(
-                    make_plant(roomPlantDto.id, roomPlantDto.name, roomPlantDto.room_id, roomPlantDto.is_deleted)
+                    make_plant(
+                        roomPlantDto.id,
+                        roomPlantDto.name,
+                        roomPlantDto.room_id,
+                        roomPlantDto.is_deleted,
+                    )
                 )
         if room_dto.is_deleted == False:
-            return make_room_with_plant_list(room_dto.id, room_dto.name, room_dto.is_deleted, room_plant_models)
+            return make_room_with_plant_list(
+                room_dto.id, room_dto.name, room_dto.is_deleted, room_plant_models
+            )
     except AttributeError:
         return None
 

@@ -1,4 +1,4 @@
-# blueprints/swagger_models/user_accounts/__init__.py
+# src.blueprints.swagger_models/user_accounts/__init__.py
 from flask_restx import Namespace, fields
 
 namespaceNotify = Namespace("notifications", "notification endpoints")

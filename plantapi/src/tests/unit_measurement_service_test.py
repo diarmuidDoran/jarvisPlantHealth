@@ -1,11 +1,11 @@
 import unittest
 from unittest import mock
-from blueprints.services.unit_measurement_service import *
+from src.blueprints.services.unit_measurement_service import *
 
 
 class UnitMeasurementServiceTest(unittest.TestCase):
     @mock.patch(
-        "blueprints.services.unit_measurement_service.get_unit_measurement_dtos"
+        "src.blueprints.services.unit_measurement_service.get_unit_measurement_dtos"
     )
     def test_unit_measurement_service_get_unit_measurements_returns_empty_array(
         self, get_unit_measurement_dtos_mock

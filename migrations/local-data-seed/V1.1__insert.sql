@@ -40,10 +40,10 @@ VALUES
     (1,3),
     (1,4);
 
-INSERT INTO sensor (sensor_name, call_frequency)
+INSERT INTO sensor (sensor_name, call_frequency, connection_pin)
 VALUES
-    ('sensor1', '5 * * * *'),
-    ('sensor2', '* 1 * * *');
+    ('sensor1', '5 * * * *', 0),
+    ('sensor2', '* 1 * * *', 1);
 
 INSERT INTO sensor_reading (sensor_reading, time_stamp, sensor_id)
 VALUES

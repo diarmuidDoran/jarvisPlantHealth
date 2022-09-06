@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, Boolean, Table
 from sqlalchemy.orm import relationship
-from blueprints.data_provider.engine import Base
+from src.blueprints.data_provider.engine import Base
 
 # sensor_plant_health_attribute_table = Table(
 #     "sensor_plant_health_attribute",

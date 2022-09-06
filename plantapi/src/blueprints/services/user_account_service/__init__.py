@@ -1,5 +1,5 @@
-from blueprints.data_provider.user_account_data_provider import *
-from blueprints.models.user_accounts import *
+from src.blueprints.data_provider.user_account_data_provider import *
+from src.blueprints.models.user_accounts import *
 
 
 def get_user_accounts():
@@ -13,6 +13,7 @@ def get_user_accounts():
                 userAccountDto.last_name,
                 userAccountDto.email,
                 userAccountDto.password,
+                userAccountDto.is_deleted,
             )
         )
 
@@ -29,14 +30,16 @@ def post_user_account(user_name, first_name, last_name, email, password):
 def get_user_account_by_id(id):
     user_account_dto = get_user_account_dto_by_id(id)
     try:
-        return make_user_account(
-            user_account_dto.id,
-            user_account_dto.user_name,
-            user_account_dto.first_name,
-            user_account_dto.last_name,
-            user_account_dto.email,
-            user_account_dto.password,
-        )
+        if user_account_dto.is_deleted == False:
+            return make_user_account(
+                user_account_dto.id,
+                user_account_dto.user_name,
+                user_account_dto.first_name,
+                user_account_dto.last_name,
+                user_account_dto.email,
+                user_account_dto.password,
+                user_account_dto.is_deleted,
+            )
     except AttributeError:
         return None
 
@@ -45,7 +48,7 @@ def get_user_account_plants_by_id(id):
     user_account_dto = get_user_account_dto_by_id(id)
     try:
         return make_user_account_with_plant_list(
-            user_account_dto.id, user_account_dto.user_name, user_account_dto.plants_b
+            user_account_dto.id, user_account_dto.user_name, user_account_dto.is_deleted, user_account_dto.plants_b
         )
     except AttributeError:
         return None

@@ -1,9 +1,9 @@
-# blueprints/documented_endpoints/health_attributes/__init__.py
+# src.blueprints.documented_endpoints/health_attributes/__init__.py
 from http import HTTPStatus
 from flask_restx import Resource
 from markupsafe import escape
-from blueprints.services.unit_measurement_service import get_unit_measurements
-from blueprints.swagger_models.unit_measurements import (
+from src.blueprints.services.unit_measurement_service import get_unit_measurements
+from src.blueprints.swagger_models.unit_measurements import (
     namespaceUnitMeasurement,
     unit_measurement_model,
 )

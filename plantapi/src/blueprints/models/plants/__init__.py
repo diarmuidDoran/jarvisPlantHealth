@@ -1,4 +1,6 @@
-from blueprints.services.plant_health_attribute_service import getPlantHealthAttributes
+from src.blueprints.services.plant_health_attribute_service import (
+    getPlantHealthAttributes,
+)
 
 
 class Plant(object):

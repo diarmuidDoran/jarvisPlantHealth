@@ -1,4 +1,4 @@
-from blueprints.services.plant_service import getPlants
+from src.blueprints.services.plant_service import getPlants
 
 
 class Room(object):
@@ -13,7 +13,6 @@ class Room(object):
         self.is_deleted = is_deleted
 
 
-
 class Room_Plants(object):
     id = 0
     name = ""
@@ -26,7 +25,6 @@ class Room_Plants(object):
         self.name = name
         self.is_deleted = is_deleted
         self.plants = plants
-
 
 
 def make_room(id, name, is_deleted):
