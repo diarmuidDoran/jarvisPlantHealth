@@ -1,4 +1,4 @@
-from src.blueprints.data_provider.user_account_data_provider import (
+from blueprints.data_provider.user_account_data_provider import (
     get_user_account_dtos,
     get_user_account_dto_by_id,
 )

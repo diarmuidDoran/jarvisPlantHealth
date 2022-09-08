@@ -1,7 +1,7 @@
-from src.blueprints.data_provider.room_data_provider import *
-from src.blueprints.models.plants import make_plant
-from src.blueprints.models.rooms import *
-from src.blueprints.services.plant_service import getPlants
+from blueprints.data_provider.room_data_provider import *
+from blueprints.models.plants import make_plant
+from blueprints.models.rooms import *
+from blueprints.services.plant_service import getPlants
 
 
 def get_rooms():

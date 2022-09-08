@@ -1,22 +1,22 @@
-# src.blueprints.documented_endpoints/plants/__init__.py
+# blueprints.documented_endpoints/plants/__init__.py
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-from src.blueprints.services.plant_service import *
-from src.blueprints.services.plant_health_attribute_service import *
-from src.blueprints.services.sensor_service import (
+from blueprints.services.plant_service import *
+from blueprints.services.plant_health_attribute_service import *
+from blueprints.services.sensor_service import (
     getSensorPlantHealthAttribute,
 )
-from src.blueprints.validations.plant_health_attribute_validation import (
+from blueprints.validations.plant_health_attribute_validation import (
     plant_health_attribute_is_valid,
 )
-from src.blueprints.validations.plant_validation import (
+from blueprints.validations.plant_validation import (
     plant_is_valid,
     plant_id_is_valid,
     plant_new_name_is_valid,
 )
-from src.blueprints.swagger_models.plants import (
+from blueprints.swagger_models.plants import (
     namespacePlant,
     plant_plant_health_attribute_list_model,
     plant_model,
@@ -27,7 +27,7 @@ from src.blueprints.swagger_models.plants import (
     plant_health_attribute_request_model,
     plant_model_request,
 )
-from src.blueprints.validations.user_account_validation import user_id_is_valid
+from blueprints.validations.user_account_validation import user_id_is_valid
 
 
 @namespacePlant.route("")

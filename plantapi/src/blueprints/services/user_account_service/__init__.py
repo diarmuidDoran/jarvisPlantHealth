@@ -1,5 +1,5 @@
-from src.blueprints.data_provider.user_account_data_provider import *
-from src.blueprints.models.user_accounts import *
+from blueprints.data_provider.user_account_data_provider import *
+from blueprints.models.user_accounts import *
 
 
 def get_user_accounts():

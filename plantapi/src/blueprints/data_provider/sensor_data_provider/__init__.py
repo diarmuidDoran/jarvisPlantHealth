@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from src.blueprints.data_provider.engine import engine
-from src.blueprints.data_provider.dtos.sensor import Sensor
-from src.blueprints.data_provider.dtos.plant_health_attribute import (
+from blueprints.data_provider.engine import engine
+from blueprints.data_provider.dtos.sensor import Sensor
+from blueprints.data_provider.dtos.plant_health_attribute import (
     Plant_Health_Attribute,
     Sensor_Plant_Health_Attribute,
     # sensor_plant_health_attribute_table,

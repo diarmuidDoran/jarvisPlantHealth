@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from src.blueprints.data_provider.engine import engine
-from src.blueprints.data_provider.dtos.user_accounts import User_Account
+from blueprints.data_provider.engine import engine
+from blueprints.data_provider.dtos.user_accounts import User_Account
 from argon2 import PasswordHasher
 
 session = Session(engine)

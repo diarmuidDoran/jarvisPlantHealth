@@ -1,16 +1,16 @@
-# src.blueprints.documented_endpoints/rooms/__init__.py
+# blueprints.documented_endpoints/rooms/__init__.py
 import os
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
-from src.blueprints.services.room_service import *
-from src.blueprints.services.plant_service import *
-from src.blueprints.services.plant_health_attribute_service import *
-from src.blueprints.services.sensor_service import (
+from blueprints.services.room_service import *
+from blueprints.services.plant_service import *
+from blueprints.services.plant_health_attribute_service import *
+from blueprints.services.sensor_service import (
     getSensorPlantHealthAttribute, deleteSensorpostSensorPlantHealthAttributeRelationship,
 )
-from src.blueprints.validations.room_validation import room_is_valid
-from src.blueprints.swagger_models.rooms import (
+from blueprints.validations.room_validation import room_is_valid
+from blueprints.swagger_models.rooms import (
     room_list_model,
     namespaceRoom,
     room_model,

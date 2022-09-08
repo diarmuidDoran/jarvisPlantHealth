@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from src.blueprints.data_provider.engine import engine
-from src.blueprints.data_provider.dtos.plant import Plant
-from src.blueprints.data_provider.dtos.user_accounts import (
+from blueprints.data_provider.engine import engine
+from blueprints.data_provider.dtos.plant import Plant
+from blueprints.data_provider.dtos.user_accounts import (
     User_Account,
     plant_user_table,
 )

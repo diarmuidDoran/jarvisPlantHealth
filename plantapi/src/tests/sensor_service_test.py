@@ -4,13 +4,13 @@ from unittest import mock
 
 from flask_restx import marshal
 
-from src.blueprints.services.sensor_reading_service import postSensorReading
-from src.blueprints.services.sensor_service import *
-from src.blueprints.swagger_models.sensors import *
+from blueprints.services.sensor_reading_service import postSensorReading
+from blueprints.services.sensor_service import *
+from blueprints.swagger_models.sensors import *
 
 
 class SensorServiceTest(unittest.TestCase):
-    @mock.patch("src.blueprints.services.sensor_service.getSensorDtos")
+    @mock.patch("blueprints.services.sensor_service.getSensorDtos")
     def test_sensor_service_get_sensors_returns_empty_array(self, get_sensor_dtos_mock):
         expected_result = []
         get_sensor_dtos_mock.return_value = []
@@ -20,7 +20,7 @@ class SensorServiceTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
         get_sensor_dtos_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.sensor_service.getSensorDtos")
+    @mock.patch("blueprints.services.sensor_service.getSensorDtos")
     def test_sensor_service_get_sensors_returns_array(self, get_sensor_dtos_mock):
         expected_result = [
             {
@@ -53,7 +53,7 @@ class SensorServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_result)
         get_sensor_dtos_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.sensor_service.addSensorDto")
+    @mock.patch("blueprints.services.sensor_service.addSensorDto")
     def test_sensor_service_post_sensor(self, add_sensor_dtos_mock):
         expected_result = {"TestSensor", "5*****", 1}
         add_sensor_dtos_mock.return_value = {"TestSensor", "5*****", 1}
@@ -63,7 +63,7 @@ class SensorServiceTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
         add_sensor_dtos_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.sensor_service.getSensorDtoById")
+    @mock.patch("blueprints.services.sensor_service.getSensorDtoById")
     def test_sensor_service_get_sensor_by_id_returns_sensor(self, get_sensor_dto_mock):
         id = 1
         expected_result = {
@@ -87,7 +87,7 @@ class SensorServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_result)
         get_sensor_dto_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.sensor_reading_service.addSensorReadingDto")
+    @mock.patch("blueprints.services.sensor_reading_service.addSensorReadingDto")
     def test_sensor_reading_service_post_sensor_sensor_reading(
         self, add_sensor_reading_dtos_mock
     ):

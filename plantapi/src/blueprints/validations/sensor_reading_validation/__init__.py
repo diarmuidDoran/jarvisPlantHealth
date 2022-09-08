@@ -1,4 +1,4 @@
-from src.blueprints.data_provider.sensor_reading_data_provider import (
+from blueprints.data_provider.sensor_reading_data_provider import (
     getSensorReadingDtos,
 )
 

@@ -6,8 +6,8 @@ from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
 # from flask_migrate import Migrate
-from src.blueprints.config import postgresConn
-from src.blueprints.documented_endpoints import blueprint as documented_endpoint
+from blueprints.config import postgresConn
+from blueprints.documented_endpoints import blueprint as documented_endpoint
 
 app = Flask(__name__)
 CORS(app)

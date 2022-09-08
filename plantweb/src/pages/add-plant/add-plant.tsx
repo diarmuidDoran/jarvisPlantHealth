@@ -280,9 +280,14 @@ export const AddPlant = memo(() => {
         spacing={1}
         direction="row"
         justifyContent="flex-end"
+        alignItems="center"
       >
         <Grid xs={2}>
-          <Stack spacing={2} direction="row"  style={{ width: "75%", marginBottom: 20 }} >
+          <Stack
+            spacing={2}
+            direction="row"
+            style={{ width: "75%", marginBottom: 20, marginTop: 20 }}
+          >
             <Button variant="outlined" onClick={onSubmit}>
               Add Plant
             </Button>

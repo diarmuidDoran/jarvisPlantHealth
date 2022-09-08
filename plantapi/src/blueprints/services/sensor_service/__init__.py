@@ -1,5 +1,5 @@
-from src.blueprints.data_provider.sensor_data_provider import *
-from src.blueprints.models.sensors import *
+from blueprints.data_provider.sensor_data_provider import *
+from blueprints.models.sensors import *
 
 
 def getSensors():

@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import relationship
-from src.blueprints.data_provider.engine import Base
+from blueprints.data_provider.engine import Base
 
 
 class Room(Base):

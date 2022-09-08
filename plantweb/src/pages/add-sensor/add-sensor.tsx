@@ -4,8 +4,10 @@ import {
   Button,
   TextField,
   Stack,
+  Grid,
 } from "@mui/material";
 import { useAddSensorLogic } from "./use-add-sensor-logic";
+import { useAppStyles } from "use-app-styles";
 //import { useSensorsLogic } from "pages/sensors/use-sensors-logic";
 
 export const AddSensor = memo(() => {
@@ -27,69 +29,78 @@ export const AddSensor = memo(() => {
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // []);
 
+  const { classes } = useAppStyles();
+
   return (
-    <div>
-      <div>Add sensor</div>
-      <div>
+    <Grid
+    container
+    direction="row"
+    justifyContent="center"
+    alignItems="center"
+    xs={12}
+  >   
+      <Grid xs={12}>
+      <h3 className={classes.page_title}>Add sensor</h3>
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        xs={12}
+      >
+      <Grid xs={12}>
         <p>
           Complete the below fields to add your new sensor, avoid using existing
           room names.
         </p>
-      </div>
-      <div>
+      </Grid>
+      <Grid xs={12}>
         <TextField
           id="sensor-name"
           label="Sensor Name"
           variant="outlined"
           value={sensorName}
           onChange = {handleSensorNameChange}
+          style={{ width: "75%", marginBottom: 10 }}
         />
-      </div>
-      <div>
+      </Grid>
+      <Grid xs={12}>
         <TextField
           id="sensor-call-frequency"
           label="Sensor Call Frequency"
           variant="outlined"
           value={sensorCallFrequency}
           onChange = {handleSensorCallFrequencyChange}
+          style={{ width: "75%", marginBottom: 10 }}
         />
-      </div>
-      <div>
+      </Grid>
+      <Grid xs={12}>
         <TextField
           id="sensor-connection-pin"
-          label="Sensor Connection Pin"
+          label="Sensor Connection Pin (0-47)"
           variant="outlined"
-          inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+          inputProps={{ inputMode: "numeric", pattern: "[0-9]*", min:0, max:47 }}
           type="number"
           value={sensorConnectionPin}
           onChange = {handleSensorConnectionPinChange}
+          style={{ width: "75%", marginBottom: 10 }}
         />
-      </div>
-      {/* <div>
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Sensor</InputLabel>
-            <Select
-              labelId="sensor-call-frequency-id"
-              id="sensor-call-frequency"
-              value={sensorCallFrequency}
-              label="Sensor Call Frequency"
-              onChange={handleSensorCallFrequencyChange}
-            >
-              {sensors.map((sensor: any) => (
-                <MenuItem key={sensor.id} value={sensor.call_frequency}>
-                  {sensor.sensor_name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-      </div> */}
-      <div>
-        <Stack spacing={2} direction="row">
+      </Grid>
+      </Grid>
+      <Grid
+        container
+        xs={12}
+        spacing={1}
+        direction="row"
+        justifyContent="flex-end"
+      >
+      <Grid xs={2}>
+        <Stack spacing={2} direction="row" style={{ width: "75%", marginBottom: 20, marginTop:20} }>
           <Button variant="outlined" onClick={onSubmit}>Add Sensor</Button>
         </Stack>
-      </div>
-    </div>
+      </Grid>
+      </Grid>
+    </Grid>
   );
 });

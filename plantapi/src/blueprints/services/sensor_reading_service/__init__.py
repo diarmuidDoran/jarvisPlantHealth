@@ -1,5 +1,5 @@
-from src.blueprints.data_provider.sensor_reading_data_provider import *
-from src.blueprints.models.sensor_readings import *
+from blueprints.data_provider.sensor_reading_data_provider import *
+from blueprints.models.sensor_readings import *
 
 
 def getSensorReadings():

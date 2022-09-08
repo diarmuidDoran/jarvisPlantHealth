@@ -1,4 +1,4 @@
-# src.blueprints.swagger_models/sensors/__init__.py
+# blueprints.swagger_models/sensors/__init__.py
 from flask_restx import Namespace, fields
 
 namespaceSensor = Namespace("sensors", "sensor endpoints")

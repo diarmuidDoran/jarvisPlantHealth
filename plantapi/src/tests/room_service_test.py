@@ -4,12 +4,12 @@ from unittest import mock
 
 from flask_restx import marshal
 
-from src.blueprints.services.room_service import *
-from src.blueprints.swagger_models.rooms import room_model, room_list_model
+from blueprints.services.room_service import *
+from blueprints.swagger_models.rooms import room_model, room_list_model
 
 
 class RoomServiceTest(unittest.TestCase):
-    @mock.patch("src.blueprints.services.room_service.getRoomDtos")
+    @mock.patch("blueprints.services.room_service.getRoomDtos")
     def test_room_service_get_rooms_returns_empty_array(self, get_room_dtos_mock):
         expected_result = []
         get_room_dtos_mock.return_value = []
@@ -19,7 +19,7 @@ class RoomServiceTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
         get_room_dtos_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.room_service.getRoomDtos")
+    @mock.patch("blueprints.services.room_service.getRoomDtos")
     def test_room_service_get_rooms_returns_array(self, get_room_dtos_mock):
         expected_result = [{"id": 1, "name": "test1"}, {"id": 2, "name": "test2"}]
 
@@ -35,7 +35,7 @@ class RoomServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_result)
         get_room_dtos_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.room_service.addRoomDto")
+    @mock.patch("blueprints.services.room_service.addRoomDto")
     def test_room_service_post_rooms(self, add_room_dtos_mock):
         expected_result = {"test"}
         add_room_dtos_mock.return_value = {"test"}
@@ -78,8 +78,8 @@ class RoomServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_result)
         get_room_dto_by_id_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.room_service.getRoomDtoById")
-    @mock.patch("src.blueprints.services.room_service.getPlants")
+    @mock.patch("blueprints.services.room_service.getRoomDtoById")
+    @mock.patch("blueprints.services.room_service.getPlants")
     def test_room_service_get_room_by_id_returns_room(
         self, get_plant_dtos_mock, get_room_dto_by_id_mock
     ):
@@ -105,8 +105,8 @@ class RoomServiceTest(unittest.TestCase):
             get_room_dto_by_id_mock,
         )
 
-    @mock.patch("src.blueprints.services.room_service.getRoomDtoById")
-    @mock.patch("src.blueprints.services.room_service.getPlants")
+    @mock.patch("blueprints.services.room_service.getRoomDtoById")
+    @mock.patch("blueprints.services.room_service.getPlants")
     def test_room_service_get_room_by_id_returns_room_with_many_plants(
         self, get_plant_dtos_mock, get_room_dto_by_id_mock
     ):
@@ -140,8 +140,8 @@ class RoomServiceTest(unittest.TestCase):
             get_room_dto_by_id_mock,
         )
 
-    @mock.patch("src.blueprints.services.room_service.getRoomDtoById")
-    @mock.patch("src.blueprints.services.room_service.getPlants")
+    @mock.patch("blueprints.services.room_service.getRoomDtoById")
+    @mock.patch("blueprints.services.room_service.getPlants")
     def test_room_service_get_room_by_id_returns_room_with_no_plants(
         self, get_plant_dtos_mock, get_room_dto_by_id_mock
     ):
@@ -164,7 +164,7 @@ class RoomServiceTest(unittest.TestCase):
             get_room_dto_by_id_mock,
         )
 
-    @mock.patch("src.blueprints.services.room_service.updateRoomDtoById")
+    @mock.patch("blueprints.services.room_service.updateRoomDtoById")
     def test_room_service_update_room_by_id(self, update_room_by_id_mock):
         expected_result = {"test1"}
         update_room_by_id_mock.return_value = {"test1"}

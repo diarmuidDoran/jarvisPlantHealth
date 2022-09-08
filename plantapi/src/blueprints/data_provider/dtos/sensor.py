@@ -1,8 +1,8 @@
 from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import relationship
-from src.blueprints.data_provider.engine import Base
+from blueprints.data_provider.engine import Base
 
-# from src.blueprints.data_provider.dtos.plant_health_attribute import (
+# from blueprints.data_provider.dtos.plant_health_attribute import (
 #     sensor_plant_health_attribute_table,
 # )
 

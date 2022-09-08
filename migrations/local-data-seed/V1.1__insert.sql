@@ -25,8 +25,8 @@ INSERT INTO unit_measurement (unit)
 VALUES
     ('%'),
     ('°C'),
-    ('g.kg-1');
-
+    ('g.kg-1'),
+    ('lux');
 
 INSERT INTO user_account (user_name, first_name, last_name, email, password)
 VALUES

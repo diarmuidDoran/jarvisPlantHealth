@@ -1,12 +1,12 @@
-# src.blueprints.documented_endpoints/sensors/__init__.py
+# blueprints.documented_endpoints/sensors/__init__.py
 from http import HTTPStatus
 from flask import request
 from flask_restx import Resource
 
-# from src.blueprints.swagger_models.sensor_readings import namespaceSensorReading
-from src.blueprints.services.sensor_reading_service import postSensorReading
-from src.blueprints.services.sensor_service import *
-from src.blueprints.swagger_models.sensors import (
+# from blueprints.swagger_models.sensor_readings import namespaceSensorReading
+from blueprints.services.sensor_reading_service import postSensorReading
+from blueprints.services.sensor_service import *
+from blueprints.swagger_models.sensors import (
     namespaceSensor,
     sensor_model,
     sensor_reading_list_model,
@@ -14,13 +14,13 @@ from src.blueprints.swagger_models.sensors import (
     sensor_reading_model_response,
     sensor_plant_health_attributes_model,
 )
-from src.blueprints.validations.plant_health_attribute_validation import (
+from blueprints.validations.plant_health_attribute_validation import (
     plant_health_attribute_id_is_valid,
 )
-from src.blueprints.validations.sensor_reading_validation import (
+from blueprints.validations.sensor_reading_validation import (
     sensor_reading_time_is_valid,
 )
-from src.blueprints.validations.sensor_validation import (
+from blueprints.validations.sensor_validation import (
     sensor_is_valid,
     sensor_id_is_valid,
     sensor_plant_health_attribute_is_valid,

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, DECIMAL, Integer, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from src.blueprints.data_provider.engine import Base
+from blueprints.data_provider.engine import Base
 from datetime import datetime
 
 

@@ -1,7 +1,7 @@
-# src.blueprints.swagger_models/rooms/__init__.py
+# blueprints.swagger_models/rooms/__init__.py
 from flask_restx import Namespace, fields
 
-from src.blueprints.swagger_models.plants import plant_model
+from blueprints.swagger_models.plants import plant_model
 
 namespaceRoom = Namespace("rooms", "room endpoints")
 

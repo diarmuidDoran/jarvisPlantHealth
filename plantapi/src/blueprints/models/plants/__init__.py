@@ -1,4 +1,4 @@
-from src.blueprints.services.plant_health_attribute_service import (
+from blueprints.services.plant_health_attribute_service import (
     getPlantHealthAttributes,
 )
 

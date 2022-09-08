@@ -1,4 +1,4 @@
-from src.blueprints.data_provider.plant_health_attribute_data_provider import (
+from blueprints.data_provider.plant_health_attribute_data_provider import (
     getPlantHelathAttributeDtos,
     getPlantHealthAttributeDtoById,
 )

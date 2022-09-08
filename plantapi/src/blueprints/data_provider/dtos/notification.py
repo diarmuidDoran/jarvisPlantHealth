@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from src.blueprints.data_provider.engine import Base
+from blueprints.data_provider.engine import Base
 
 
 class Notification(Base):

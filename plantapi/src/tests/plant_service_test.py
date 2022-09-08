@@ -3,16 +3,16 @@ import unittest
 from unittest import mock
 from flask_restx import marshal
 
-from src.blueprints.services.plant_health_attribute_service import *
-from src.blueprints.services.plant_service import *
-from src.blueprints.swagger_models.plants import (
+from blueprints.services.plant_health_attribute_service import *
+from blueprints.services.plant_service import *
+from blueprints.swagger_models.plants import (
     plant_model,
     plant_health_attribute_sensor_model,
 )
 
 
 class PlantServiceTest(unittest.TestCase):
-    @mock.patch("src.blueprints.services.plant_service.getPlantDtos")
+    @mock.patch("blueprints.services.plant_service.getPlantDtos")
     def test_plant_service_get_plants_returns_empty_array(self, get_plant_dtos_mock):
         expected_result = []
         get_plant_dtos_mock.return_value = []
@@ -22,7 +22,7 @@ class PlantServiceTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
         get_plant_dtos_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.plant_service.getPlantDtos")
+    @mock.patch("blueprints.services.plant_service.getPlantDtos")
     def test_plant_service_get_plants_returns_array(self, get_plant_dtos_mock):
         expected_result = [
             {"id": 1, "name": "TPlant1", "room_id": 1,},
@@ -48,7 +48,7 @@ class PlantServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_result)
         get_plant_dtos_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.plant_service.addPlantDto")
+    @mock.patch("blueprints.services.plant_service.addPlantDto")
     def test_plant_service_post_plant(self, add_plant_dtos_mock):
         expected_result = {"test1", 1, False}
         add_plant_dtos_mock.return_value = {"test1", 1, False}
@@ -58,7 +58,7 @@ class PlantServiceTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
         add_plant_dtos_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.plant_service.getPlantDtoById")
+    @mock.patch("blueprints.services.plant_service.getPlantDtoById")
     def test_plant_service_get_plant_by_id_returns_plant(self, get_plant_dto_mock):
         id = 1
         expected_plant_result = {"id": 1, "name": "test1", "room_id": 1,}
@@ -76,7 +76,7 @@ class PlantServiceTest(unittest.TestCase):
         self.assertEqual(new_result, expected_plant_result)
         get_plant_dto_mock.assert_called()
 
-    @mock.patch("src.blueprints.services.plant_service.updatePlantDtoById")
+    @mock.patch("blueprints.services.plant_service.updatePlantDtoById")
     def test_plant_service_update_plant_by_id(self, update_plant_by_id_mock):
         id = 1
         expected_result = {
@@ -92,7 +92,7 @@ class PlantServiceTest(unittest.TestCase):
         update_plant_by_id_mock.assert_called()
 
     @mock.patch(
-        "src.blueprints.services.plant_health_attribute_service.addPlantHealthAttributeDto"
+        "blueprints.services.plant_health_attribute_service.addPlantHealthAttributeDto"
     )
     def test_plant_health_attribute_service_post_plant_health_attribute(
         self, add_plant_health_attribute_dtos_mock
@@ -106,7 +106,7 @@ class PlantServiceTest(unittest.TestCase):
         add_plant_health_attribute_dtos_mock.assert_called()
 
     @mock.patch(
-        "src.blueprints.services.plant_health_attribute_service.getPlantHealthAttributeDtoById"
+        "blueprints.services.plant_health_attribute_service.getPlantHealthAttributeDtoById"
     )
     def test_plant_health_attribute_service_get_plant_health_attribute_by_id_returns_plant_health_attribute(
         self, get_plant_health_attribute_dto_mock
@@ -143,7 +143,7 @@ class PlantServiceTest(unittest.TestCase):
         get_plant_health_attribute_dto_mock.assert_called()
 
     @mock.patch(
-        "src.blueprints.services.plant_health_attribute_service.updatePlantHealthAttributeDtoById"
+        "blueprints.services.plant_health_attribute_service.updatePlantHealthAttributeDtoById"
     )
     def test_plant_health_attribute_service_update_plant_health_attribute_by_id(
         self, update_plant_health_attribute_by_id_mock

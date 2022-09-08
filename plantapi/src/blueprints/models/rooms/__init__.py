@@ -1,4 +1,4 @@
-from src.blueprints.services.plant_service import getPlants
+from blueprints.services.plant_service import getPlants
 
 
 class Room(object):
