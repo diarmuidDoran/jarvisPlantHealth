@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, PureComponent, useEffect } from "react";
 import {
   Box,
   Button,
@@ -20,6 +20,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import { SensorReading } from "pages/edit-plant/edit-plant-types";
 import { addPlantPlantHealthAttribute } from "api/plant-api/plant-api";
 import { useAppStyles } from "use-app-styles";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 export type PlantByIDProps = {
   id: string;
 };
@@ -100,6 +110,37 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
     unit?: string
   ): Data {
     return { sensorReading, unit, date, time, limitRanges };
+  }
+
+  function createGraphs(readings: SensorReading[]){
+    const thing = readings?.map((reading, index) => {
+      return createData(
+        reading.sensorReading,
+        `${reading.timeStamp.getDay()}/${reading.timeStamp.getMonth()}/${reading.timeStamp.getFullYear()}`,
+        `${reading.timeStamp.getHours()}:${
+          (reading.timeStamp.getMinutes() < 10 ? "0" : "") +
+          reading.timeStamp.getMinutes()
+        }`,
+        `${
+          plantHealthAttributesArray.find(
+            (plant_health_attribute) =>
+              plant_health_attribute.sensor?.id === reading.sensorId
+          )?.upper_required_value
+        } - ${
+          plantHealthAttributesArray.find(
+            (plant_health_attribute) =>
+              plant_health_attribute.sensor?.id === reading.sensorId
+          )?.lower_required_value
+        }`,
+        units.find(
+          (unit) =>
+            plantHealthAttributesArray.find(
+              (plant_health_attribute) =>
+                plant_health_attribute.sensor?.id === reading.sensorId
+            )?.unit_measurement_id === unit.id
+        )?.unit
+      );
+    });
   }
 
   function createRows(readings: SensorReading[]) {
@@ -278,153 +319,173 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
               Connected Sensors used to monitor plant health attributes{" "}
             </Grid>
           </Grid>
-          
-            {plantHealthAttributesArray.length > 0 ? (
-              <>
-                {plantHealthAttributesArray.map(
-                  (plantHealthAttributeElement, index) => (
-                    <>
-                      <Grid
-                        container
-                        xs={12}
-                        wrap="nowrap"
-                        spacing={1}
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                        marginBottom={2}
-                      >
-                        <Grid item xs={12} key={index}>
-                          <Button
-                            id="Sesnsor Name"
-                            variant="text"
-                            onClick={() =>
-                              onPlantSensorClick(
-                                String(plantHealthAttributeElement.sensor?.id)
-                              )
+
+          {plantHealthAttributesArray.length > 0 ? (
+            <>
+              {plantHealthAttributesArray.map(
+                (plantHealthAttributeElement, index) => (
+                  <>
+                    <Grid
+                      container
+                      xs={12}
+                      wrap="nowrap"
+                      spacing={1}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      marginBottom={2}
+                    >
+                      <Grid item xs={12} key={index}>
+                        <Button
+                          id="Sesnsor Name"
+                          variant="text"
+                          onClick={() =>
+                            onPlantSensorClick(
+                              String(plantHealthAttributeElement.sensor?.id)
+                            )
+                          }
+                        >
+                          <Grid item xs={12}>
+                            {plantHealthAttributeElement.sensor?.sensor_name} -{" "}
+                            {
+                              health_attributes.find(
+                                (health_attribute) =>
+                                  health_attribute.id ===
+                                  plantHealthAttributeElement.health_attribute_id
+                              )?.name
                             }
-                          >
-                            <Grid item xs={12}>
-                              {plantHealthAttributeElement.sensor?.sensor_name}{" "}
-                              -{" "}
-                              {
-                                health_attributes.find(
-                                  (health_attribute) =>
-                                    health_attribute.id ===
-                                    plantHealthAttributeElement.health_attribute_id
-                                )?.name
-                              }
-                            </Grid>
-                          </Button>
-                        </Grid>
+                          </Grid>
+                        </Button>
                       </Grid>
-                      {/* Table */}
-                      {sensorReadings &&
-                        plantHealthAttributeElement.sensor?.id &&
-                        sensorReadings[
-                          plantHealthAttributeElement.sensor?.id
-                        ] &&
-                        sensorReadings[plantHealthAttributeElement.sensor?.id]
-                          .length > 0 && (
-                          <Paper
-                            sx={{
-                              width: "80%",
-                              overflow: "hidden",
-                              margin: "auto",
-                              marginBottom: 3,
-                            }}
-                          >
-                            <TableContainer sx={{ maxHeight: 440 }}>
-                              <Table stickyHeader aria-label="sticky table">
-                                <TableHead>
-                                  <TableRow>
-                                    {columns.map((column) => (
-                                      <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}
-                                      >
-                                        {column.label}
-                                      </TableCell>
-                                    ))}
-                                  </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  {createRows(
-                                    sensorReadings[
-                                      plantHealthAttributeElement.sensor?.id
-                                    ]
+                    </Grid>
+                    {/* Table */}
+                    {sensorReadings &&
+                      plantHealthAttributeElement.sensor?.id &&
+                      sensorReadings[plantHealthAttributeElement.sensor?.id] &&
+                      sensorReadings[plantHealthAttributeElement.sensor?.id]
+                        .length > 0 && (
+                        <Paper
+                          sx={{
+                            width: "80%",
+                            overflow: "hidden",
+                            margin: "auto",
+                            marginBottom: 3,
+                          }}
+                        >
+                          <TableContainer sx={{ maxHeight: 440 }}>
+                            <Table stickyHeader aria-label="sticky table">
+                              <TableHead>
+                                <TableRow>
+                                  {columns.map((column) => (
+                                    <TableCell
+                                      key={column.id}
+                                      align={column.align}
+                                      style={{ minWidth: column.minWidth }}
+                                    >
+                                      {column.label}
+                                    </TableCell>
+                                  ))}
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                {createRows(
+                                  sensorReadings[
+                                    plantHealthAttributeElement.sensor?.id
+                                  ]
+                                )
+                                  .slice(
+                                    page * rowsPerPage,
+                                    page * rowsPerPage + rowsPerPage
                                   )
-                                    .slice(
-                                      page * rowsPerPage,
-                                      page * rowsPerPage + rowsPerPage
-                                    )
-                                    .map((row: any, index: number) => {
-                                      return (
-                                        <TableRow
-                                          hover
-                                          role="checkbox"
-                                          tabIndex={-1}
-                                          key={index}
-                                        >
-                                          {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                              <TableCell
-                                                key={column.id}
-                                                align={column.align}
-                                              >
-                                                {column.format &&
-                                                typeof value === "number"
-                                                  ? column.format(value)
-                                                  : value}
-                                              </TableCell>
-                                            );
-                                          })}
-                                        </TableRow>
-                                      );
-                                    })}
-                                </TableBody>
-                              </Table>
-                            </TableContainer>
-                            <TablePagination
-                              rowsPerPageOptions={[5, 10, 25]}
-                              component="div"
-                              count={
-                                sensorReadings[
-                                  plantHealthAttributeElement.sensor?.id
-                                ].length
-                              }
-                              rowsPerPage={rowsPerPage}
-                              page={page}
-                              onPageChange={handleChangePage}
-                              onRowsPerPageChange={handleChangeRowsPerPage}
-                            />
-                          </Paper>
-                        )}
-                    </>
-                  )
-                )}
-              </>
-            ) : (
-              <Grid
-                        container
-                        xs={12}
-                        wrap="nowrap"
-                        spacing={1}
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                        marginBottom={2}
-                      >
+                                  .map((row: any, index: number) => {
+                                    return (
+                                      <TableRow
+                                        hover
+                                        role="checkbox"
+                                        tabIndex={-1}
+                                        key={index}
+                                      >
+                                        {columns.map((column) => {
+                                          const value = row[column.id];
+                                          return (
+                                            <TableCell
+                                              key={column.id}
+                                              align={column.align}
+                                            >
+                                              {column.format &&
+                                              typeof value === "number"
+                                                ? column.format(value)
+                                                : value}
+                                            </TableCell>
+                                          );
+                                        })}
+                                      </TableRow>
+                                    );
+                                  })}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                          <TablePagination
+                            rowsPerPageOptions={[5, 10, 25]}
+                            component="div"
+                            count={
+                              sensorReadings[
+                                plantHealthAttributeElement.sensor?.id
+                              ].length
+                            }
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                          />
+                          <ResponsiveContainer width="100%" height={400}>
+                            <LineChart
+                              data={sensorReadings[
+                                plantHealthAttributeElement.sensor?.id
+                              ]}
+                              margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                              }}
+                            >
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="timeStamp" />
+                              <YAxis />
+                              <Tooltip />
+                              <Legend />
+                              <Line
+                                type="monotone"
+                                dataKey="sensorReading"
+                                stroke="#82ca9d"
+                              />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </Paper>
+                      )}
+                  </>
+                )
+              )}
+            </>
+          ) : (
+            <Grid
+              container
+              xs={12}
+              wrap="nowrap"
+              spacing={1}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              marginBottom={2}
+            >
               <Grid item xs>
                 {" "}
                 No sensors currently monitoring any of your plants health
                 attributes
               </Grid>
-              </Grid>
-            )}
-          
+            </Grid>
+          )}
         </>
       )}
     </Grid>

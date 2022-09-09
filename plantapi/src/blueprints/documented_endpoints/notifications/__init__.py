@@ -14,14 +14,6 @@ from blueprints.swagger_models.notifications import (
 )
 from blueprints.validations.notification_validation import notification_is_valid
 
-notification_example = {
-    "id": 1,
-    "notification_details": "Notification details",
-    "timestamp": ("08/07/22 09:00", "%d/%m/%y %H:%M"),
-    "user_account_id": 1,
-    "plant_health_attribute_id": 1,
-}
-
 
 @namespaceNotify.route("")
 class notifications(Resource):
