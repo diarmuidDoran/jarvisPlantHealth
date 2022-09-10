@@ -264,7 +264,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
                 <Grid xs={12}>
                   <Fab
                     size="small"
-                    color="secondary"
+                    color="primary"
                     aria-label="edit"
                     onClick={() => {
                       onDeletePlantHealthAttributeClick(
@@ -290,7 +290,7 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
         <Grid xs={2} style={{ marginBottom: 20 }}>
           <Fab
             size="small"
-            color="secondary"
+            color="primary"
             aria-label="add"
             onClick={onAddPlantHealthAttibute}
           >

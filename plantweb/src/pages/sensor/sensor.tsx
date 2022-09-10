@@ -160,7 +160,7 @@ export const SensorByID = memo(({ id }: SensorByIDProps) => {
               <Grid item xs={2}>
                 <Fab
                   size="small"
-                  color="secondary"
+                  color="primary"
                   aria-label={popOverID}
                   onClick={handleDeletePopperClick}
                 >

@@ -254,7 +254,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
               <Grid xs={3} sm={2} md={1}>
                 <Fab
                   size="small"
-                  color="secondary"
+                  color="primary"
                   aria-label="edit"
                   onClick={() => onEditPlantClick(String(plant.id))}
                 >
@@ -264,7 +264,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
               <Grid xs={3} sm={2} md={1}>
                 <Fab
                   size="small"
-                  color="secondary"
+                  color="primary"
                   aria-label={popOverID}
                   onClick={handleDeletePopperClick}
                 >

@@ -84,11 +84,12 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
               direction="row"
               justifyContent="flex-start"
               alignItems="center"
+              style={{marginTop: 20, marginBottom:20}}
             >
               <Grid xs={3} sm={2} md={1}>
                 <Fab
                   size="small"
-                  color="secondary"
+                  color="primary"
                   aria-label="edit"
                   onClick={() => onEditRoomClick(String(room.id))}
                 >
@@ -98,7 +99,7 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
               <Grid xs={3} sm={2} md={1}>
                 <Fab
                   size="small"
-                  color="secondary"
+                  color="primary"
                   aria-label={popOverID}
                   onClick={handleDeletePopperClick}
                 >
@@ -121,12 +122,20 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
               </Grid>
             </Grid>
           </Grid>
-          <div>
-            <div>Plants Located in {room.name}</div>
-            <div>
+          <Grid
+              container
+              xs={12}
+              rowSpacing={1}
+              row-gap= {100}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+            <Grid xs={12}>Plants Located in {room.name}</Grid>
+            <Grid xs={12}>
               {room.plants.length > 0 ? (
                 <>
-                  <div>
+                  <Grid xs={12}>
                     <List component="nav" aria-label="plant_folders">
                       {room.plants.map((plant: any, index: number) => {
                         return (
@@ -141,11 +150,11 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
                         );
                       })}
                     </List>
-                  </div>
+                  </Grid>
                 </>
               ) : (
                 <>
-                  <div>
+                  <Grid xs={12}>
                     <Link
                       component="button"
                       variant="body2"
@@ -154,11 +163,11 @@ export const RoomByID = memo(({ id }: RoomByIDProps) => {
                       No Plants currently assigned to this room, Click to return
                       to Rooms
                     </Link>
-                  </div>
+                  </Grid>
                 </>
               )}
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </>
       )}
     </Grid>
