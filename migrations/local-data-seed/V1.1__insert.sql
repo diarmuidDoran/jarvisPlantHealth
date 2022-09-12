@@ -42,8 +42,11 @@ VALUES
 
 INSERT INTO sensor (sensor_name, call_frequency, connection_pin)
 VALUES
-    ('sensor1', '5 * * * *', 0),
-    ('sensor2', '* 1 * * *', 1);
+    ('sensor1', '*/5 * * * *', 0),
+    ('sensor2', '* 1 * * *', 1),
+    ('sensor3', '*/30 * * * *', 6),
+    ('sensor4', '*/30 * * * *', 18);
+
 
 INSERT INTO sensor_reading (sensor_reading, time_stamp, sensor_id)
 VALUES
@@ -54,8 +57,12 @@ VALUES
 
 INSERT INTO plant_health_attribute (upper_required_value, lower_required_value, unit_measurement_id, plant_id, health_attribute_id)
 VALUES
-    (10.00, 5.00, 1, 1, 1),
-    (14.00, 2.00, 2, 1, 2);
+    (75.00, 30.00, 1, 1, 1),
+    (20.00, 2.00, 2, 1, 2),
+    (40.00, 10.00, 2, 1, 3),
+    (80.00, 30.00, 3, 1, 4),
+    (2400.00, 0.00, 4, 1, 5);
+
 
 INSERT INTO notification (notification_details, time_stamp, plant_health_attribute_id)
 VALUES 
