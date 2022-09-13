@@ -1,6 +1,6 @@
 from asyncio import streams
 from pickletools import int4
-from jarvis_plant_health_system.src.notifications import send_email
+from notifications import send_email
 from water_plant import water
 from air_temp_humidity import dht_22
 from TSL2591X_light_sensor import light_sensor

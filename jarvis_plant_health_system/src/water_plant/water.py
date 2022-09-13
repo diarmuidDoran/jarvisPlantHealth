@@ -6,7 +6,7 @@ import datetime  # used to log the sensor_readings
 from time import sleep
 import water_plant.soil_moisture_analog_to_digital as moisture_sensor
 import requests
-from jarvis_plant_health_system.src.notifications import send_email
+from notifications import send_email
 
 GPIO.setmode(GPIO.BCM)  # Broadcom pin-numbering scheme
 pump_pin = 4  # update number based on connection pin GPIO number (on Raspberry Pi)
