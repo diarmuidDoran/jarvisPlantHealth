@@ -29,6 +29,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
 } from "recharts";
 export type PlantByIDProps = {
   id: string;
@@ -112,7 +113,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
     return { sensorReading, unit, date, time, limitRanges };
   }
 
-  function createGraphs(readings: SensorReading[]){
+  function createGraphs(readings: SensorReading[]) {
     const thing = readings?.map((reading, index) => {
       return createData(
         reading.sensorReading,
@@ -313,7 +314,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
             marginBottom={2}
           >
             <Grid item xs={12}>
-              Current Sensor Reading
+              <b>Current Sensors</b>
             </Grid>
             <Grid item xs={12}>
               Connected Sensors used to monitor plant health attributes{" "}
@@ -440,9 +441,11 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
                           />
                           <ResponsiveContainer width="100%" height={400}>
                             <LineChart
-                              data={sensorReadings[
-                                plantHealthAttributeElement.sensor?.id
-                              ]}
+                              data={
+                                sensorReadings[
+                                  plantHealthAttributeElement.sensor?.id
+                                ]
+                              }
                               margin={{
                                 top: 5,
                                 right: 30,
@@ -459,6 +462,28 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
                                 type="monotone"
                                 dataKey="sensorReading"
                                 stroke="#82ca9d"
+                              />
+                              <ReferenceLine
+                                y={Number(
+                                  sensorReadings[
+                                    plantHealthAttributeElement
+                                      .upper_required_value
+                                  ]
+                                )}
+                                label="Max"
+                                stroke="red"
+                                strokeDasharray="3 3"
+                              />
+                              <ReferenceLine
+                                y={Number(
+                                  sensorReadings[
+                                    plantHealthAttributeElement
+                                      .upper_required_value
+                                  ]
+                                )}
+                                label="Min"
+                                stroke="blue"
+                                strokeDasharray="3 3"
                               />
                             </LineChart>
                           </ResponsiveContainer>

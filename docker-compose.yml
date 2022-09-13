@@ -34,6 +34,12 @@ services:
     environment:
       DATABASE_CONNECTION: postgresql://postgres:unopassword@db:5432/jarvis_db
     depends_on:
-      - db
+      - flyway
+  web:
+    build: ./plantweb
+    ports:
+      - 80:80
+    depends_on:
+      - api
 volumes:
   db:
