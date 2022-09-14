@@ -4,7 +4,6 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from blueprints import config
 
-# print(os.environ.get("DATABASE_CONNECTION"))
 engine = create_engine(os.environ.get("DATABASE_CONNECTION"), echo=True, future=True)
 
 # declarative base class

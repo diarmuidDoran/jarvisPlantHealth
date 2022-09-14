@@ -1,9 +1,12 @@
+import os
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+
 def send_email(receiver_email, message):
     sender_email = "Jarvis.plants@gmail.com"
+    # sender_email = os.environ.get("NOTIFICATION_EMAIL_ADDRESS")
     password = "rxlozqpdbmcxggjb"
     sbj = "Jarvis Email Alert"
     message = f"""\

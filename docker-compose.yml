@@ -26,7 +26,7 @@ services:
     depends_on:
       - db
   api:
-    image: jarvis_plantapi:latest
+    build: ./plantapi
     networks:
       - jarvis_network
     ports:
