@@ -26,6 +26,8 @@ For this iteration you require the below list of components to construct your ow
     A Tank (this iteration uses an old plastic bottle. Reduce, Reuse, Recycle)</li>
 </ul>
 
+## Hardware setup
+
 You will also require a <b>soldering kit</b> to join some of the wires. If you purchase a higher voltiage pump you can still use the software program, however your hardware set up will be slightly different. If you have purchased the items above then you can follow the set up below. The table details each connection, alternativly follow the wiring schematic below. The RHS of the bread board in this example is 5V while the LHS is 3V.
 
 | Component One        | Pin Number             | Componet Two   | Connection Point |
@@ -65,15 +67,21 @@ You will also require a <b>soldering kit</b> to join some of the wires. If you p
 
 Here are the Raspberry Pi 4 and MCP3008 pin digrams:
 
+![](./images/raspberry%20pi%204%20gpio%20schematic.png?raw=true)
+
+![](./images/mcp3008pin.gif?raw=true)
+
 Here is the hardware wiring schematic:
 ![](./images/plant%20hardware.jpg?raw=true)
 
-## Installing J.A.R.V.I.S_Plant_Health_Monitoring_System
+## Installing J.A.R.V.I.S_Plant_Health_Monitoring_System Software
 
 On your Raspberry Pi device or on the Pi remotly from your computer using <b>VSCode</b> and <b>Remote-SSH extension</b>. Heres a useful link to follow if you opt to install from your computer remotely, <a href="https://cloudbytes.dev/snippets/develop-remotely-on-raspberry-pi-using-vscode-remote-ssh" target="__balnk">VSCode remote access to Raspberry Pi</a>.
 
+Open your terminal so it is on the raspberry pi 4 desktop level(<b>pi@raspberrypi</b>:~/Desktop/)
+
 <pre>
-Test
+sudo apt-get update
     <span class="pl-c1">
     cd
     </span>
