@@ -14,7 +14,7 @@ Based on the data collected from the plants registered sensors the program will 
 For this iteration you require the below list of components to construct your own J.A.R.V.I.S_Plant_Health_Monitoring_System:
 
 <ul>
-    <li><a href="https://thepihut.com/products/raspberry-pi-starter-kit" target="_blank"></a>Raspberry Pi 4B (Raspberry Pi 3 should also be compatable with the program)</li>
+    <li><a href="https://thepihut.com/products/raspberry-pi-starter-kit" target="_blank">Raspberry Pi 4B</a> (Raspberry Pi 3 should also be compatable with the program)</li>
     <li></li>
 </ul>
 
