@@ -80,9 +80,32 @@ On your Raspberry Pi device or on the Pi remotly from your computer using <b>VSC
 
 Open your terminal so it is on the raspberry pi 4 desktop level(<b>pi@raspberrypi</b>:~/Desktop/)
 
+Make sure you have github packages installed on your raspberry pi to proforem the pull request for the J.A.R.V.I.S Plant Health System software.
+<a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md" target="_blank">Link Here.</a>
+
 <pre>
-sudo apt-get update
-    <span class="pl-c1">
-    cd
-    </span>
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+&& sudo apt update \
+&& sudo apt install gh -y
+#complete github install, you will need a github account to login with.
+sudo apt update
+sudo apt install gh
+gh auth login
 </pre>
+
+Log into Github.com
+use SSH for the Git operations
+authenticate github CLI with Login with web browser
+
+Install the software.
+
+<pre>
+gh repo clone diarmuidDoran/jarvisPlantHealth
+</pre>
+
+Once the pull request is done you will need to configure your Raspberry Pi slightly to let the program run as intended.
+
+Open your Raspberry Pi's start menu, open Preferences and Open Pi Configuration.
+Within the Raspberry Pi Configuration open the Interfaces tab. You now need to Enable SPI, I2C and 1-Wire if not already enabled. After this reboot your Pi.
