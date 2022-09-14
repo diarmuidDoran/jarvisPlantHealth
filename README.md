@@ -66,7 +66,7 @@ You will also require a <b>soldering kit</b> to join some of the wires. If you p
 Here are the Raspberry Pi 4 and MCP3008 pin digrams:
 
 Here is the hardware wiring schematic:
-![](./jarvisPlantHealth/images/plant%20hardware.jpg?raw=true)
+![](./images/plant%20hardware.jpg?raw=true)
 
 ## Installing J.A.R.V.I.S_Plant_Health_Monitoring_System
 
