@@ -118,3 +118,5 @@ docker-compose up
 </pre>
 
 This will build the open source API (Port:5000/documented_api/doc), the react web application (Port:80) and the automation system to monitor your plants. Please wait a few mins for everything to complete.
+
+With everything set up, please enjoy using J.A.R.V.I.S Plant Helath Monitoring System.
