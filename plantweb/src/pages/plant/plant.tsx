@@ -58,6 +58,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
     onGetSensorData,
     getSensorReadingsForSensors,
     handleDeletePopperClick,
+    formatAxisDateTime,
   } = usePlantLogic();
 
   const open = Boolean(popoverAnchorEl);
@@ -454,7 +455,10 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
                               }}
                             >
                               <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis dataKey="timeStamp" />
+                              <XAxis
+                                dataKey="timeStamp"
+                                tickFormatter={formatAxisDateTime}
+                              />
                               <YAxis />
                               <Tooltip />
                               <Legend />
@@ -465,10 +469,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
                               />
                               <ReferenceLine
                                 y={Number(
-                                  sensorReadings[
-                                    plantHealthAttributeElement
-                                      .upper_required_value
-                                  ]
+                                  plantHealthAttributeElement.upper_required_value
                                 )}
                                 label="Max"
                                 stroke="red"
@@ -476,10 +477,7 @@ export const PlantByID = memo(({ id }: PlantByIDProps) => {
                               />
                               <ReferenceLine
                                 y={Number(
-                                  sensorReadings[
-                                    plantHealthAttributeElement
-                                      .upper_required_value
-                                  ]
+                                  plantHealthAttributeElement.lower_required_value
                                 )}
                                 label="Min"
                                 stroke="blue"

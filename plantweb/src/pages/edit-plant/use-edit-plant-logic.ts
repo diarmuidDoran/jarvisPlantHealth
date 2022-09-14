@@ -1,5 +1,12 @@
 import { SelectChangeEvent } from "@mui/material";
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  MouseEvent,
+} from "react";
 import { useHistory } from "react-router-dom";
 import { produce } from "immer";
 
@@ -28,6 +35,8 @@ export const useEditPlantLogic = (id: number) => {
   const { sensors, sensor, getSensors, postSensorPlantHealthAttributes } =
     useSensors();
   const history = useHistory();
+  const [popoverAnchorEl, setPopoverAnchorEl] =
+    useState<HTMLButtonElement | null>(null);
 
   const [plantName, setPlantName] = useState("");
   const [room, setRoom] = useState("");
@@ -86,6 +95,17 @@ export const useEditPlantLogic = (id: number) => {
     },
     [setPlantName]
   );
+
+  const handleHelpPopperClick = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      setPopoverAnchorEl(popoverAnchorEl ? null : event.currentTarget);
+    },
+    []
+  );
+
+  const onPopoverClose = useCallback(() => {
+    setPopoverAnchorEl(null);
+  }, []);
 
   const handleRoomChange = useCallback(
     ({ target: { value } }: SelectChangeEvent) => {
@@ -191,24 +211,28 @@ export const useEditPlantLogic = (id: number) => {
     const addSensorPlantHealthAttributeRelationship = [] as any[];
     debugger;
     const updatePlant = await editPlant(id, plantName, Number(room));
-    
+
     //https://stackoverflow.com/questions/1187518/how-to-get-the-difference-between-two-arrays-in-javascript/4026828#4026828
     const onlyInOriginal = originalPlantHealthAttributesArray.filter(
-      (element) => !editPlantHealthAttributesArray.map(x=>x.id).includes(element.id)
+      (element) =>
+        !editPlantHealthAttributesArray.map((x) => x.id).includes(element.id)
     );
 
     const onlyInEdited = editPlantHealthAttributesArray.filter(
-      (element) => !originalPlantHealthAttributesArray.map(x=>x.id).includes(element.id)
+      (element) =>
+        !originalPlantHealthAttributesArray
+          .map((x) => x.id)
+          .includes(element.id)
     );
 
     const inBoth = editPlantHealthAttributesArray.filter((element) =>
-      originalPlantHealthAttributesArray.map(x=>x.id).includes(element.id)
+      originalPlantHealthAttributesArray.map((x) => x.id).includes(element.id)
     );
-  
-  //  for (const plantHealthAttribute of editPlantHealthAttributesArray) {
-  //   if(plantHealthAttribute.id === )
-  //  }
-  
+
+    //  for (const plantHealthAttribute of editPlantHealthAttributesArray) {
+    //   if(plantHealthAttribute.id === )
+    //  }
+
     for (const editPlantHealthAttributeElement of onlyInOriginal) {
       const deleteResponse = await deletePlantPlantHealthAttribute(
         editPlantHealthAttributeElement.plant_id,
@@ -316,11 +340,13 @@ export const useEditPlantLogic = (id: number) => {
     health_attributes,
     sensors,
     editPlantHealthAttributesArray,
+    popoverAnchorEl,
     onPlantNameChange,
     handleRoomChange,
     handleHealthAttributeChange,
     handleUnitChange,
     handleSensorChange,
+    handleHelpPopperClick,
     onSubmit,
     onGetPlantData,
     onGetRoomData,
@@ -331,5 +357,6 @@ export const useEditPlantLogic = (id: number) => {
     onEditPlantHealthLowerLimitChange,
     onAddPlantHealthAttibute,
     onDeletePlantHealthAttributeClick,
+    onPopoverClose,
   };
 };

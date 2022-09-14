@@ -67,7 +67,8 @@ export const AddPlant = memo(() => {
       <Grid xs={12}>
         <p>
           Complete the below fields to add your new plant, avoid using existing
-          plant names.
+          plant names. If the room name the plant is located in is not within
+          the dropdown tab go to the room page and add it first.
         </p>
       </Grid>
       <Grid
@@ -110,11 +111,11 @@ export const AddPlant = memo(() => {
       </Grid>
       <Grid xs={9}>
         <p>
-          Add the plant health attributes to be monitored. Click the plus button
-          to add more health attributes to your plant. Remember to select an
-          available sensor. If you hit the plus button for the plant health
-          attribute information and don't need anymore, leave it blank and it
-          will be ignored.
+          You can add multiple sensors with the plant health attributes to be
+          monitored by clicking on the plus icon below. Remember to select an
+          available sensor. If you hit the plus button to connect a new sensor
+          but do not require it, leave it blank and it will be ignored. You can
+          always add sensors after in the plants edit page.
         </p>
       </Grid>
       <Grid
@@ -279,7 +280,7 @@ export const AddPlant = memo(() => {
         xs={12}
         spacing={1}
         direction="row"
-        justifyContent="flex-end"
+        justifyContent="center"
         alignItems="center"
       >
         <Grid xs={2}>

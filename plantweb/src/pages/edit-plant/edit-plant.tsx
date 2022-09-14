@@ -11,6 +11,8 @@ import {
   Stack,
   SelectChangeEvent,
   Grid,
+  Popper,
+  Popover,
 } from "@mui/material";
 import { useEditPlantLogic } from "./use-edit-plant-logic";
 import AddIcon from "@mui/icons-material/Add";
@@ -29,11 +31,13 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
     health_attributes,
     sensors,
     editPlantHealthAttributesArray,
+    popoverAnchorEl,
     onPlantNameChange,
     handleRoomChange,
     handleHealthAttributeChange,
     handleUnitChange,
     handleSensorChange,
+    handleHelpPopperClick,
     onSubmit,
     onGetPlantData,
     onGetRoomData,
@@ -44,7 +48,11 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
     onEditPlantHealthLowerLimitChange,
     onAddPlantHealthAttibute,
     onDeletePlantHealthAttributeClick,
+    onPopoverClose,
   } = useEditPlantLogic(Number(id));
+
+  const open = Boolean(popoverAnchorEl);
+  const popOverID = open ? "simple-popper" : undefined;
 
   useEffect(
     () => {
@@ -115,10 +123,38 @@ export const EditPlantByID = memo(({ id }: PlantByIDProps) => {
       </Grid>
       <Grid xs={9}>
         <p>
-          Edit plant health attributes to be monitored. Sensors can only be
-          deleted on the plant page and are only shown here for your convience.
-          All other fields are editable.
+          You can edit the plant health attribute information here. Click Help
+          for more information.
         </p>
+        <Grid xs={12} style={{ marginBottom: 10 }}>
+          {" "}
+          <Button
+            variant="outlined"
+            aria-label={popOverID}
+            onClick={handleHelpPopperClick}
+          >
+            Help
+          </Button>
+        </Grid>
+        <Popover
+          id={popOverID}
+          open={open}
+          anchorEl={popoverAnchorEl}
+          onClose={onPopoverClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+            <p>
+              To reset sensor information you will need to delete the existing
+              sensor information on the sensor page and add it again on the
+              sensors page (click Sensors in the navbar). Existing Sensor
+              selections cannot be edited on this page, if you made a mistake
+              when selecting the sensor previously click the bin icon on the
+              right hand side of the sensor/monitored plant health attribute
+              information. All other fields are editable.
+            </p>
+          </Box>
+        </Popover>
       </Grid>
       <Grid
         container

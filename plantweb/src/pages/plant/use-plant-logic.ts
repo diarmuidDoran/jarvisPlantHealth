@@ -12,6 +12,8 @@ import {
 } from "pages/edit-plant/edit-plant-types";
 import { SensorResponse } from "api/sensor-api";
 import { PlantHealthAttribute } from "shared/types";
+import { ModeComment } from "@mui/icons-material";
+import moment from "moment";
 
 type SensorReadingsData = { [sensorId: number]: SensorReading[] };
 
@@ -30,6 +32,7 @@ export const usePlantLogic = () => {
 
   const [popoverAnchorEl, setPopoverAnchorEl] =
     useState<HTMLButtonElement | null>(null);
+
   const [sensorReadings, setSensorReadings] = useState<SensorReadingsData>();
 
   const history = useHistory();
@@ -133,7 +136,9 @@ export const usePlantLogic = () => {
       const sensorReadings: SensorReadingsData = {};
       if (plant && plant?.plant_health_attributes?.length > 0) {
         plantHealthAttributes.forEach(async (plantHealthAttribute) => {
-          const readings = await getSensorReadings(plantHealthAttribute.sensor?.id || 1);
+          const readings = await getSensorReadings(
+            plantHealthAttribute.sensor?.id || 1
+          );
           // sensorReadings[sensor.id] =
           //   readings?.sensor_readings.map((reading) => {
           //     return {
@@ -144,24 +149,29 @@ export const usePlantLogic = () => {
           //       sensorReading: reading.sensor_reading,
           //     };
           //   }) || [];
-            setSensorReadings((currentState) => ({
-              ...currentState,
-              [plantHealthAttribute.sensor?.id || 1]: readings?.sensor_readings.map((reading) => {
-                console.log(JSON.stringify(currentState))
+          setSensorReadings((currentState) => ({
+            ...currentState,
+            [plantHealthAttribute.sensor?.id || 1]:
+              readings?.sensor_readings.map((reading) => {
+                console.log(JSON.stringify(currentState));
                 return {
-                  sensorName: plantHealthAttribute.sensor?.sensor_name || '',
+                  sensorName: plantHealthAttribute.sensor?.sensor_name || "",
                   sensorId: plantHealthAttribute.sensor?.id || 1,
                   id: reading.id,
                   timeStamp: new Date(reading.time_stamp),
                   sensorReading: reading.sensor_reading,
                 };
-              }) || []
-            }));
+              }) || [],
+          }));
         });
       }
     },
     [plant, getSensorReadings, setSensorReadings]
   );
+
+  const formatAxisDateTime = useCallback((dateTime: Date) => {
+    return moment(dateTime).format("DD MM YYYY hh:mm:ss");
+  }, []);
 
   return {
     plant,
@@ -187,5 +197,6 @@ export const usePlantLogic = () => {
     onGetSensorsData,
     getSensorReadingsForSensors,
     handleDeletePopperClick,
+    formatAxisDateTime,
   };
 };

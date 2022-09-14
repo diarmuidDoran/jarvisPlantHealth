@@ -71,6 +71,11 @@ export const Plants = memo(() => {
         direction="row"
         justifyContent="flex-end"
       >
+        <Grid xs={12} style={{ width: "75%", marginBottom: 20, marginTop: 20 }}>
+          Please note: Before adding a new plant make sure you have the room
+          details already added and the sensors you want to use for that
+          specific plant.
+        </Grid>
         <Grid xs={2}>
           <Fab
             className={classes.add_button}
