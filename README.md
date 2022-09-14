@@ -109,3 +109,12 @@ Once the pull request is done you will need to configure your Raspberry Pi sligh
 
 Open your Raspberry Pi's start menu, open Preferences and Open Pi Configuration.
 Within the Raspberry Pi Configuration open the Interfaces tab. You now need to Enable SPI, I2C and 1-Wire if not already enabled. After this reboot your Pi.
+
+Open the terminal in your pi again.
+
+<pre>
+cd ~/Desktop/jarvis_plant_health_git/jarvisPlantHealth
+docker-compose up
+</pre>
+
+This will build the open source API (Port:5000/documented_api/doc), the react web application (Port:80) and the automation system to monitor your plants. Please wait a few mins for everything to complete.
