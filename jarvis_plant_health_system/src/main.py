@@ -13,7 +13,7 @@ import datetime  # used to log the sensor_readings
 from cron_validator import CronValidator
 from cron_validator.util import str_to_datetime
 
-reciever_email = "jarvis.plants@gmail.com"  # change email to the email you what notifications issued to
+reciever_email = "jarvis.plants@gmail.com"  # change email to the email you what notifications issued too
 
 start_time = datetime.datetime.now()
 formated_time = start_time.strftime("%Y-%m-%d %H:%M")
@@ -57,9 +57,13 @@ async def health_check_asyc():
                 if health_attribute_id == 1:
                     # print("Connection_pin: "+ str(sensor_conn_pin))
                     water.water_required_check(
-                        sensor_conn_pin, plant_id, sensor_id, plant_health_attribute_id
+                        sensor_conn_pin,
+                        plant_id,
+                        sensor_id,
+                        plant_health_attribute_id,
+                        reciever_email,
                     )
-                    water.tank_water_check(plant_health_attribute_id)
+                    water.tank_water_check(plant_health_attribute_id, reciever_email)
 
                 if health_attribute_id == 2:
                     # not yet implemented due to time constaraints

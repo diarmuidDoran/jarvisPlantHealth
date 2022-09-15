@@ -21,11 +21,8 @@ def init_output(pin):
 def pump_on():
     pump_pin = 4
     init_output(pump_pin)
-    f = open("last_watered.txt", "w")
-    f.write("Last watered {}".format(datetime.datetime.now()))
-    f.close()
     GPIO.output(pump_pin, GPIO.LOW)
-    sleep(4)
+    sleep(4)  # update if your pump need longer to effectivly water the plant.
     GPIO.output(pump_pin, GPIO.HIGH)
 
 
@@ -34,6 +31,7 @@ def water_required_check(
     plant_id: int,
     sensor_id: int,
     plant_health_attribute_id: int,
+    reciever_email: str,
 ):
     # print ("Waaaaaaaaaaaater" + str(plant_health_attribute_id))
 
@@ -75,7 +73,7 @@ def water_required_check(
                 "plant_health_attribute_id": int(plant_health_attribute_id),
             },
         )
-        send_email("jarvis.plants@gmail.com", message)
+        send_email(reciever_email, message)
 
     elif (
         moisture_sensor.checkMoistureSensor(moisture_sensor_pin) >= 35
@@ -101,7 +99,7 @@ def water_required_check(
                 "plant_health_attribute_id": int(plant_health_attribute_id),
             },
         )
-        send_email("jarvis.plants@gmail.com", message)
+        send_email(reciever_email, message)
 
     else:
         message = (
@@ -124,12 +122,12 @@ def water_required_check(
                 "plant_health_attribute_id": int(plant_health_attribute_id),
             },
         )
-        send_email("jarvis.plants@gmail.com", message)
+        send_email(reciever_email, message)
 
     GPIO.cleanup()  # cleanup all GPI
 
 
-def tank_water_check(plant_health_attribute_id: int):
+def tank_water_check(plant_health_attribute_id: int, reciever_email: str):
     # print("Taaaaaaaaaaaaaank " + str(plant_health_attribute_id))
     outputTanklSensor = moisture_sensor.checkTankMoistureSensor()
     time = datetime.datetime.now()
@@ -157,4 +155,4 @@ def tank_water_check(plant_health_attribute_id: int):
                 "plant_health_attribute_id": int(plant_health_attribute_id),
             },
         )
-        send_email("jarvis.plants@gmail.com", message)
+        send_email(reciever_email, message)
