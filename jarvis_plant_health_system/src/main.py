@@ -13,6 +13,8 @@ import datetime  # used to log the sensor_readings
 from cron_validator import CronValidator
 from cron_validator.util import str_to_datetime
 
+reciever_email = "jarvis.plants@gmail.com"  # change email to the email you what notifications issued to
+
 start_time = datetime.datetime.now()
 formated_time = start_time.strftime("%Y-%m-%d %H:%M")
 dt = str_to_datetime(formated_time)
@@ -101,7 +103,7 @@ async def health_check_asyc():
                                     ),
                                 },
                             )
-                            send_email("jarvis.plants@gmail.com", message)
+                            send_email(reciever_email, message)
 
                     if health_attribute_id == 4:
                         sensor_reading = int(humidity)
@@ -136,7 +138,7 @@ async def health_check_asyc():
                                     ),
                                 },
                             )
-                            send_email("jarvis.plants@gmail.com", message)
+                            send_email(reciever_email, message)
 
                 if health_attribute_id == 5:
                     light_sensor_reading = light_sensor.readLightSensor()
@@ -180,7 +182,7 @@ async def health_check_asyc():
                                 ),
                             },
                         )
-                        send_email("jarvis.plants@gmail.com", message)
+                        send_email(reciever_email, message)
 
 
 async def main():
@@ -192,55 +194,3 @@ if __name__ == "__main__":
     asyncio.run(main())
     elapsed = time.perf_counter() - s
     print(f"{__file__} executed in {elapsed:0.2f} seconds.")
-
-    #  #required plants api calls
-    # plants_response = requests.get("http://127.0.0.1:5000/documented_api/plants")
-    # plants = plants_response.json()
-    # #print(plants)
-    # #loop through all plants
-    # for plant in plants:
-    #     print("plant: "+plant["name"])
-    #     plant_id = plant["id"]
-    #     #get the current plants plant health attributes
-    #     plant_health_attribute_response = requests.get(f'http://127.0.0.1:5000/documented_api/plants/{(plant["id"])}/plant_health_attributes')
-    #     plant_health_attribute = plant_health_attribute_response.json()
-    #     # print(plant_health_attribute)
-    #     #extract the plant health attributes from the json file
-    #     health_attributes = plant_health_attribute["plant_health_attributes"]
-    #     for health_attribute in health_attributes:
-    #         #get the health_attributes_id to determine which sensor processes to run,
-    #         # get the sensor to cheeck the pin connection and call frequency
-    #         health_attribute_id = health_attribute["health_attribute_id"]
-    #         # print("Plant: "+str(plant))
-    #         # print("health attribute id: "+str(health_attribute_id))
-    #         sensor = health_attribute["sensor"]
-    #         sensor_call_frequency = sensor["call_frequency"]
-    #         sensor_conn_pin = sensor["connection_pin"]
-
-    #         if health_attribute_id == 1:
-    #             print("Connection_pin: "+ str(sensor_conn_pin))
-    #             water.water_required_check(sensor_conn_pin, plant_id)
-    #             water.tank_water_check()
-
-    #         if health_attribute_id == 2:
-    #             #not yet implemented due to time constaraints
-    #             print("not ready please allow more time")
-
-    #         if (health_attribute_id == 3)  or (health_attribute_id == 4):
-    #             dht_22_reading = dht_22.readDHT(sensor_conn_pin)
-    #             temperature_c = dht_22_reading["temperature_c"]
-    #             humidity = dht_22_reading["humidity"]
-    #             # print("Connection_pin: "+ str(sensor_conn_pin))
-    #             if health_attribute_id == 3:
-    #                 print(temperature_c)
-    #             if health_attribute_id == 4:
-    #                 print(humidity)
-
-    #         if health_attribute_id == 5:
-    #             light_sensor_reading = light_sensor.readLightSensor()
-    #             lux=light_sensor_reading["lux"]
-    #             infrared=light_sensor_reading["infrared"]
-    #             visible=light_sensor_reading["visible"],
-    #             full_spectrum=light_sensor_reading["full_spectrum"]
-
-    #             print("light lux levels: " +str(lux))
