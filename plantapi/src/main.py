@@ -20,4 +20,4 @@ jarvis_db.init_app(app)
 app.register_blueprint(documented_endpoint)
 
 if __name__ == "__main__":
-    app.run(debug=True)  # TODO remove before hand in
+    # app.run(debug=True)
