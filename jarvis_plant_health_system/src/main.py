@@ -4,7 +4,9 @@ from notifications import send_email
 from water_plant import water
 from air_temp_humidity import dht_22
 from TSL2591X_light_sensor import light_sensor
-import json
+
+# import json - used for manual testing
+
 import smtplib  # needed to send email notifications
 import requests
 import asyncio
