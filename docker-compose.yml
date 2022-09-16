@@ -19,22 +19,28 @@ services:
     image: flyway/flyway
     networks:
       - jarvis_network
-    command: -url=jdbc:postgresql://db/jarvis_db -schemas=public -user=${POSTGRES_USER}
-      -password=${POSTGRES_PASSWORD} -connectRetries=5 migrate
+    command: -url=jdbc:postgresql://db/jarvis_db -schemas=public -user=postgres
+      -password=unopassword -connectRetries=5 migrate
     volumes:
       - ./migrations:/flyway/sql
     depends_on:
       - db
   api:
-    build: ./plantapi
+    image: jarvis_plantapi:latest
     networks:
       - jarvis_network
     ports:
       - 5000:5000
     environment:
-      DATABASE_CONNECTION: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/jarvis_db
+      DATABASE_CONNECTION: postgresql://postgres:unopassword@db:5432/jarvis_db
     depends_on:
       - flyway
+  job:
+    build: ./jarvis_plant_health_system
+    networks:
+      - jarvis_network
+    volumes:
+      - /opt/vc:/opt/vc
   web:
     build: ./plantweb
     ports:
