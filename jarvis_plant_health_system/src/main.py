@@ -20,7 +20,7 @@ reciever_email = "jarvis.plants@gmail.com"  # change email to the email you what
 start_time = datetime.datetime.now()
 formated_time = start_time.strftime("%Y-%m-%d %H:%M")
 dt = str_to_datetime(formated_time)
-print(start_time)
+# print(start_time)
 
 
 async def health_check_asyc():
