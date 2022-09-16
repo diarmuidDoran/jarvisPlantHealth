@@ -38,7 +38,9 @@ RUN pip install Cmake
 RUN pip install -r requirements.txt
 
 RUN apt-get update && apt-get -y install cron
-RUN ls
+
 RUN crontab crontab
 
-CMD ["crond", "-f"]
+ENTRYPOINT ["sh", "-c"]
+
+CMD ["cron", "-f"]
