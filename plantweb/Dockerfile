@@ -4,7 +4,7 @@ WORKDIR /project
 
 COPY package*.json /project/
 
-RUN npm install
+RUN npm install --log-level=error
 
 COPY . /project/
 

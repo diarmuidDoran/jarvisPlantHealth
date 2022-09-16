@@ -80,6 +80,22 @@ On your Raspberry Pi device or on the Pi remotly from your computer using <b>VSC
 
 Open your terminal so it is on the raspberry pi 4 desktop level(<b>pi@raspberrypi</b>:~/Desktop/)
 
+Install Docker onto your Pi following this <a href="https://dev.to/elalemanyo/how-to-install-docker-and-docker-compose-on-raspberry-pi-1mo" target="__balnk">link</a>.
+
+<pre>
+sudo apt-get update && sudo apt-get upgrade
+curl -sSL https://get.docker.com | sh
+
+sudo apt-get install libffi-dev libssl-dev
+sudo apt install python3-dev
+sudo apt-get install -y python3 python3-pip
+
+sudo pip3 install docker-compose
+
+sudo systemctl enable docker
+
+</pre>
+
 Make sure you have github packages installed on your raspberry pi to proforem the pull request for the J.A.R.V.I.S Plant Health System software.
 <a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md" target="_blank">Link Here.</a>
 
@@ -111,6 +127,13 @@ Open your Raspberry Pi's start menu, open Preferences and Open Pi Configuration.
 Within the Raspberry Pi Configuration open the Interfaces tab. You now need to Enable SPI, I2C and 1-Wire if not already enabled. After this reboot your Pi.
 
 Open the terminal in your pi again.
+
+1. locate the file main.py in your jarvisPlantHealth/jarvis_plant_health_system/src folder and open it up. There are a few items to update to recieve notifications. Go to line 18 in the main.py folder to update the email address to the preferred email address which you wish notifications to be sent to.
+2. Open water.py (located in water_plant folder) and on line 25, update the duration of the pump activation to a preferred time (in seconds), if you find your plant has not been watered adaquately.
+3. If you have not followed the wiring schmatic above then go into the soil_moisture_analog_to_digital.py checkTankMoistureSensor():
+   outputTanklSensor = analogInput(
+   0
+   and change the pin number to the MCP CH0-7 pin you have used to recieve your tank notifications
 
 <pre>
 cd ~/Desktop/jarvis_plant_health_git/jarvisPlantHealth

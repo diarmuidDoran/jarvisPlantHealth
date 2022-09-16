@@ -35,10 +35,10 @@ def water_required_check(
 ):
     # print ("Waaaaaaaaaaaater" + str(plant_health_attribute_id))
 
-    rooms = requests.get(f"http://127.0.0.1:5000/documented_api/rooms")
+    rooms = requests.get(f"http://api:5000/documented_api/rooms")
     rooms = rooms.json()
     plant_health_attribute_response = requests.get(
-        f"http://127.0.0.1:5000/documented_api/plants/{plant_id}/plant_health_attributes"
+        f"http://api:5000/documented_api/plants/{plant_id}/plant_health_attributes"
     )
     plant_health_attribute = plant_health_attribute_response.json()
     plant_name = plant_health_attribute["name"]
@@ -55,7 +55,7 @@ def water_required_check(
     if sensor_reading <= 35:
         init_output(pump_pin)
         requests.post(
-            f"http://127.0.0.1:5000/documented_api/sensors/{sensor_id}/readings",
+            f"http://api:5000/documented_api/sensors/{sensor_id}/readings",
             json={"sensor_reading": sensor_reading, "time_stamp": str(time)},
         )
         pump_on()
@@ -66,7 +66,7 @@ def water_required_check(
         )
 
         requests.post(
-            f"http://127.0.0.1:5000/documented_api/notifications",
+            f"http://api:5000/documented_api/notifications",
             json={
                 "notification_details": str(message),
                 "time_stamp": "2022-09-09T15:40:10.792853",
@@ -81,7 +81,7 @@ def water_required_check(
     ):
 
         requests.post(
-            f"http://127.0.0.1:5000/documented_api/sensors/{sensor_id}/readings",
+            f"http://api:5000/documented_api/sensors/{sensor_id}/readings",
             json={"sensor_reading": sensor_reading, "time_stamp": str(time)},
         )
 
@@ -92,7 +92,7 @@ def water_required_check(
         )
 
         requests.post(
-            f"http://127.0.0.1:5000/documented_api/notifications",
+            f"http://api:5000/documented_api/notifications",
             json={
                 "notification_details": str(message),
                 "time_stamp": str(time),
@@ -110,12 +110,12 @@ def water_required_check(
         )
 
         requests.post(
-            f"http://127.0.0.1:5000/documented_api/sensors/{sensor_id}/readings",
+            f"http://api:5000/documented_api/sensors/{sensor_id}/readings",
             json={"sensor_reading": sensor_reading, "time_stamp": str(time)},
         )
 
         requests.post(
-            f"http://127.0.0.1:5000/documented_api/notifications",
+            f"http://api:5000/documented_api/notifications",
             json={
                 "notification_details": str(message),
                 "time_stamp": str(time),
@@ -138,7 +138,7 @@ def tank_water_check(plant_health_attribute_id: int, reciever_email: str):
             "Moisture in tank:" + str(outputTanklSensor) + "\nTime to top up your tank"
         )
         requests.post(
-            f"http://127.0.0.1:5000/documented_api/notifications",
+            f"http://api:5000/documented_api/notifications",
             json={
                 "notification_details": str(message),
                 "time_stamp": str(formated_datetime),
@@ -148,7 +148,7 @@ def tank_water_check(plant_health_attribute_id: int, reciever_email: str):
     else:
         message = "Moisture in tank:" + str(outputTanklSensor) + "\nWater level ok."
         requests.post(
-            f"http://127.0.0.1:5000/documented_api/notifications",
+            f"http://api:5000/documented_api/notifications",
             json={
                 "notification_details": str(message),
                 "time_stamp": str(formated_datetime),

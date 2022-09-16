@@ -25,7 +25,7 @@ dt = str_to_datetime(formated_time)
 
 async def health_check_asyc():
     # required plants api calls
-    plants_response = requests.get("http://127.0.0.1:5000/documented_api/plants")
+    plants_response = requests.get("http://api:5000/documented_api/plants")
     plants = plants_response.json()
     # print(plants)
     # loop through all plants
@@ -34,7 +34,7 @@ async def health_check_asyc():
         plant_id = plant["id"]
         # get the current plants plant health attributes
         plant_plant_health_attribute_response = requests.get(
-            f'http://127.0.0.1:5000/documented_api/plants/{(plant["id"])}/plant_health_attributes'
+            f'http://api:5000/documented_api/plants/{(plant["id"])}/plant_health_attributes'
         )
         plant_plant_health_attribute = plant_plant_health_attribute_response.json()
         # print(plant_health_attribute)
@@ -82,7 +82,7 @@ async def health_check_asyc():
                         formated_datetime = time
 
                         requests.post(
-                            f"http://127.0.0.1:5000/documented_api/sensors/{sensor_id}/readings",
+                            f"http://api:5000/documented_api/sensors/{sensor_id}/readings",
                             json={
                                 "sensor_reading": sensor_reading,
                                 "time_stamp": str(formated_datetime),
@@ -100,7 +100,7 @@ async def health_check_asyc():
                             )
                             +"Recorded air temperature: " + str(temperature_c)
                             requests.post(
-                                f"http://127.0.0.1:5000/documented_api/notifications",
+                                f"http://api:5000/documented_api/notifications",
                                 json={
                                     "notification_details": str(message),
                                     "time_stamp": str(formated_datetime),
@@ -117,7 +117,7 @@ async def health_check_asyc():
                         formated_datetime = time
 
                         requests.post(
-                            f"http://127.0.0.1:5000/documented_api/sensors/{sensor_id}/readings",
+                            f"http://api:5000/documented_api/sensors/{sensor_id}/readings",
                             json={
                                 "sensor_reading": sensor_reading,
                                 "time_stamp": str(formated_datetime),
@@ -135,7 +135,7 @@ async def health_check_asyc():
                             )
                             +"\nRecorded air humidity: " + str(humidity)
                             requests.post(
-                                f"http://127.0.0.1:5000/documented_api/notifications",
+                                f"http://api:5000/documented_api/notifications",
                                 json={
                                     "notification_details": str(message),
                                     "time_stamp": str(formated_datetime),
@@ -160,7 +160,7 @@ async def health_check_asyc():
                     formated_datetime = time
 
                     requests.post(
-                        f"http://127.0.0.1:5000/documented_api/sensors/{sensor_id}/readings",
+                        f"http://api:5000/documented_api/sensors/{sensor_id}/readings",
                         json={
                             "sensor_reading": sensor_reading,
                             "time_stamp": str(formated_datetime),
@@ -179,7 +179,7 @@ async def health_check_asyc():
                         )
                         +"Recorded light lux levels: " + str(lux)
                         requests.post(
-                            f"http://127.0.0.1:5000/documented_api/notifications",
+                            f"http://api:5000/documented_api/notifications",
                             json={
                                 "notification_details": str(message),
                                 "time_stamp": str(formated_datetime),
