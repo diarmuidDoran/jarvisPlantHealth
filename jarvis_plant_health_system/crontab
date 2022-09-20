@@ -1,1 +1,1 @@
-*/5 * * * * python3 /home/pi/Desktop/jarvis_plant_health_git/jarvisPlantHealth/jarvis_plant_health_system/main.py >> /home/pi/Desktop/jarvis_plant_health_git/jarvisPlantHealth/jarvis_plant_health_system/logfile
+*/5 * * * * python3 /home/pi/Desktop/jarvis_plant_health_git/jarvisPlantHealth/jarvis_plant_health_system/src/main.py >> /home/pi/Desktop/jarvis_plant_health_git/jarvisPlantHealth/jarvis_plant_health_system/logfile
