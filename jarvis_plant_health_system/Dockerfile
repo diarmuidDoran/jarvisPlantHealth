@@ -28,6 +28,22 @@
 # RUN crontab crontab
 
 # CMD ["crond", "-f"]
+# ------------------------
+# FROM python:3.10.7
+
+# COPY . .
+
+# RUN pip install Cmake
+
+# RUN pip install -r requirements.txt
+
+# RUN apt-get update && apt-get -y install cron
+
+# RUN crontab crontab
+
+# ENTRYPOINT ["sh", "-c"]
+
+# CMD ["cron", "-f"]
 
 FROM python:3.10.7
 
@@ -43,4 +59,4 @@ RUN crontab crontab
 
 ENTRYPOINT ["sh", "-c"]
 
-CMD ["cron", "-f"]
+CMD ["./entrypoint.sh"]

@@ -26,7 +26,8 @@ services:
     depends_on:
       - db
   api:
-    image: jarvis_plantapi:latest
+    # image: jarvis_plantapi:latest
+    build: ./plantapi
     networks:
       - jarvis_network
     ports:
@@ -35,12 +36,12 @@ services:
       DATABASE_CONNECTION: postgresql://postgres:unopassword@db:5432/jarvis_db
     depends_on:
       - flyway
-  job:
-    build: ./jarvis_plant_health_system
-    networks:
-      - jarvis_network
-    volumes:
-      - /opt/vc:/opt/vc
+  # job:
+  #   build: ./jarvis_plant_health_system
+  #   networks:
+  #     - jarvis_network
+  #   volumes:
+  #     - /opt/vc:/opt/vc
   web:
     build: ./plantweb
     ports:
