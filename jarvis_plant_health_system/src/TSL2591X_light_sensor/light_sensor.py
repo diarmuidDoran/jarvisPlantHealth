@@ -2,7 +2,6 @@
 import logging
 from TSL2591X_light_sensor.waveshare_TSL2591 import TSL2591
 
-
 logging.basicConfig(level=logging.INFO)
 
 sensor = TSL2591.TSL2591()
