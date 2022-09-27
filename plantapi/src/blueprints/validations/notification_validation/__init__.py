@@ -9,6 +9,6 @@ def notification_is_valid(notification_details, notification_time_stamp):
             == notification_details.casefold()
         ) and (
             notificationDto.time_stamp.casefold() == notification_time_stamp.casefold()
-        ):
+        ) and (notificationDto.is_deleted is False):
             return False
     return True

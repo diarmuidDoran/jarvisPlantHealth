@@ -1,6 +1,10 @@
 import { useCallback, useState } from "react";
 import { useNetworkStatus } from "./use-network-status";
-import { UserAccountResponse, UserAccountPlantsResponse, useUserAccountApi } from "api/user-account-api";
+import {
+  UserAccountResponse,
+  UserAccountPlantsResponse,
+  useUserAccountApi,
+} from "api/user-account-api";
 
 export const useUserAccounts = () => {
   const {
@@ -10,11 +14,19 @@ export const useUserAccounts = () => {
     setError: setNetworkStatusError,
   } = useNetworkStatus();
 
-  const { getUserAccounts, getUserAccount, addUserAccount, editUserAccount, deleteUserAccount, getUserAccountPlants } = useUserAccountApi();
+  const {
+    getUserAccounts,
+    getUserAccount,
+    addUserAccount,
+    editUserAccount,
+    deleteUserAccount,
+    getUserAccountPlants,
+  } = useUserAccountApi();
 
   const [userAccounts, setUserAccounts] = useState<UserAccountResponse[]>([]);
   const [userAccount, setUserAccount] = useState<UserAccountResponse>();
-  const [userAccountPlants, setUserAccountPlants] = useState<UserAccountPlantsResponse>();
+  const [userAccountPlants, setUserAccountPlants] =
+    useState<UserAccountPlantsResponse>();
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -60,16 +72,34 @@ export const useUserAccounts = () => {
         return;
       }
     },
-    [getUserAccount, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
+    [
+      getUserAccount,
+      setErrorMessage,
+      setInFlight,
+      setNetworkStatusError,
+      setSuccess,
+    ]
   );
 
   const addUserAccountCallback = useCallback(
-    async (user_name: string, first_name: string, last_name: string, email: string, password: string,) => {
+    async (
+      user_name: string,
+      first_name: string,
+      last_name: string,
+      email: string,
+      password: string
+    ) => {
       setErrorMessage("");
       setInFlight();
 
       try {
-        const response = await addUserAccount({ user_name, first_name, last_name, email, password });
+        const response = await addUserAccount({
+          user_name,
+          first_name,
+          last_name,
+          email,
+          password,
+        });
 
         setSuccess();
 
@@ -81,16 +111,35 @@ export const useUserAccounts = () => {
         return;
       }
     },
-    [addUserAccount, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
+    [
+      addUserAccount,
+      setErrorMessage,
+      setInFlight,
+      setNetworkStatusError,
+      setSuccess,
+    ]
   );
 
   const editUserAccountCallback = useCallback(
-    async ( id: number, user_name: string, first_name: string, last_name: string, email: string, password: string, ) => {
+    async (
+      id: number,
+      user_name: string,
+      first_name: string,
+      last_name: string,
+      email: string,
+      password: string
+    ) => {
       setErrorMessage("");
       setInFlight();
 
       try {
-        const response = await editUserAccount(id, { user_name, first_name, last_name, email, password });
+        const response = await editUserAccount(id, {
+          user_name,
+          first_name,
+          last_name,
+          email,
+          password,
+        });
 
         setSuccess();
 
@@ -102,7 +151,13 @@ export const useUserAccounts = () => {
         return;
       }
     },
-    [editUserAccount, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
+    [
+      editUserAccount,
+      setErrorMessage,
+      setInFlight,
+      setNetworkStatusError,
+      setSuccess,
+    ]
   );
 
   const deleteUserAccountPlants = useCallback(
@@ -151,7 +206,13 @@ export const useUserAccounts = () => {
         return;
       }
     },
-    [getUserAccountPlants, setErrorMessage, setInFlight, setNetworkStatusError, setSuccess]
+    [
+      getUserAccountPlants,
+      setErrorMessage,
+      setInFlight,
+      setNetworkStatusError,
+      setSuccess,
+    ]
   );
 
   return {
