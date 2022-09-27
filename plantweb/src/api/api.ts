@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 export const axiosInstance = axios.create({
   baseURL:
-    process.env.REACT_APP_API_URL || "http://localhost:5000/documented_api",
+    process.env.REACT_APP_API_URL || "http://localhost:5000/documented_api/doc",
   //"http://10.16.0.176:5000/documented_api",
 });
 
