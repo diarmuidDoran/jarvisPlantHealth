@@ -1,4 +1,5 @@
 # blueprints.documented_endpoints/__init__.py
+#API blueprint configuration
 from flask import Blueprint
 from flask_restx import Api
 from blueprints.documented_endpoints.plants import namespacePlant as plants_ns

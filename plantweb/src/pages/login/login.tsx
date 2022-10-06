@@ -2,17 +2,43 @@
 import React, { memo } from "react";
 import { TextField, Button, Link } from "@mui/material";
 import { useLoginLogic } from "./use-login-logic";
+import PropTypes from "prop-types";
 
 export const Login = memo(() => {
-  const {
-    username,
-    password,
-    data,
-    onUsernameChange,
-    onPasswordChange,
-    onSubmit,
-    onGetData,
-  } = useLoginLogic();
+  // async function loginUser(credentials) {
+  //   return fetch('http://localhost:3000/login', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(credentials)
+  //   })
+  //     .then(data => data.json())
+  //  }
+
+  const { username, password, onUsernameChange, onPasswordChange, onSubmit } =
+    useLoginLogic();
+
+  function LoginButton() {
+    if (username && password) {
+      return (
+        <Button id="login-submit" variant="text" onClick={onSubmit}>
+          Login
+        </Button>
+      );
+    } else {
+      return (
+        <Button id="login-submit" variant="text" disabled>
+          Login
+        </Button>
+      );
+    }
+  }
+  // function Login({ setToken }) {
+  //     Login.propTypes = {
+  //       setToken: PropTypes.func.isRequired,
+  //     };
+  //   }
   return (
     <div>
       <div>Login</div>
@@ -35,38 +61,17 @@ export const Login = memo(() => {
         />
       </div>
       <div>
-        <Button id="login-submit" variant="text" onClick={onSubmit}>
-          Login
-        </Button>
+        <LoginButton />
       </div>
       <div>
         <Link href="#" underline="hover">
-          {'Forgotten Password'}
+          {"Forgotten Password"}
         </Link>
       </div>
       <div>
-        <Button id="login-get-data" variant="text" onClick={onGetData}>
-          Get Data
-        </Button>
-      </div>
-      <div>
-        {data.length > 0 && (
-          <div>
-            <div>Data</div>
-            <div>
-              {data.map((item: any, index: number) => (
-                <div key={index}>
-                  ID:{item.id} Name:{item.name}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-      <div>
         New to the app?
-        <Link href="#" underline="hover">
-          {' Sign Up '}
+        <Link href="/signup" underline="hover">
+          {" Sign Up "}
         </Link>
       </div>
     </div>

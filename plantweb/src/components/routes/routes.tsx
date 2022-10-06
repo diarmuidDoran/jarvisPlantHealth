@@ -3,6 +3,8 @@ import React, { memo } from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { PATHS } from "shared/constants";
 import { Login } from "pages/login";
+import { SignUp } from "pages/sign-up";
+import { UserAccountByID } from "pages/user_account";
 import { Plants } from "pages/plants";
 import { PlantByID } from "pages/plant";
 import { AddPlant } from "pages/add-plant";
@@ -19,6 +21,7 @@ export const Routes = memo(() => {
   return (
     <Switch>
       <Route exact path={PATHS.login} component={() => <Login />} />
+      <Route exact path={PATHS.signup} component={() => <SignUp />} />
       <Route exact path={PATHS.plants} component={() => <Plants />} />
       <Route exact path={PATHS.addPlant} component={() => <AddPlant />} />
       <Route exact path={PATHS.rooms} component={() => <Rooms />} />
@@ -66,6 +69,14 @@ export const Routes = memo(() => {
         path={`${PATHS.sensors}/:id`}
         component={(props: RouteComponentProps<{ id: string }>) => (
           <SensorByID {...{ id: props.match.params.id }} />
+        )}
+      />
+
+      <Route
+        exact
+        path={`${PATHS.user_accounts}/:id`}
+        component={(props: RouteComponentProps<{ id: string }>) => (
+          <UserAccountByID {...{ id: props.match.params.id }} />
         )}
       />
     </Switch>

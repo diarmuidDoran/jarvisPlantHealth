@@ -1,5 +1,5 @@
 import { SelectChangeEvent } from "@mui/material";
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useRooms } from "shared/hooks/use-rooms";
@@ -11,6 +11,10 @@ export const useEditRoomLogic = (id: number) => {
   const { getRoom, editRoom, room } = useRooms();
 
   const history = useHistory();
+
+  useEffect(() => {
+    setRoomName(room?.name || "");
+  });
 
   const onRoomNameChange = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {

@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, Table
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from blueprints.data_provider.engine import Base
 
@@ -54,6 +54,6 @@ class User_Account(Base):
     def __repr__(self):
         return (
             f"User_Account(id={self.id!r}, user_name={self.user_name!r}, first_name={self.first_name!r},"
-            f"last_name={self.email!r}, first_name={self.email!r}, password={self.password!r}, "
+            f"last_name={self.last_name!r}, email={self.email!r}, password={self.password!r}, "
             f"is_deleted={self.is_deleted!r})"
         )

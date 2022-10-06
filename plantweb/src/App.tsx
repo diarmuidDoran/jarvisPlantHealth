@@ -21,7 +21,9 @@ function App() {
       <div className="App">
         <Grid container xs={12} className={classes.header}>
           <Grid xs={12}>
-            <h3><u>J.A.R.V.I.S Plant Health Monitoring System</u></h3>
+            <h3>
+              <u>J.A.R.V.I.S Plant Health Monitoring System</u>
+            </h3>
             <Grid xs={12}>
               <p> Log, track and care for your plants health</p>
             </Grid>

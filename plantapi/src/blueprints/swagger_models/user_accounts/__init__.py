@@ -19,6 +19,16 @@ user_model = namespaceUser.model(
     },
 )
 
+# login_user = namespaceUser.model(
+#     "UserLogin",
+#     {
+#         "email": fields.String(required=True, description="User email address"),
+#         "password": fields.String(
+#             required=True, description="Users password to be encrypted"
+#         ),
+#     }
+# )
+
 user_plant_model = namespaceUser.model(
     "UserAccountAndPlants",
     {

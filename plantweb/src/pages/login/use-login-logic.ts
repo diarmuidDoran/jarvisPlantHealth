@@ -1,44 +1,59 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from "react";
+import { useUserAccounts } from "shared/hooks/use-user-accounts";
+import { useHistory } from "react-router-dom";
+import { PATHS } from "shared/constants";
 
 export const useLoginLogic = () => {
+  const { userAccounts, getUserAccounts } = useUserAccounts();
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [data, setData] = useState<any>([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const onUsernameChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        setUsername(value);
-      }, [setUsername]);
+  const history = useHistory();
 
-    const onPasswordChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        setPassword(value);
-      }, [setPassword]);
+  const onGetUsersData = useCallback(() => {
+    getUserAccounts();
+  }, [getUserAccounts]);
 
-    const onSubmit = useCallback(() => {
-        alert(username + ' ' + password);
-    }, [username, password]);
+  const onUsernameChange = useCallback(
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+      setUsername(value);
+    },
+    [setUsername]
+  );
 
-    const onGetData = useCallback(() => {
-        const mockData = [
-            {
-            id: 1,
-            name: 'Plant 1',
-            },
-            {
-                id: 2,
-                name: 'Plant 2',
-            }
-        ]
-        setData(mockData);
-    }, [setData])
+  const onPasswordChange = useCallback(
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+      setPassword(value);
+    },
+    [setPassword]
+  );
 
-    return {
-        username,
-        password,
-        data,
-        onUsernameChange,
-        onPasswordChange,
-        onSubmit,
-        onGetData,
+  const onLoginClick = useCallback(() => {
+    history.push(`${PATHS.plants}`);
+  }, [history]);
+
+  const onSubmit = useCallback(() => {
+    alert(username + " " + password);
+    const userValidCheck = userAccounts.find(
+      (userAccount) =>
+        (userAccount.user_name === username &&
+          userAccount.password === password) ||
+        (userAccount.email === username && userAccount.password === password)
+    );
+    if (!userValidCheck) {
+      alert("Wrong password or username");
+    } else {
+      onLoginClick();
     }
-}
+  }, [username, password]);
+
+  return {
+    username,
+    password,
+    onGetUsersData,
+    onUsernameChange,
+    onPasswordChange,
+    onSubmit,
+  };
+};
